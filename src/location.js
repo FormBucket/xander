@@ -16,7 +16,7 @@ function readLocation() {
 }
 
 var store = createStore( 'location', ( state={ path: null }, action ) => {
-  if (state.path === window.location.pathname && state.query === window.location.search) {
+  if (state.path === window.location.pathname && state.search === window.location.search) {
     return state;
   }
 

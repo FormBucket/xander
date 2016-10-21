@@ -22,9 +22,7 @@ function match(routes, path) {
 //
 // - routes - [{ path: "/buckets/:id", action: Promise }]
 //   A list of routes that specify a URL path and an action that must return a promise to the page content.
-module.exports = function(opts) {
-
-  var {routes} = opts
+module.exports = function(routes) {
 
   return createStore( 'router', (state={ content: null }, action, waitFor) => {
 
