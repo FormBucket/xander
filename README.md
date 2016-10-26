@@ -10,6 +10,7 @@ A router for single page applications which supports:
 2. Routes defined with a paths similar to express.
 3. Route content is loaded async. Works with webpack's code splitting.
 4. Includes `Link` and `Container` components for React.
+5. Routes can be changed at runtime.
 
 ## Usage
 
@@ -68,6 +69,17 @@ It also supports redirects (a redirect doesn't a new item into the back button l
 
 ```js
 location.redirect('/buckets')
+```
+
+### Replace routes
+
+Change the routes.
+
+```js
+Router.replaceRoutes([{
+  path: '/',
+  load: () => loadContent( System.import('./pages/home') )
+}])
 ```
 
 ## Final thoughts

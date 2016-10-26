@@ -16,7 +16,11 @@ function* goBack() {
   window.location.search = item.search
   windowCallbacks.popstate(item)
   historyQueue = historyQueue.slice(0, -1)
-  yield dispatch('goBack')
+
+  // yield 3 times; once for each promise in redirectPath
+  yield Promise.resolve()
+  yield Promise.resolve()
+  yield Promise.resolve()
 }
 
 global.document = {
@@ -81,7 +85,7 @@ var Router = require('./src/index')({
   }]
 })
 
-var { location, router, Link, Container } = Router
+var { location, router, Link, Container, replaceRoutes } = Router
 
 test( 'Exports are correct type', function(t) {
   t.plan(4)
@@ -155,6 +159,31 @@ test( 'location.open(path) works correctly', function* (t) {
   yield goBack();
 
   t.equal( window.location.pathname, '/foo')
+  var str = ReactDom.renderToStaticMarkup(<Container />)
+  t.equal(str, '<div>not found</div>')
+
+})
+
+test( 'check replace routes', function* (t) {
+  t.plan(2)
+
+  replaceRoutes([{
+    path: '/',
+    load: loadComponent(testComponent)
+  }, {
+    path: '/foo',
+    load: loadComponent(testComponent)
+  }, {
+    path: '*',
+    load: loadComponent(pageNotFound)
+  }])
+
+
+  var result = yield location.open('/foo')
+  var str = ReactDom.renderToStaticMarkup(<Container />)
+  t.equal(str, '<div>path: /foo. params: {}. search: </div>')
+
+  var result = yield location.open('/buckets')
   var str = ReactDom.renderToStaticMarkup(<Container />)
   t.equal(str, '<div>not found</div>')
 

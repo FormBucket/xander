@@ -3,7 +3,7 @@ var createStore = require('pure-flux').createStore
 var dispatch = require('pure-flux').dispatch
 var parsequery = require('functionfoundry/fn/parsequery')
 
-function readLocation() {
+function readLocation(state) {
   var path = window.location.pathname,
   search = window.location.search
 
@@ -16,19 +16,24 @@ function readLocation() {
 }
 
 var store = createStore( 'location', ( state={ path: null }, action ) => {
-  if (state.path === window.location.pathname && state.search === window.location.search) {
+
+  // before action types don't change store state
+  if (action.type === 'beforeOpenPath' || action.type === 'beforeRedirectPath') {
     return state;
   }
 
   return readLocation()
+
 }, {
   open: (state, path) => {
-    history.pushState({ path },  document.title, path)
-    return dispatch('openPath', path)
+    return (dispatch('beforeOpenPath', path)
+    .then( () => Promise.resolve(history.pushState({ path },  document.title, path)) )
+    .then( () => dispatch('openPath', path) ))
   },
   redirect: (state, path) => {
-    history.replaceState({ path },  document.title, path)
-    return dispatch('redirectPath', path)
+    return (dispatch('beforeRedirectPath', path)
+    .then( () => Promise.resolve(history.replaceState({ path },  document.title, path)) )
+    .then( () => dispatch('redirectPath', path) ))
   }
 })
 
