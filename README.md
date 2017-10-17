@@ -1,6 +1,6 @@
 # pure-flux-router
 
-[![CircleCI](https://circleci.com/gh/WebsiteHQ/pure-flux-router.svg?style=svg)](https://circleci.com/gh/WebsiteHQ/pure-flux-router)
+[![CircleCI](https://circleci.com/gh/PureFlux/pure-flux-router.svg?style=svg)](https://circleci.com/gh/WebsiteHQ/pure-flux-router)
 
 ## Overview
 
@@ -10,6 +10,7 @@ A router for single page applications which supports:
 2. Routes defined with a paths similar to express.
 3. Route content is loaded async. Works with webpack's code splitting.
 4. Includes `Link` and `Container` components for React.
+5. Routes can be changed at runtime.
 
 ## Usage
 
@@ -21,7 +22,7 @@ var {promiseAction} = require('pure-flux')
 var loadContent = (p) =>
 p.then( (module) => promiseAction('loadContent', module) )
 
-var Router = require('pure-flux-router')({
+var { router, location } = require('pure-flux-router')({
   routes: [{
     path: '/',
     load: () => loadContent( System.import('./pages/home') )
@@ -63,11 +64,20 @@ import {Container} from 'pure-flux-router'
 import {location} from 'pure-flux-router'
 location.open('/buckets/1')
 ```
-
-It also supports redirects (a redirect doesn't a new item into the back button list).
-
+Use `redirect` to change the URL without adding an entry to the history state.
 ```js
 location.redirect('/buckets')
+```
+
+### Replace routes
+
+Change the routes.
+
+```js
+Router.replaceRoutes([{
+  path: '/',
+  load: () => loadContent( System.import('./pages/home') )
+}])
 ```
 
 ## Final thoughts
