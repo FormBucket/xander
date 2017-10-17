@@ -1,6 +1,6 @@
 # pure-flux-router
 
-[![CircleCI](https://circleci.com/gh/WebsiteHQ/pure-flux-router.svg?style=svg)](https://circleci.com/gh/WebsiteHQ/pure-flux-router)
+[![CircleCI](https://circleci.com/gh/PureFlux/pure-flux-router.svg?style=svg)](https://circleci.com/gh/WebsiteHQ/pure-flux-router)
 
 ## Overview
 
