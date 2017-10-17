@@ -22,7 +22,7 @@ var {promiseAction} = require('pure-flux')
 var loadContent = (p) =>
 p.then( (module) => promiseAction('loadContent', module) )
 
-var Router = require('pure-flux-router')({
+var { router, location } = require('pure-flux-router')({
   routes: [{
     path: '/',
     load: () => loadContent( System.import('./pages/home') )
@@ -64,9 +64,7 @@ import {Container} from 'pure-flux-router'
 import {location} from 'pure-flux-router'
 location.open('/buckets/1')
 ```
-
-It also supports redirects (a redirect doesn't a new item into the back button list).
-
+Use `redirect` to change the URL without adding an entry to the history state.
 ```js
 location.redirect('/buckets')
 ```

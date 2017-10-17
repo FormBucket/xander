@@ -1,4 +1,7 @@
 // mock browser globals
+
+var historyQueue = []
+
 let windowCallbacks = {}
 global.window = {
   location: {
@@ -27,7 +30,6 @@ global.document = {
   title: 'test'
 }
 
-var historyQueue = []
 
 global.history = {
   pushState: (state, title, path) => {
@@ -54,7 +56,7 @@ var ReactDom = require('react-dom/server')
 var testComponent = React.createClass({
   render() {
     var loc = location.getState()
-    return <div>path: {loc.path}. params: {JSON.stringify(this.props.params)}. search: {loc.search}</div>
+    return <div>path: {loc.path}. params: {JSON.stringify(this.props.router.params)}. search: {loc.search}</div>
   }
 })
 
