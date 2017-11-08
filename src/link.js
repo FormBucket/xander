@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react'
-import { dispatch } from 'pure-flux'
-import locationStore from './location'
+import React, { PropTypes } from 'react';
+import { dispatch } from 'pure-flux';
+import locationStore from 'pure-flux-router/lib/location';
 
 function isLeftClickEvent(event) {
   return event.button === 0
@@ -24,7 +24,7 @@ const Link = React.createClass({
     if (this.props.stopPropagation) event.stopPropagation();
     event.preventDefault();
 
-    this.props.action ? this.props.action(event) : locationStore.open(this.props.to)
+    this.props.action ? this.props.action(event) : locationStore.open(this.props.to);
   },
 
   render () {
@@ -34,15 +34,15 @@ const Link = React.createClass({
         <button disabled={this.props.disabled} className={this.props.className} style={this.props.style} onClick={this.handleClick}>
           {this.props.children}
         </button>
-      )
+      );
     }
 
     return (
       <a disabled={this.props.disabled} className={this.props.className} style={this.props.style} onClick={this.handleClick} href={this.props.to}>
         {this.props.children}
       </a>
-    )
+    );
   }
-})
+});
 
 export default Link

@@ -6,7 +6,8 @@ let windowCallbacks = {}
 global.window = {
   location: {
     pathname: '/',
-    search: ''
+    search: '',
+    hash: ''
   },
   addEventListener: (name, cb) => {
     windowCallbacks[name] = cb
@@ -65,29 +66,27 @@ var pageNotFound = React.createClass({
 })
 
 var {createStore, dispatch, promiseAction} = require('pure-flux')
+var router = require('./src/index')
+var {location, loadContent, loadRoutes, Link, Container} = require('./src/index')
 
-let loadComponent = (cmp) => (...args) => promiseAction('loadContent', cmp)
 
-var Router = require('./src/index')({
-  routes: [{
+loadRoutes([{
     path: '/',
-    load: loadComponent(testComponent)
+    load: loadContent(testComponent)
   }, {
     path: '/buckets',
-    load: loadComponent(testComponent)
+    load: loadContent(testComponent)
   }, {
     path: '/buckets/:account_id',
-    load: loadComponent(testComponent)
+    load: loadContent(testComponent)
   }, {
     path: '/buckets/:account_id/settings',
-    load: loadComponent(testComponent)
+    load: loadContent(testComponent)
   }, {
     path: '*',
-    load: loadComponent(pageNotFound)
-  }]
-})
+    load: loadContent(pageNotFound)
+  }])
 
-var { location, router, Link, Container, replaceRoutes } = Router
 
 test( 'Exports are correct type', function(t) {
   t.plan(4)
@@ -119,7 +118,7 @@ test( 'Router includes valid exports', function(t) {
 
 test( 'Empty container renders...well empty', function(t) {
   t.plan(1)
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
   t.equal(str, '')
 })
 
@@ -129,31 +128,32 @@ test( 'location.open(path) works correctly', function* (t) {
 
   var result = yield location.open('/buckets/456/settings')
 
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
   t.equal(str, '<div>path: /buckets/456/settings. params: {&quot;account_id&quot;:&quot;456&quot;}. search: </div>')
 
   var result = yield location.open('/buckets/123')
 
   t.equal( window.location.pathname, '/buckets/123')
 
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
   t.equal(str, '<div>path: /buckets/123. params: {&quot;account_id&quot;:&quot;123&quot;}. search: </div>')
 
   var result = yield location.open('/buckets')
 
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
   t.equal(str, '<div>path: /buckets. params: {}. search: </div>')
 
   // default (not found) page is loaded.
   var result = yield location.open('/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
   t.equal(str, '<div>not found</div>')
 
   var oneStore = createStore("One", { getInitialState: () => 1 })
 
   // query strings work correctly
   var result = yield location.open('/?q=test')
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
   t.equal(str, '<div>path: /. params: {}. search: ?q=test</div>')
 
   var newStore = createStore('CountStore', (state=1) => 1)
@@ -161,7 +161,7 @@ test( 'location.open(path) works correctly', function* (t) {
   yield goBack();
 
   t.equal( window.location.pathname, '/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
   t.equal(str, '<div>not found</div>')
 
 })
@@ -169,24 +169,24 @@ test( 'location.open(path) works correctly', function* (t) {
 test( 'check replace routes', function* (t) {
   t.plan(2)
 
-  replaceRoutes([{
+  loadRoutes([{
     path: '/',
-    load: loadComponent(testComponent)
+    load: loadContent(testComponent)
   }, {
     path: '/foo',
-    load: loadComponent(testComponent)
+    load: loadContent(testComponent)
   }, {
     path: '*',
-    load: loadComponent(pageNotFound)
+    load: loadContent(pageNotFound)
   }])
 
 
   var result = yield location.open('/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState()} />)
   t.equal(str, '<div>path: /foo. params: {}. search: </div>')
 
   var result = yield location.open('/buckets')
-  var str = ReactDom.renderToStaticMarkup(<Container />)
+  var str = ReactDom.renderToStaticMarkup(<Container location={location.getState()} router={router.getState()} />)
   t.equal(str, '<div>not found</div>')
 
 })

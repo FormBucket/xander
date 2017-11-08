@@ -1,4 +1,4 @@
-# pure-flux-router
+# react-pure-flux-router
 
 [![CircleCI](https://circleci.com/gh/PureFlux/pure-flux-router.svg?style=svg)](https://circleci.com/gh/WebsiteHQ/pure-flux-router)
 
@@ -19,7 +19,7 @@ A router for single page applications which supports:
 ```js
 var {promiseAction} = require('pure-flux')
 
-var loadContent = (p) =>
+var loadContent = (p) => (...args) =>
 p
 .then( (module) => promiseAction('loadContent', module) )
 .catch( error => dispatch('__LAST_ERROR__', error) )
@@ -27,18 +27,26 @@ p
 var { router, location } = require('pure-flux-router')({
   routes: [{
     path: '/',
-    load: () => loadContent( System.import('./pages/home') )
+    load: loadContent( System.import('./pages/home') )
   }, {
     path: '/buckets',
-    load: () => loadContent( System.import('./pages/buckets') )
+    load: loadContent( System.import('./pages/buckets') )
   }, {
     path: '/bucket/:bucket_id',
-    load: (bucket_id) => loadContent( System.import('./pages/buckets') )
+    load: loadContent( System.import('./pages/buckets') )
   } {
     path: '*',
-    load: () => loadContent( System.import('./pages/404') )
+    load: loadContent( System.import('./pages/404') )
   }]
 })
+```
+### Container Component
+
+This will render the content async loaded by the route action.
+
+```js
+import {Container} from 'pure-flux-router'
+render( <Container />, document.all.root )
 ```
 
 ### Link Component
@@ -49,15 +57,6 @@ A link component to switch pages.
 import {Link} from 'pure-flux-router'
 <Link to="/buckets" />
 <Link type="button" to="/buckets" />
-```
-
-### Container Component
-
-This will render the content async loaded by the route action.
-
-```js
-import {Container} from 'pure-flux-router'
-<Container />
 ```
 
 ### Open path programmically

@@ -1,16 +1,12 @@
 /**
 * Copyright (c) 2015, Peter W Moresi
 */
-import React, { PropTypes } from 'react';
-import {subscribe, getState } from 'pure-flux';
-import { location, router } from './index';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import React from 'react';
 
 class Container extends React.Component {
-
   render() {
-
-    let { location, router } = getState();
+    // properties must be passed in.
+    let { router, location } = this.props;
 
     if (!router || !location) throw Error("Router and location expected to be initialized!");
 
