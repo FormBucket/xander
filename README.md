@@ -1,6 +1,6 @@
 # react-pure-flux-router
 
-[![CircleCI](https://circleci.com/gh/PureFlux/react-pure-flux-router.svg?style=svg)](https://circleci.com/gh/WebsiteHQ/react-pure-flux-router)
+[![CircleCI](https://circleci.com/gh/PureFlux/react-pure-flux-router.svg?style=svg)](https://circleci.com/gh/PureFlux/react-pure-flux-router)
 
 ## Overview
 
