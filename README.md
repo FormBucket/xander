@@ -40,7 +40,7 @@ loadRoutes({
 This will render the content async loaded by the route action.
 
 ```js
-import {Container} from 'pure-flux-router'
+import {Container} from 'react-pure-flux-router'
 render( <Container />, document.all.root )
 ```
 
@@ -49,7 +49,7 @@ render( <Container />, document.all.root )
 A link component to switch pages.
 
 ```js
-import {Link} from 'pure-flux-router'
+import {Link} from 'react-pure-flux-router'
 <Link to="/buckets" />
 <Link type="button" to="/buckets" />
 ```
@@ -57,7 +57,7 @@ import {Link} from 'pure-flux-router'
 ### Open path programmically
 
 ```js
-import {location} from 'pure-flux-router'
+import {location} from 'react-pure-flux-router'
 location.open('/buckets/1')
 ```
 Use `redirect` to change the URL without adding an entry to the history state.
