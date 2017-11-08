@@ -17,14 +17,10 @@ A router for single page applications which supports:
 ### Router Setup
 
 ```js
-var {promiseAction} = require('pure-flux')
+var router = require('react-pure-flux-router')
+var {loadContent, loadRoutes} = require('react-pure-flux-router')
 
-var loadContent = (p) => (...args) =>
-p
-.then( (module) => promiseAction('loadContent', module) )
-.catch( error => dispatch('__LAST_ERROR__', error) )
-
-var { router, location } = require('pure-flux-router')({
+loadRoutes({
   routes: [{
     path: '/',
     load: loadContent( System.import('./pages/home') )
@@ -37,8 +33,7 @@ var { router, location } = require('pure-flux-router')({
   } {
     path: '*',
     load: loadContent( System.import('./pages/404') )
-  }]
-})
+  }])
 ```
 ### Container Component
 
@@ -75,9 +70,9 @@ location.redirect('/buckets')
 Change the routes.
 
 ```js
-Router.replaceRoutes([{
+loadRoutes([{
   path: '/',
-  load: () => loadContent( System.import('./pages/home') )
+  load: loadContent( System.import('./pages/home') )
 }])
 ```
 
