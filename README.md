@@ -20,7 +20,9 @@ A router for single page applications which supports:
 var {promiseAction} = require('pure-flux')
 
 var loadContent = (p) =>
-p.then( (module) => promiseAction('loadContent', module) )
+p
+.then( (module) => promiseAction('loadContent', module) )
+.catch( error => console.log(error) )
 
 var { router, location } = require('pure-flux-router')({
   routes: [{
