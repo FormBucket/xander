@@ -22,7 +22,7 @@ var {promiseAction} = require('pure-flux')
 var loadContent = (p) =>
 p
 .then( (module) => promiseAction('loadContent', module) )
-.catch( error => console.log(error) )
+.catch( error => dispatch('__LAST_ERROR__', error) )
 
 var { router, location } = require('pure-flux-router')({
   routes: [{
