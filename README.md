@@ -31,10 +31,10 @@ var { router, location } = require('pure-flux-router')({
     load: () => loadContent( System.import('./pages/buckets') )
   }, {
     path: '/bucket/:bucket_id',
-    load: (bucket_id) => System.import('./pages/buckets')
+    load: (bucket_id) => loadContent( System.import('./pages/buckets') )
   } {
     path: '*',
-    load: () => System.import('./pages/404')
+    load: () => loadContent( System.import('./pages/404') )
   }]
 })
 ```
