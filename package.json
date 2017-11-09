@@ -1,6 +1,6 @@
 {
   "name": "react-pure-flux-router",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple routing framework for react, based on history API.",
   "repository": "git+https://github.com/PureFlux/react-pure-flux-router.git",
   "main": "./lib/index.js",
@@ -32,11 +32,11 @@
   "author": "JC Fisher",
   "license": "MIT",
   "peerDependencies": {
-    "pure-flux": "^1.1.0",
+    "pure-flux": "^2.0.2",
+    "pure-flux-router": "^2.0.2",
     "react": "^15.3.2"
   },
   "dependencies": {
-    "formula": "^2.1.6",
-    "pure-flux-router": "^2.0.0"
+    "pure-flux-router": "^2.0.2"
   }
 }

@@ -54,37 +54,33 @@ var test = require('tape-async');
 var React = require('react')
 var ReactDom = require('react-dom/server')
 
-var testComponent = React.createClass({
-  render() {
-    var loc = location.getState()
-    return <div>path: {loc.path}. params: {JSON.stringify(this.props.router.params)}. search: {loc.search}</div>
-  }
-})
+var testComponent = (props) => {
+  var loc = location.getState()
+  return <div>path: {loc.path}. params: {JSON.stringify(props.router.params)}. search: {loc.search}</div>
+}
 
-var pageNotFound = React.createClass({
-  render() { return <div>not found</div> }
-})
+var pageNotFound = () => <div>not found</div>
 
 var {createStore, dispatch, promiseAction} = require('pure-flux')
 var router = require('./src/index')
-var {location, loadContent, loadRoutes, Link, Container} = require('./src/index')
+var {location, loadContent, promiseContent, loadRoutes, Link, Container} = require('./src/index')
 
 
 loadRoutes([{
     path: '/',
-    load: loadContent(testComponent)
+    load: promiseContent(testComponent)
   }, {
     path: '/buckets',
-    load: loadContent(testComponent)
+    load: promiseContent(testComponent)
   }, {
     path: '/buckets/:account_id',
-    load: loadContent(testComponent)
+    load: promiseContent(testComponent)
   }, {
     path: '/buckets/:account_id/settings',
-    load: loadContent(testComponent)
+    load: promiseContent(testComponent)
   }, {
     path: '*',
-    load: loadContent(pageNotFound)
+    load: promiseContent(pageNotFound)
   }])
 
 
@@ -171,13 +167,13 @@ test( 'check replace routes', function* (t) {
 
   loadRoutes([{
     path: '/',
-    load: loadContent(testComponent)
+    load: promiseContent(testComponent)
   }, {
     path: '/foo',
-    load: loadContent(testComponent)
+    load: promiseContent(testComponent)
   }, {
     path: '*',
-    load: loadContent(pageNotFound)
+    load: promiseContent(pageNotFound)
   }])
 
 

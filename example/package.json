@@ -1,0 +1,24 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "webpack-dev-server --hot --inline",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "file-loader": "^1.1.5",
+    "pure-flux": "^1.2.0",
+    "pure-flux-router": "^2.0.2",
+    "react": "^15.6.2",
+    "react-hot-loader": "^3.1.2",
+    "react-pure-flux": "^1.2.0",
+    "react-pure-flux-router": "^1.0.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
