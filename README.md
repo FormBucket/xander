@@ -4,15 +4,23 @@
 
 ## Overview
 
-A router for single page applications which supports:
+Router for React.
 
-1. Uses history api. No abstractions, zero overhead.
-2. Routes defined with a paths similar to express.
-3. Route content is loaded async. Works with webpack's code splitting.
-4. Includes `Link` and `Container` components for React.
-5. Routes can be changed at runtime.
+1. Uses [history api](https://caniuse.com/#search=history).
+2. Routes managed as application state.
+3. Page content loaded async.
+
+Hopefully, easy to install and setup.
+
+Built with [pure-flux](https://github.com/PureFlux/pure-flux/)
 
 ## Usage
+
+## Installation
+
+```sh
+npm install --save react-pure-flux-router
+```
 
 ### Router Setup
 
@@ -23,16 +31,10 @@ var {loadContent, loadRoutes} = require('react-pure-flux-router')
 loadRoutes({
   routes: [{
     path: '/',
-    load: loadContent( System.import('./pages/home') )
+    load: () => System.import('./HomePage').then( content => loadContent(content) ) 
   }, {
-    path: '/buckets',
-    load: loadContent( System.import('./pages/buckets') )
-  }, {
-    path: '/bucket/:bucket_id',
-    load: loadContent( System.import('./pages/buckets') )
-  } {
     path: '*',
-    load: loadContent( System.import('./pages/404') )
+    load: () => System.import('./HomePage').then( content => loadContent(content) )
   }])
 ```
 ### Container Component
