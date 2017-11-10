@@ -12,16 +12,16 @@
   "devDependencies": {
     "babel-loader": "^7.1.2",
     "file-loader": "^1.1.5",
-    "fluxury": "^3.0.0",
     "react": "^15.6.2",
     "react-hot-loader": "^3.1.2",
     "react-pure-flux": "^1.2.0",
     "react-pure-flux-router": "^1.0.0",
-    "rootr": "^0.0.4",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "react-rootr": "0.0.5"
+    "rootr": "^0.0.5",
+    "fluxury": "^3.0.0",
+    "react-rootr": "^0.0.6"
   }
 }

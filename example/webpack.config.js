@@ -1,4 +1,5 @@
 module.exports = {
+  devtool: 'sourcemap',
   entry: "./app.js",
   devServer: {
     port: 3000,

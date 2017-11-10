@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { dispatch, composeStore, createStore } from 'fluxury'
-import connectStore from '../src/connect'
-import router, { location, loadRoutes, loadContent, Container, Link } from '../src/index'
+import { dispatch, composeStore, createStore, getStores } from 'fluxury'
+import connectStore from 'react-rootr'
+import router, { location, loadRoutes, loadContent, Container, Link } from 'react-rootr'
 
 let routes = [{
   path: '/',
@@ -21,10 +21,7 @@ let routes = [{
 
 loadRoutes(routes)
 
-let store = composeStore('app', {
-  router,
-  location
-})
+let store = composeStore('app', getStores())
 
 createStore("hook", (state=1, action) => { console.log('action', action); return state; })
 
