@@ -15,14 +15,14 @@ Built on [rootr](https://github.com/formula/rootr/), [formula](https://github.co
 ## Installation
 
 ```sh
-npm install --save spago rootr fluxury
+npm install --save spago rootr fluxury formula
 ```
 
-### Router Setup
+### Router
 
 ```js
-var router = require('spago')
-var {loadContent, loadRoutes} = require('spago')
+var { router } = require('spago')
+var { loadRoutes } = require('spago')
 
 loadRoutes({
   routes: [{
@@ -35,7 +35,7 @@ loadRoutes({
 ```
 ### Container Component
 
-This will render the content async loaded by the route action.
+A component to render the current route content.
 
 ```js
 import {Container} from 'spago'
@@ -44,7 +44,7 @@ render( <Container router={...} location={...} />, document.all.root )
 
 ### Link Component
 
-A link component to switch pages.
+A link component to hyperlink your app without annoying page refreshes.
 
 ```js
 import {Link} from 'spago'
@@ -53,6 +53,8 @@ import {Link} from 'spago'
 ```
 
 ### Open path programmically
+
+Manage location with the easy to use API.
 
 ```js
 import {location} from 'spago'
@@ -65,11 +67,19 @@ location.redirect('/buckets')
 
 ### Replace routes
 
-Change the routes.
+Routes and related location information stored as routes.
 
 ```js
 loadRoutes([{
   path: '/',
   load: loadContent( System.import('./pages/home') )
 }])
+```
+
+### Manage state with stores
+
+Create custom stores with reducer function.
+
+```js
+createStore(name, reducerOrSpec)`
 ```
