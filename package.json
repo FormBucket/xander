@@ -1,8 +1,8 @@
 {
-  "name": "react-rootr",
-  "version": "0.1.0",
+  "name": "spago",
+  "version": "0.0.1",
   "description": "Simple routing framework for react, based on history API.",
-  "repository": "git+https://github.com/formula/react-rootr.git",
+  "repository": "git+https://github.com/formula/spago.git",
   "main": "./lib/index.js",
   "scripts": {
     "build": "gulp",
@@ -11,7 +11,7 @@
   "keywords": [
     "flux"
   ],
-  "homepage": "https://github.com/formula/react-rootr#readme",
+  "homepage": "https://github.com/formula/spago#readme",
  "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",

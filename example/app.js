@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { dispatch, composeStore, createStore, getStores } from 'fluxury'
-import {connectStore} from 'react-rootr'
-import router, { location, loadRoutes, loadContent, Container, Link } from 'react-rootr'
+import { composeStore, createStore } from 'spago'
+import { connectStore } from 'spago'
+import { router, location } from 'spago'
+import { loadRoutes, loadContent } from 'spago'
+import { Container, Link } from 'spago'
 
 let counter = createStore('counter', {
   getInitialState: () => 0,

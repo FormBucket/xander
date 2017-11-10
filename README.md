@@ -1,6 +1,6 @@
-# react-rootr
+# spago
 
-[![CircleCI](https://circleci.com/gh/formula/react-rootr.svg?style=svg)](https://circleci.com/gh/formula/react-rootr)
+[![CircleCI](https://circleci.com/gh/formula/spago.svg?style=svg)](https://circleci.com/gh/formula/spago)
 
 ## Overview
 
@@ -19,14 +19,14 @@ Built on [rootr](https://github.com/formula/rootr/), [formula](https://github.co
 ## Installation
 
 ```sh
-npm install --save react-rootr rootr fluxury
+npm install --save spago rootr fluxury
 ```
 
 ### Router Setup
 
 ```js
-var router = require('react-rootr')
-var {loadContent, loadRoutes} = require('react-rootr')
+var router = require('spago')
+var {loadContent, loadRoutes} = require('spago')
 
 loadRoutes({
   routes: [{
@@ -42,7 +42,7 @@ loadRoutes({
 This will render the content async loaded by the route action.
 
 ```js
-import {Container} from 'react-rootr'
+import {Container} from 'spago'
 render( <Container router={...} location={...} />, document.all.root )
 ```
 
@@ -51,7 +51,7 @@ render( <Container router={...} location={...} />, document.all.root )
 A link component to switch pages.
 
 ```js
-import {Link} from 'react-rootr'
+import {Link} from 'spago'
 <Link to="/buckets" />
 <Link type="button" to="/buckets" />
 ```
@@ -59,7 +59,7 @@ import {Link} from 'react-rootr'
 ### Open path programmically
 
 ```js
-import {location} from 'react-rootr'
+import {location} from 'spago'
 location.open('/buckets/1')
 ```
 Use `redirect` to change the URL without adding an entry to the history state.

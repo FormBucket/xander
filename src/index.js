@@ -1,8 +1,11 @@
-var router = require('rootr')
+var spago = require('rootr')
 
-router.Link = require('./link');
-router.Container = require('./container');
-router.connectStore = require('./connect');
-router.default = router;
+spago.Link = require('./link');
+spago.Container = require('./container');
+spago.connectStore = require('./connect');
+spago.createStore = require('fluxury').createStore;
+spago.composeStore = require('fluxury').composeStore;
+spago.router = spago;
+spago.default = spago;
 
-module.exports = router;
+module.exports = spago;
