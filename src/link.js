@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { dispatch } from 'pure-flux';
-import locationStore from 'pure-flux-router/lib/location';
+import locationStore from 'rootr/lib/location';
 
 function isLeftClickEvent(event) {
   return event.button === 0

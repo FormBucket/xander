@@ -63,24 +63,24 @@ var pageNotFound = () => <div>not found</div>
 
 var {createStore, dispatch, promiseAction} = require('pure-flux')
 var router = require('./src/index')
-var {location, loadContent, promiseContent, loadRoutes, Link, Container} = require('./src/index')
+var {location, loadContent, loadRoutes, Link, Container} = require('./src/index')
 
 
 loadRoutes([{
     path: '/',
-    load: promiseContent(testComponent)
+    load: Promise.resolve(testComponent)
   }, {
     path: '/buckets',
-    load: promiseContent(testComponent)
+    load: Promise.resolve(testComponent)
   }, {
     path: '/buckets/:account_id',
-    load: promiseContent(testComponent)
+    load: Promise.resolve(testComponent)
   }, {
     path: '/buckets/:account_id/settings',
-    load: promiseContent(testComponent)
+    load: Promise.resolve(testComponent)
   }, {
     path: '*',
-    load: promiseContent(pageNotFound)
+    load: Promise.resolve(pageNotFound)
   }])
 
 
@@ -167,13 +167,13 @@ test( 'check replace routes', function* (t) {
 
   loadRoutes([{
     path: '/',
-    load: promiseContent(testComponent)
+    load: Promise.resolve(testComponent)
   }, {
     path: '/foo',
-    load: promiseContent(testComponent)
+    load: Promise.resolve(testComponent)
   }, {
     path: '*',
-    load: promiseContent(pageNotFound)
+    load: Promise.resolve(testComponent)
   }])
 
 

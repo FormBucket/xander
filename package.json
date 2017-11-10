@@ -1,8 +1,8 @@
 {
-  "name": "react-pure-flux-router",
-  "version": "1.1.0",
+  "name": "react-rootr",
+  "version": "0.0.1",
   "description": "Simple routing framework for react, based on history API.",
-  "repository": "git+https://github.com/PureFlux/react-pure-flux-router.git",
+  "repository": "git+https://github.com/formula/react-rootr.git",
   "main": "./lib/index.js",
   "scripts": {
     "build": "gulp",
@@ -11,7 +11,7 @@
   "keywords": [
     "flux"
   ],
-  "homepage": "https://github.com/PureFlux/react-pure-flux-router#readme",
+  "homepage": "https://github.com/formula/react-rootr#readme",
   "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
@@ -33,10 +33,10 @@
   "license": "MIT",
   "peerDependencies": {
     "pure-flux": "^2.0.2",
-    "pure-flux-router": "^2.0.2",
-    "react": "^15.3.2"
+    "react": "^15.3.2",
+    "rootr": "^0.0.1"
   },
   "dependencies": {
-    "pure-flux-router": "^2.0.2"
+    "rootr": "0.0.3"
   }
 }

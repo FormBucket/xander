@@ -1,4 +1,4 @@
-var router = require('pure-flux-router')
+var router = require('rootr')
 
 router.Link = require('./link');
 router.Container = require('./container');

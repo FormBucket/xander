@@ -5,6 +5,7 @@ import React from 'react';
 
 class Container extends React.Component {
   render() {
+    console.log(this.props.location)
     // properties must be passed in.
     let { router, location } = this.props;
 
