@@ -43,7 +43,7 @@ This will render the content async loaded by the route action.
 
 ```js
 import {Container} from 'react-rootr'
-render( <Container />, document.all.root )
+render( <Container router={...} location={...} />, document.all.root )
 ```
 
 ### Link Component
