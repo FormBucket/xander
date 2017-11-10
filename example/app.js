@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { composeStore, createStore } from 'spago'
 import { connectStore } from 'spago'
 import { router, location } from 'spago'
-import { loadRoutes, loadContent } from 'spago'
+import { loadRoutes } from 'spago'
 import { Container, Link } from 'spago'
 
 let counter = createStore('counter', {
