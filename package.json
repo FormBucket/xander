@@ -1,6 +1,6 @@
 {
   "name": "react-rootr",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple routing framework for react, based on history API.",
   "repository": "git+https://github.com/formula/react-rootr.git",
   "main": "./lib/index.js",
@@ -35,6 +35,7 @@
     "react": "^15.3.2"
   },
   "dependencies": {
+    "fluxury": "^3.0.0",
     "rootr": "^0.0.4"
   }
 }

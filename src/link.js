@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { dispatch } from 'pure-flux';
 import locationStore from 'rootr/lib/location';
 
 function isLeftClickEvent(event) {

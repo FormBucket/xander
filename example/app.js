@@ -1,31 +1,35 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { composeStore } from 'pure-flux'
-import { connectStore } from 'react-pure-flux'
-import router, { location, loadRoutes, loadContent, promiseContent, Container, Link } from 'react-pure-flux-router'
+import { dispatch, composeStore, createStore } from 'fluxury'
+import connectStore from '../src/connect'
+import router, { location, loadRoutes, loadContent, Container, Link } from '../src/index'
 
 let routes = [{
   path: '/',
-  load: promiseContent((props) => <p>Hello, World. <Link to="/page2">Another page</Link> <Link to="/fubar">Broken link</Link></p>)
+  component: (props) => <p>Hello, World. <Link to="/page2">Another page</Link> <Link to="/fubar">Broken link</Link></p>
 }, {
   path: '/page2',
-  load: promiseContent((props) => <p>Another awesome page.</p>)
+  component: (props) => <p onClick={(e) => location.open('/')}>Another awesome page.</p>
 }, {
   path: '/page3',
-  load: () => System.import('./page3').then(cmp => loadContent(cmp))
+  component: (props) => <p>Another awesome page.</p>
 }, {
   path: '*',
-  load: promiseContent((props) => <p>No content found.</p>)
+  component: ((props) => <p onClick={() => dispatch('openPath', '/')}>No content found.</p>)
 }]
 
 loadRoutes(routes)
-location.open(window.location.pathname + window.location.search + window.location.hash)
 
 let store = composeStore('app', {
   router,
   location
 })
+
+createStore("hook", (state=1, action) => { console.log('action', action); return state; })
+
+window.router = router
+store.subscribe( (state, action) => console.log('action', action))
 
 var ConnectedContainer = connectStore( store, Container )
 ReactDOM.render(<ConnectedContainer />, document.getElementById('root'))

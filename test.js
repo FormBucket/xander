@@ -54,12 +54,9 @@ var test = require('tape-async');
 var React = require('react')
 var ReactDom = require('react-dom/server')
 
-var testComponent = (props) => {
-  var loc = location.getState()
-  return <div>path: {loc.path}. params: {JSON.stringify(props.router.params)}. search: {loc.search}</div>
-}
+var testComponent = (props) => <div>path: {props.location.pathname}. params: {JSON.stringify(props.router.params)}. search: {props.location.search}</div>
 
-var pageNotFound = () => <div>not found</div>
+var pageNotFound = (props) => <div>not found</div>
 
 var {createStore, dispatch, promiseAction} = require('fluxury')
 var router = require('./src/index')
@@ -68,20 +65,20 @@ var {location, loadContent, loadRoutes, Link, Container} = require('./src/index'
 
 loadRoutes([{
     path: '/',
-    load: Promise.resolve(testComponent)
+    load: () => testComponent
   }, {
     path: '/buckets',
-    load: Promise.resolve(testComponent)
+    load: () => testComponent
   }, {
     path: '/buckets/:account_id',
-    load: Promise.resolve(testComponent)
+    load: () => testComponent
   }, {
     path: '/buckets/:account_id/settings',
-    load: Promise.resolve(testComponent)
+    load: () => testComponent
   }, {
     path: '*',
-    load: Promise.resolve(pageNotFound)
-  }])
+    load: () => pageNotFound
+  }]);
 
 
 test( 'Exports are correct type', function(t) {
@@ -105,26 +102,26 @@ test( 'Router includes valid exports', function(t) {
 })
 
 
-  test( 'Link renders correctly', function(t) {
+test( 'Link renders correctly', function(t) {
   t.plan(1)
   var str = ReactDom.renderToStaticMarkup(<Link to="/bar" />)
   t.equal(str, '<a href="/bar"></a>')
 })
 
 
-test( 'Empty container renders...well empty', function(t) {
+test( 'Empty container renders the initial page view', function(t) {
   t.plan(1)
   var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
-  t.equal(str, '')
+  t.equal(str, '<div>path: /. params: {}. search: </div>')
 })
 
 
 test( 'location.open(path) works correctly', function* (t) {
   t.plan(8)
 
+  // console.log(router.getState(), location.getState())
   var result = yield location.open('/buckets/456/settings')
-
-
+  // console.log(router.getState().content)
   var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
   t.equal(str, '<div>path: /buckets/456/settings. params: {&quot;account_id&quot;:&quot;456&quot;}. search: </div>')
 
@@ -167,22 +164,23 @@ test( 'check replace routes', function* (t) {
 
   loadRoutes([{
     path: '/',
-    load: Promise.resolve(testComponent)
+    load: () => testComponent
   }, {
     path: '/foo',
-    load: Promise.resolve(testComponent)
+    load: () => testComponent
   }, {
     path: '*',
-    load: Promise.resolve(testComponent)
+    component: pageNotFound
   }])
 
 
   var result = yield location.open('/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState()} />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
   t.equal(str, '<div>path: /foo. params: {}. search: </div>')
 
-  var result = yield location.open('/buckets')
-  var str = ReactDom.renderToStaticMarkup(<Container location={location.getState()} router={router.getState()} />)
+  var result = yield location.open('/bar')
+  // console.log()
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
   t.equal(str, '<div>not found</div>')
 
 })

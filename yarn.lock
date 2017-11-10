@@ -967,7 +967,7 @@ flagged-respawn@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
 
-fluxury@3.0.0:
+fluxury@3.0.0, fluxury@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/fluxury/-/fluxury-3.0.0.tgz#0478ce0f314c62f957be8c860284e2e042663cbe"
 

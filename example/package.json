@@ -12,8 +12,8 @@
   "devDependencies": {
     "babel-loader": "^7.1.2",
     "file-loader": "^1.1.5",
-    "pure-flux": "^1.2.0",
-    "pure-flux-router": "^2.0.2",
+    "fluxury": "^3.0.0",
+    "rootr": "^0.0.4",
     "react": "^15.6.2",
     "react-hot-loader": "^3.1.2",
     "react-pure-flux": "^1.2.0",
