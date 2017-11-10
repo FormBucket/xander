@@ -967,6 +967,10 @@ flagged-respawn@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
 
+fluxury@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fluxury/-/fluxury-3.0.0.tgz#0478ce0f314c62f957be8c860284e2e042663cbe"
+
 for-each@~0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.2.tgz#2c40450b9348e97f281322593ba96704b9abd4d4"
@@ -2221,10 +2225,11 @@ rimraf@2, rimraf@^2.5.1, rimraf@^2.6.1:
   dependencies:
     glob "^7.0.5"
 
-rootr@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/rootr/-/rootr-0.0.3.tgz#b40ac474929242d63312337d6341ceeb4ae3e3c8"
+rootr@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/rootr/-/rootr-0.0.4.tgz#b5cc941581eb275a94e9ffcf7bac66131d378b10"
   dependencies:
+    fluxury "3.0.0"
     formula "^2.1.6"
 
 safe-buffer@^5.0.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:

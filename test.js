@@ -61,7 +61,7 @@ var testComponent = (props) => {
 
 var pageNotFound = () => <div>not found</div>
 
-var {createStore, dispatch, promiseAction} = require('pure-flux')
+var {createStore, dispatch, promiseAction} = require('fluxury')
 var router = require('./src/index')
 var {location, loadContent, loadRoutes, Link, Container} = require('./src/index')
 
@@ -184,5 +184,51 @@ test( 'check replace routes', function* (t) {
   var result = yield location.open('/buckets')
   var str = ReactDom.renderToStaticMarkup(<Container location={location.getState()} router={router.getState()} />)
   t.equal(str, '<div>not found</div>')
+
+})
+
+
+// connect tests
+
+var {connectStore} = require('./src/index')
+var {createStore, dispatch} = require('fluxury')
+
+test('api tests', function(t) {
+  t.plan(1);
+
+  t.equals(typeof connectStore, 'function' );
+});
+
+var CounterStore = createStore("CounterStore", (state={ count: 0 }, action) => {
+  switch (action.type) {
+    case 'increment':
+    return { count: state.count+1 };
+    default:
+    return state;
+  }
+});
+
+test('connectStore works as expected', function(t) {
+  t.plan(3)
+
+  var CounterView = (props) => <div>{props.foo} - {props.count}</div>
+
+  var EnhancedCounterView = connectStore(CounterStore, CounterView)
+
+
+  var str = ReactDom.renderToStaticMarkup(<EnhancedCounterView foo="bar" />)
+  t.equals(str, '<div>bar - 0</div>')
+
+  CounterView = (props) => <div>{props.foo} - {props.num}</div>
+
+  EnhancedCounterView = connectStore(CounterStore, CounterView, d => ({ num: d.count }))
+
+  var str = ReactDom.renderToStaticMarkup(<EnhancedCounterView foo="bar" />)
+  t.equals(str, '<div>bar - 0</div>')
+
+  dispatch('increment')
+
+  var str = ReactDom.renderToStaticMarkup(<EnhancedCounterView foo="bar" />)
+  t.equals(str, '<div>bar - 1</div>')
 
 })
