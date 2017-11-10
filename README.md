@@ -30,7 +30,7 @@ loadRoutes({
     load: () => System.import('./HomePage')
   }, {
     path: '*',
-    load: () => System.import('./HomePage')
+    component: (props) => <div>404</div>
   }])
 ```
 ### Container Component
