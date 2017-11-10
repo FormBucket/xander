@@ -1,10 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+// State management
 import { composeStore, createStore } from 'spago'
+
+// Redux higher order function to bind store
 import { connectStore } from 'spago'
+
+// Stores to track current route and location.
 import { router, location } from 'spago'
+
+// Action creator to initialize routes.
 import { loadRoutes } from 'spago'
+
+// Redux components for display and navigation.
 import { Container, Link } from 'spago'
 
 let counter = createStore('counter', {
