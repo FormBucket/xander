@@ -10,16 +10,16 @@ Router for React.
 2. Routes managed as application state.
 3. Load page content sync or async.
 
-Hopefully, easy to install and setup.u
+Hopefully, easy to install and setup. Look at [example](./example) for a minimal webpack etup.
 
-Built on [rootr](https://github.com/formula/rootr/), [formula](https://github.com/formula/formula) and [pure-flux](https://github.com/PureFlux/pure-flux)
+Built on [rootr](https://github.com/formula/rootr/), [formula](https://github.com/formula/formula) and [fluxury](https://github.com/formula/fluxury)
 
 ## Usage
 
 ## Installation
 
 ```sh
-npm install --save react-rootr rootr pure-flux
+npm install --save react-rootr rootr fluxury
 ```
 
 ### Router Setup
@@ -77,7 +77,3 @@ loadRoutes([{
   load: loadContent( System.import('./pages/home') )
 }])
 ```
-
-## Final thoughts
-
-Experimental. Untested in wide variety of browsers.

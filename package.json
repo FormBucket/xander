@@ -1,6 +1,6 @@
 {
   "name": "react-rootr",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Simple routing framework for react, based on history API.",
   "repository": "git+https://github.com/formula/react-rootr.git",
   "main": "./lib/index.js",

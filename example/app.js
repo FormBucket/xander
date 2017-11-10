@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { dispatch, composeStore, createStore, getStores } from 'fluxury'
-import connectStore from 'react-rootr'
+import {connectStore} from 'react-rootr'
 import router, { location, loadRoutes, loadContent, Container, Link } from 'react-rootr'
 
 let routes = [{
@@ -16,14 +16,12 @@ let routes = [{
   component: (props) => <p>Another awesome page.</p>
 }, {
   path: '*',
-  component: ((props) => <p onClick={() => dispatch('openPath', '/')}>No content found.</p>)
+  component: ((props) => <p onClick={() => location.open('/')}>No content found.</p>)
 }]
 
 loadRoutes(routes)
 
 let store = composeStore('app', getStores())
-
-createStore("hook", (state=1, action) => { console.log('action', action); return state; })
 
 window.router = router
 store.subscribe( (state, action) => console.log('action', action))
