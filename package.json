@@ -1,6 +1,6 @@
 {
   "name": "react-rootr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple routing framework for react, based on history API.",
   "repository": "git+https://github.com/formula/react-rootr.git",
   "main": "./lib/index.js",
@@ -32,10 +32,10 @@
   "author": "JC Fisher",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^15.3.2"
+    "fluxury": "^3.0.0",
+    "rootr": "^0.0.5",
+    "react": "^15.0.0"
   },
   "dependencies": {
-    "fluxury": "^3.0.0",
-    "rootr": "^0.0.4"
   }
 }
