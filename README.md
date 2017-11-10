@@ -4,13 +4,9 @@
 
 ## Overview
 
-Router for React.
+Single Page App Framework for React.
 
-1. Uses [history api](https://caniuse.com/#search=history).
-2. Routes managed as application state.
-3. Load page content sync or async.
-
-Hopefully, easy to install and setup. Look at [example](./example) for a minimal webpack etup.
+Look at [example](./example) for minimal setup.
 
 Built on [rootr](https://github.com/formula/rootr/), [formula](https://github.com/formula/formula) and [fluxury](https://github.com/formula/fluxury)
 
