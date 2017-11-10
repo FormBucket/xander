@@ -1,6 +1,6 @@
 {
   "name": "react-rootr",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Simple routing framework for react, based on history API.",
   "repository": "git+https://github.com/formula/react-rootr.git",
   "main": "./lib/index.js",
@@ -12,7 +12,7 @@
     "flux"
   ],
   "homepage": "https://github.com/formula/react-rootr#readme",
-  "devDependencies": {
+ "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -22,10 +22,11 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "immutable": "^3.7.5",
-    "pure-flux": "^1.1.0",
-    "react": "^15.3.2",
+    "fluxury": "^3.0.0",
+    "react": "^15.0.0",
     "react-addons-pure-render-mixin": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react-dom": "^15.0.0",
+    "rootr": "^0.0.5",
     "tape": "^4.2.2",
     "tape-async": "^2.1.1"
   },
@@ -33,9 +34,7 @@
   "license": "MIT",
   "peerDependencies": {
     "fluxury": "^3.0.0",
-    "rootr": "^0.0.5",
-    "react": "^15.0.0"
-  },
-  "dependencies": {
+    "react": "^15.0.0",
+    "rootr": "^0.0.5"
   }
 }
