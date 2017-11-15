@@ -13,7 +13,7 @@ import { router, location } from 'xander'
 // Action creator to initialize routes.
 import { loadRoutes } from 'xander'
 
-// Redux components for display and navigation.
+// React components for display and navigation.
 import { Container, Link } from 'xander'
 
 // Create a simple counter store.
