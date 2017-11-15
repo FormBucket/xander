@@ -59,8 +59,7 @@ var testComponent = (props) => <div>path: {props.location.pathname}. params: {JS
 var pageNotFound = (props) => <div>not found</div>
 
 var {createStore, dispatch, promiseAction} = require('fluxury')
-var router = require('./src/index')
-var {location, loadContent, loadRoutes, Link, Container} = require('./src/index')
+var {router, location, loadContent, loadRoutes, Link, Container} = require('./src/index')
 
 
 loadRoutes([{

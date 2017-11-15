@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { composeStore, createStore } from 'spago'
-import { connectStore } from 'spago'
-import { router, location } from 'spago'
-import { loadRoutes, loadContent } from 'spago'
-import { Container, Link } from 'spago'
+import { composeStore, createStore } from 'xander'
+import { connectStore } from 'xander'
+import { router, location } from 'xander'
+import { loadRoutes, loadContent } from 'xander'
+import { Container, Link } from 'xander'
 
 let counter = createStore('counter', {
   getInitialState: () => 0,

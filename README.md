@@ -1,6 +1,6 @@
-# spago
+# xander
 
-[![CircleCI](https://circleci.com/gh/formula/spago.svg?style=svg)](https://circleci.com/gh/formula/spago)
+[![CircleCI](https://circleci.com/gh/formula/xander.svg?style=svg)](https://circleci.com/gh/formula/xander)
 
 ## Overview
 
@@ -15,14 +15,14 @@ Built on [rootr](https://github.com/formula/rootr/), [formula](https://github.co
 ## Installation
 
 ```sh
-npm install --save spago rootr fluxury formula
+npm install --save xander rootr fluxury formula
 ```
 
 ### Router
 
 ```js
-var { router } = require('spago')
-var { loadRoutes } = require('spago')
+var { router } = require('xander')
+var { loadRoutes } = require('xander')
 
 loadRoutes({
   routes: [{
@@ -38,7 +38,7 @@ loadRoutes({
 A component to render the current route content.
 
 ```js
-import {Container} from 'spago'
+import {Container} from 'xander'
 render( <Container router={...} location={...} />, document.all.root )
 ```
 
@@ -47,7 +47,7 @@ render( <Container router={...} location={...} />, document.all.root )
 A link component to hyperlink your app without annoying page refreshes.
 
 ```js
-import {Link} from 'spago'
+import {Link} from 'xander'
 <Link to="/buckets" />
 <Link type="button" to="/buckets" />
 ```
@@ -57,7 +57,7 @@ import {Link} from 'spago'
 Manage location with the easy to use API.
 
 ```js
-import {location} from 'spago'
+import {location} from 'xander'
 location.open('/buckets/1')
 ```
 Use `redirect` to change the URL without adding an entry to the history state.
