@@ -16,31 +16,43 @@ import { loadRoutes } from 'xander'
 // Redux components for display and navigation.
 import { Container, Link } from 'xander'
 
+// Create a simple counter store.
 let counter = createStore('counter', {
   getInitialState: () => 0,
   inc: (state) => state+1
 })
 
+require('./app.css');
+
 let routes = [{
   path: '/',
-  component: (props) => <p>Hello, World. Count: {props.count} <button onClick={counter.inc}>Inc</button> <Link to="/page2">Another page</Link> <Link to="/fubar">Broken link</Link></p>
+    component: (props) => (
+      <p>
+        Hello, World. Count: {props.count}
+        <button onClick={counter.inc}>Inc</button>
+        <Link to="/page2">Page 2</Link>
+        <Link to="/page3">Page 3</Link>
+        <Link to="/fubar">Broken link</Link>
+      </p>
+    )
 }, {
   path: '/page2',
   component: (props) => <p onClick={(e) => location.open('/page3')}>Another awesome page.</p>
 }, {
   path: '/page3',
-  component: (props) => <p onClick={(e) => counter.inc()}>{props.count}</p>
+  load: () => System.import('./page3')
 }, {
   path: '*',
-  component: ((props) => <p onClick={() => location.open('/')}>No content found.</p>)
+  component: ((props) => <Link to='/'>No content found.</Link>)
 }]
 
 loadRoutes(routes)
 
+// create a composite store as a single source of truth.
 let store = composeStore('app', { router, location, count: counter })
 
 window.router = router
 store.subscribe( (state, action) => console.log('action', action))
 
 var ConnectedContainer = connectStore( store, Container )
-ReactDOM.render(<ConnectedContainer />, document.getElementById('root'))
+ReactDOM.render(<ConnectedContainer store={store} />, document.getElementById('root'))

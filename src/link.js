@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import locationStore from 'rootr/lib/location';
 
 function isLeftClickEvent(event) {
@@ -9,7 +9,12 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey)
 }
 
-const Link = React.createClass({
+class Link extends React.Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick(event) {
 
     if (this.props.onClick)
@@ -24,7 +29,7 @@ const Link = React.createClass({
     event.preventDefault();
 
     this.props.action ? this.props.action(event) : locationStore.open(this.props.to);
-  },
+  }
 
   render () {
 
@@ -42,6 +47,6 @@ const Link = React.createClass({
       </a>
     );
   }
-});
+};
 
 export default Link
