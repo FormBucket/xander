@@ -1,10 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+// State management
 import { composeStore, createStore } from 'xander'
+
+// Redux higher order function to bind store
 import { connectStore } from 'xander'
+
+// Stores to track current route and location.
 import { router, location } from 'xander'
-import { loadRoutes, loadContent } from 'xander'
+
+// Action creator to initialize routes.
+import { loadRoutes } from 'xander'
+
+// Redux components for display and navigation.
 import { Container, Link } from 'xander'
 
 let counter = createStore('counter', {
