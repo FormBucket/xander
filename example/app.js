@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 // State management
 import { composeStore, createStore } from 'xander'
 
-// Redux higher order function to bind store
+// Higher order function to bind store to React.PureComponent
 import { connectStore } from 'xander'
 
 // Stores to track current route and location.
