@@ -22,6 +22,6 @@ function scroll() {
 }
 
 window.onresize = resize;
-window.onscroll = scoll;
+window.onscroll = scroll;
 
 export default windowStore;

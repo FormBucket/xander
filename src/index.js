@@ -1,6 +1,6 @@
 let router = require('rootr')
 let composeStore = require('fluxury').composeStore;
-let { getStores } = require('fluxury')
+let { getState, getStores } = require('fluxury')
 let Container = require('./container');
 let connectStore = require('./connect');
 
@@ -30,7 +30,7 @@ xander.Container = Container;
 xander.connectStore = connectStore;
 xander.createStore = require('fluxury').createStore;
 xander.composeStore = composeStore;
-xander.getStores = require('fluxury').getStores;
+xander.getState = require('fluxury').getState;
 xander.replaceReducer = require('fluxury').replaceReducer;
 xander.getStores = require('fluxury').getStores;
 xander.router = router;

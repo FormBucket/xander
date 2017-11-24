@@ -5,3 +5,4 @@ dist
 src
 npm-debug.log
 yarn.lock
+example/package-lock.json
