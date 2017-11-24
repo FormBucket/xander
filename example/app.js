@@ -1,28 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Xander from 'xander'
+let { createStore, Link } = Xander
 
-// State management
-import { composeStore, createStore } from 'xander'
-
-// Higher order function to bind store to React.PureComponent
-import { connectStore } from 'xander'
-
-// Stores to track current route and location.
-import { router, location } from 'xander'
-
-// Action creator to initialize routes.
-import { loadRoutes } from 'xander'
-
-// React components for display and navigation.
-import { Container, Link } from 'xander'
+require('./app.css')
 
 // Create a simple counter store.
 let counter = createStore('counter', {
   getInitialState: () => 0,
   inc: (state) => state+1
 })
-
-require('./app.css');
 
 let routes = [{
   path: '/',
@@ -46,13 +33,5 @@ let routes = [{
   component: ((props) => <Link to='/'>No content found.</Link>)
 }]
 
-loadRoutes(routes)
-
-// create a composite store as a single source of truth.
-let store = composeStore('app', { router, location, count: counter })
-
-window.router = router
-store.subscribe( (state, action) => console.log('action', action))
-
-var ConnectedContainer = connectStore( store, Container )
-ReactDOM.render(<ConnectedContainer store={store} />, document.getElementById('root'))
+let {store, Container} = Xander({ debug: true, routes })
+ReactDOM.render(<Container store={store} />, document.getElementById('root'))

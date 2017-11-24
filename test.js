@@ -60,9 +60,9 @@ var pageNotFound = (props) => <div>not found</div>
 
 var {createStore, dispatch, promiseAction} = require('fluxury')
 var {router, location, loadContent, loadRoutes, Link, Container} = require('./src/index')
-
-
-loadRoutes([{
+var xander = require('./src/index')
+console.log('xander?', xander)
+let routes = ([{
     path: '/',
     load: () => testComponent
   }, {
@@ -79,6 +79,7 @@ loadRoutes([{
     load: () => pageNotFound
   }]);
 
+let app = xander({routes})
 
 test( 'Exports are correct type', function(t) {
   t.plan(4)
