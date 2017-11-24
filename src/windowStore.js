@@ -1,13 +1,19 @@
 import {createStore, dispatch} from 'fluxury';
 
-let getSize = () => ({ width: window.innerWidth, height: window.innerHeight })
+let getSize = () => ({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  scrollX: window.scrollX,
+  scrollY: window.scrollY
+});
+
 let windowStore = createStore('window', {
-  getInitialState: () => ({ width: window.innerWidth, height: window.innerHeight }),
-  windowResized: (state, data) => data
+  getInitialState: getSize,
+  windowOnResize: (state, data) => data
 });
 
 function resize() {
-  dispatch('windowResized', getSize())
+  dispatch('windowOnResize', getSize());
 }
 
 window.onresize = resize;
