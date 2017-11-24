@@ -4,6 +4,8 @@ let { getStores } = require('fluxury')
 let Container = require('./container');
 let connectStore = require('./connect');
 
+require('./windowStore');
+
 let xander  = ({routes, debug}) => {
 
   // create store from all current stores.

@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "Single page app framework",
   "repository": "git+https://github.com/formula/xander.git",
   "main": "./lib/index.js",

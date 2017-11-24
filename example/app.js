@@ -6,7 +6,7 @@ let { createStore, Link } = Xander
 require('./app.css')
 
 // Create a simple counter store.
-let counter = createStore('counter', {
+let counter = createStore('count', {
   getInitialState: () => 0,
   inc: (state) => state+1
 })
