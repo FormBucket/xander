@@ -7,13 +7,11 @@ function _connect(getState, subscribe, Composed) {
 
       constructor(props) {
         super(props);
-        console.log(getState)
         this.state = getState();
         this.handleChange = this.handleChange.bind(this);
       }
 
       componentDidMount() {
-        console.log(subscribe)
         this.token = subscribe( this.handleChange );
       }
 
@@ -24,13 +22,10 @@ function _connect(getState, subscribe, Composed) {
       }
 
       handleChange(state) {
-        consolve.log('handle change')
         this.setState(state);
       }
 
       render() {
-        console.log('render', this.state, this.props)
-
         return (<Composed {...this.state} {...this.props} />);
       }
     }
