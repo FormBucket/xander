@@ -13,6 +13,10 @@ class Container extends React.Component {
     var Content = router.content;
     if (!Content) return null;
 
+    if (Content.then) {
+      return null;
+    }
+
     // render the content for the route!
     return <Content router={router} location={location} {...this.props }  />
   }
