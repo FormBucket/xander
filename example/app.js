@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Xander from 'xander'
-let { createStore, Link } = Xander
+import xander from 'xander'
+let { createStore, Link } = xander
 
 require('./app.css')
 
@@ -33,5 +33,5 @@ let routes = [{
   component: ((props) => <Link to='/'>No content found.</Link>)
 }]
 
-let {store, Container} = Xander({ debug: true, routes })
-ReactDOM.render(<Container store={store} />, document.getElementById('root'))
+let App = xander({ debug: true, routes })
+ReactDOM.render(<App />, document.getElementById('root'))

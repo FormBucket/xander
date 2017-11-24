@@ -1,15 +1,12 @@
 let router = require('rootr')
-let composeStore = require('fluxury').composeStore;
-let { getState, getStores } = require('fluxury')
+let { getState, getStores, subscribe, composeStore, createStore, dispatch, promiseAction, replaceReducer } = require('fluxury')
 let Container = require('./container');
-let connectStore = require('./connect');
+let connectStore = require('./connect').connectStore;
+let connect = require('./connect').connect;
 
 require('./windowStore');
 
 let xander  = ({routes, debug}) => {
-
-  // create store from all current stores.
-  var store = composeStore( 'app', getStores() );
 
   // load the routes
   if(routes) router.loadRoutes(routes);
@@ -17,26 +14,27 @@ let xander  = ({routes, debug}) => {
   // enable console tools when debug enabled.
   if (debug === true) {
     window.router = router
-    store.subscribe( (state, action) => console.log('action', action))
+    subscribe( (state, action) => console.log('action', action))
   }
 
   // Create a react component connected to container
   // returns store and container.
-  return { store, Container: connectStore(store, Container) };
+  return connect(Container);
 };
 
 // Export static functions
 xander.Link = require('./link');
 xander.Container = Container;
+xander.connect = connect;
 xander.connectStore = connectStore;
-xander.createStore = require('fluxury').createStore;
+xander.createStore = createStore;
 xander.composeStore = composeStore;
-xander.dispatch = require('fluxury').dispatch;
-xander.subscribe = require('fluxury').subscribe;
-xander.getState = require('fluxury').getState;
-xander.replaceReducer = require('fluxury').replaceReducer;
-xander.getStores = require('fluxury').getStores;
-xander.promiseAction = require('fluxury').promiseAction;
+xander.dispatch = dispatch;
+xander.subscribe = subscribe;
+xander.getState = getState;
+xander.replaceReducer = replaceReducer;
+xander.getStores = getStores;
+xander.promiseAction = promiseAction;
 xander.router = router;
 xander.loadRoutes = router.loadRoutes;
 xander.location = router.location;

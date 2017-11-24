@@ -207,19 +207,11 @@ var CounterStore = createStore("CounterStore", (state={ count: 0 }, action) => {
 });
 
 test('connectStore works as expected', function(t) {
-  t.plan(3)
+  t.plan(2)
 
   var CounterView = (props) => <div>{props.foo} - {props.count}</div>
 
   var EnhancedCounterView = connectStore(CounterStore, CounterView)
-
-
-  var str = ReactDom.renderToStaticMarkup(<EnhancedCounterView foo="bar" />)
-  t.equals(str, '<div>bar - 0</div>')
-
-  CounterView = (props) => <div>{props.foo} - {props.num}</div>
-
-  EnhancedCounterView = connectStore(CounterStore, CounterView, d => ({ num: d.count }))
 
   var str = ReactDom.renderToStaticMarkup(<EnhancedCounterView foo="bar" />)
   t.equals(str, '<div>bar - 0</div>')
