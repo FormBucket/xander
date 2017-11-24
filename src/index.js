@@ -23,20 +23,24 @@ let xander  = ({routes, debug}) => {
   // Create a react component connected to container
   // returns store and container.
   return { store, Container: connectStore(store, Container) };
-}
+};
 
+// Export static functions
 xander.Link = require('./link');
 xander.Container = Container;
 xander.connectStore = connectStore;
 xander.createStore = require('fluxury').createStore;
 xander.composeStore = composeStore;
+xander.dispatch = require('fluxury').dispatch;
+xander.subscribe = require('fluxury').subscribe;
 xander.getState = require('fluxury').getState;
 xander.replaceReducer = require('fluxury').replaceReducer;
 xander.getStores = require('fluxury').getStores;
+xander.promiseAction = require('fluxury').promiseAction;
 xander.router = router;
 xander.loadRoutes = router.loadRoutes;
 xander.location = router.location;
 xander.default = xander;
-xander.openPath = (path) => router.location.open(path)
+xander.openPath = (path) => router.location.open(path);
 
 module.exports = xander
