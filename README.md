@@ -6,7 +6,7 @@
 
 Single Page App Framework, built on React.
 
-Look at [example](./example) for minimal webpack setup.
+Look at [minimal example](./examples/minimal) for minimal webpack setup.
 
 ## Usage
 
