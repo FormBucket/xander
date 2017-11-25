@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import xander from 'xander'
-let { createStore, Link } = xander
+let { createStore, location, Link } = xander
 
-require('./app.css')
+require('./app.scss')
 
 // Create a simple counter store.
 let counter = createStore('count', {
@@ -30,7 +30,7 @@ let routes = [{
   load: () => System.import('./page3')
 }, {
   path: '*',
-  component: ((props) => <Link to='/'>No content found.</Link>)
+  component: ((props) => <div>No Content Found<br/><Link to='/'>Home</Link></div>)
 }]
 
 let App = xander({ debug: true, routes })

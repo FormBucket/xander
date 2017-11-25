@@ -52,7 +52,7 @@ loadRoutes({
     path: '*',
     component: (props) => <div>404</div>
   }])
-```
+  ```
 ### Container Component
 
 A component to render the current route content.

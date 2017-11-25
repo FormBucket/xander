@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   devtool: 'sourcemap',
   entry: "./app.js",
@@ -9,6 +11,15 @@ module.exports = {
     path: __dirname + "/dist",
     filename: "app.js"
   },
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
+    })
+  ],
   module: {
     loaders: [
       {
@@ -17,8 +28,8 @@ module.exports = {
         loaders: ["babel-loader"]
       },
       {
-        test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
+        test: /\.(css|scss|sass)$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   }
