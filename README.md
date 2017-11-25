@@ -13,7 +13,7 @@ Look at [example](./example) for minimal webpack setup.
 ## Installation
 
 ```sh
-npm install --save xander rootr fluxury formula
+npm install --save xander
 ```
 ### Quick start
 
