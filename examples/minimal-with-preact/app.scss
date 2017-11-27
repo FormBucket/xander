@@ -1,10 +1,9 @@
 body {
   background-color: black;
-  color: pink;
-  font-size: 2em;
+  color: magenta;
+  font-size: 3em;
   font-weight: bolder;
-  a {
-    display: block;
-    color: white;
-  }
+  border: 10px magenta dotted;
+  padding-top: 50vh;
+  text-align: center;
 }

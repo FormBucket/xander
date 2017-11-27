@@ -6,10 +6,10 @@ require('./app.scss')
 
 let routes = [{
   path: '/',
-  component: (props) => <p>Hello, World.</p>
+  component: (props) => "Hello, World."
 }, {
   path: '*',
-  component: ((props) => <div>No Page Found</div>)
+  component: ((props) => "No Page Found" )
 }]
 
 let App = xander({ routes })
