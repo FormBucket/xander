@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import xander from 'xander'
+import Xander from 'xander'
 
 require('./app.scss')
 
-let routes = [{
-  path: '/',
-  component: (props) => <p>Hello, World.</p>
-}, {
-  path: '*',
-  component: ((props) => <div>No Page Found</div>)
-}]
+let App = new Xander({
+  routes: [{
+    path: "/",
+    component: (props) => "Hello, World."
+  }, {
+    path: "*",
+    component: ((props) => "No Page Found" )
+  }]
+})
 
-let App = xander({ routes })
 ReactDOM.render(<App />, document.getElementById('root'))
