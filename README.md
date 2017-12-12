@@ -4,9 +4,9 @@
 
 ## Overview
 
-Single Page App Framework, built on React.
+Framework for React Single Page Apps. The framework is a complete environment including routing and state management.
 
-Look at [minimal example](./examples/minimal) for minimal webpack setup.
+Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
 
 ## Usage
 
