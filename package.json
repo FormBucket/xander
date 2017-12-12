@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.6.7",
+  "version": "0.7.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/formula/xander.git",
   "main": "./lib/index.js",
@@ -28,10 +28,12 @@
   },
   "author": "JC Fisher",
   "license": "MIT",
+  "peerDependencies": {
+    "react": "^15.3.0"
+  },
   "dependencies": {
     "formula": "^2.1.8",
     "fluxury": "^3.0.0",
-    "react": "^16.0.0",
     "rootr": "^0.2.0"
   }
 }
