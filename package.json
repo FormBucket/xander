@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Single page app framework",
   "repository": "git+https://github.com/formula/xander.git",
   "main": "./lib/index.js",
@@ -22,15 +22,13 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "immutable": "^3.7.5",
+    "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "tape": "^4.2.2",
     "tape-async": "^2.1.1"
   },
   "author": "JC Fisher",
   "license": "MIT",
-  "devDependencies": {
-    "react": "^16.0.0"
-  },
   "peerDependencies": {
     "react": "^15.3.0"
   },
