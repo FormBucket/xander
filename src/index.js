@@ -4,8 +4,6 @@ let Container = require('./container');
 let connectStore = require('./connect').connectStore;
 let connect = require('./connect').connect;
 
-require('./windowStore');
-
 let xander  = ({routes, debug}) => {
 
   // load the routes
