@@ -4,7 +4,7 @@
 
 ## Overview
 
-Framework for React Single Page Apps. The framework is a complete environment including routing and state management.
+Framework for React Single Page Apps.
 
 Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
 
@@ -15,6 +15,7 @@ Webpack is recommended to bundle your projects. The [minimal example](./examples
 ```sh
 npm install --save xander
 ```
+## Examples
 ### Quick start
 
 A minimal app with home and 404 page.
@@ -40,27 +41,17 @@ ReactDOM.render(<App />, document.body)
 
 ### Router
 
-```js
-var { router } = require('xander')
-var { loadRoutes } = require('xander')
+Built on [rootr](https://github.com/formula/rootr).
 
-loadRoutes({
-  routes: [{
-    path: '/',
-    load: () => System.import('./HomePage')
-  }, {
-    path: '*',
-    component: (props) => <div>404</div>
-  }])
-  ```
-### Container Component
+### State management
 
-A component to render the current route content.
+Use `createStore` to create immutable stores.
 
 ```js
-import {Container} from 'xander'
-render( <Container router={...} location={...} />, document.all.root )
+createStore(name, reducerOrSpec, actionsAndQueries)`
 ```
+
+For more examples see [fluxury](https://github.com/formula/fluxury).
 
 ### Link Component
 
@@ -72,7 +63,16 @@ import {Link} from 'xander'
 <Link type="button" to="/buckets" />
 ```
 
-### Open path programmically
+### Container
+
+A component to render the current route content.
+
+```js
+import {Container} from 'xander'
+render( <Container router={...} location={...} />, document.all.root )
+```
+
+### Location
 
 Manage location with the easy to use API.
 
@@ -85,7 +85,7 @@ Use `redirect` to change the URL without adding an entry to the history state.
 location.redirect('/buckets')
 ```
 
-### Replace routes
+### Load Routes 
 
 Routes and related location information stored as routes.
 
@@ -96,10 +96,4 @@ loadRoutes([{
 }])
 ```
 
-### Manage state with stores
 
-Create custom stores with reducer function.
-
-```js
-createStore(name, reducerOrSpec)`
-```
