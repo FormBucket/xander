@@ -45,13 +45,21 @@ ReactDOM.render(<App />, document.body)
 
 ### Router
 
-Built on [rootr](https://github.com/formula/rootr).
+A minimalist routers, supports history API.
+
+```js
+import {location, router} from 'xander'
+location
+```
+
+See [rootr](https://github.com/formula/rootr) for more examples.
 
 ### State management
 
 Use `createStore` to create immutable stores.
 
 ```js
+import {createStore} from 'xander'
 createStore(name, reducerOrSpec, actionsAndQueries)`
 ```
 
