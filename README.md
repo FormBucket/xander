@@ -9,7 +9,8 @@ Framework for React Single Page Apps.
 Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
 
 This project was born out of a desire to build 
-an alternative to React-Router and Redux.
+an alternative to popular React-Router and Redux,
+keeping `router` and `location` in stores.
 
 ## Usage
 
