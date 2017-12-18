@@ -73,6 +73,7 @@ A link component to hyperlink your app without annoying page refreshes.
 import {Link} from 'xander'
 <Link to="/buckets" />
 <Link type="button" to="/buckets" />
+<Link type="button" to="/buckets" type="button" /> // render button tag instead of a
 ```
 
 ### Container
