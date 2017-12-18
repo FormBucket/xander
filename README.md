@@ -42,6 +42,17 @@ boot({
 })
 ```
 
+### Link Component
+
+A link component to hyperlink your app without annoying page refreshes.
+
+```js
+import {Link} from 'xander'
+<Link to="/buckets" />
+<Link type="button" to="/buckets" />
+<Link type="button" to="/buckets" type="button" /> // render button tag instead of a
+```
+
 ### Router
 
 A minimalist routers, supports history API.
@@ -84,22 +95,17 @@ createStore(name, reducerOrSpec, actionsAndQueries)`
 
 For more examples see [fluxury](https://github.com/formula/fluxury).
 
-### Link Component
-
-A link component to hyperlink your app without annoying page refreshes.
-
-```js
-import {Link} from 'xander'
-<Link to="/buckets" />
-<Link type="button" to="/buckets" />
-<Link type="button" to="/buckets" type="button" /> // render button tag instead of a
-```
-
-### connect 
+#### connect ####
 
 A higher order function to connect React component
 
-### Container
+```js
+import {connect} from 'xander'
+let Connected = connect(store, component)`
+ReactDOM.render(<Connected />)
+```
+
+#### Container ####
 
 A component to render the current route content.
 
