@@ -1,10 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Xander from 'xander'
+import {boot} from 'xander'
 
 require('./app.scss')
 
-let App = new Xander({
+boot({
   routes: [{
     path: "/",
     component: (props) => "Hello, World."
@@ -13,5 +11,3 @@ let App = new Xander({
     component: ((props) => "No Page Found" )
   }]
 })
-
-ReactDOM.render(<App />, document.getElementById('root'))

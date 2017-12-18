@@ -25,11 +25,12 @@ npm install --save xander
 A minimal app with home and 404 page.
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import app from 'xander';
+import {boot} from 'xander';
 
-let App = app({
+// Calling constructor function return React component.
+boot({
+  debug: false, // optional, enables logging actions to console.
+  rootEl: document.body, // optional, determine root node for application.
   routes: [{
     path: '/',
     component: (props) => <div>Hello, World.</div> 
@@ -39,18 +40,36 @@ let App = app({
   }])
 
 })
-
-ReactDOM.render(<App />, document.body)
 ```
 
 ### Router
 
 A minimalist routers, supports history API.
 
+#### Location
+
+Manage location with the easy to use API.
+
 ```js
-import {location, router} from 'xander'
-location
+import {location} from 'xander'
+location.open('/buckets/1')
 ```
+Use `redirect` to change the URL without adding an entry to the history state.
+```js
+location.redirect('/buckets')
+```
+
+#### Load Routes 
+
+Routes and related location information stored as routes.
+
+```js
+loadRoutes([{
+  path: '/',
+  load: loadContent( System.import('./pages/home') )
+}])
+```
+
 
 See [rootr](https://github.com/formula/rootr) for more examples.
 
@@ -76,6 +95,10 @@ import {Link} from 'xander'
 <Link type="button" to="/buckets" type="button" /> // render button tag instead of a
 ```
 
+### connect 
+
+A higher order function to connect React component
+
 ### Container
 
 A component to render the current route content.
@@ -84,29 +107,4 @@ A component to render the current route content.
 import {Container} from 'xander'
 render( <Container router={...} location={...} />, document.all.root )
 ```
-
-### Location
-
-Manage location with the easy to use API.
-
-```js
-import {location} from 'xander'
-location.open('/buckets/1')
-```
-Use `redirect` to change the URL without adding an entry to the history state.
-```js
-location.redirect('/buckets')
-```
-
-### Load Routes 
-
-Routes and related location information stored as routes.
-
-```js
-loadRoutes([{
-  path: '/',
-  load: loadContent( System.import('./pages/home') )
-}])
-```
-
 

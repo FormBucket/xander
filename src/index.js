@@ -1,3 +1,5 @@
+import React from 'react';
+import {render} from 'react-dom'
 let router = require('rootr')
 let { getState, getStores, subscribe, composeStore, createStore, dispatch, promiseAction, replaceReducer } = require('fluxury')
 let Container = require('./container');
@@ -15,9 +17,12 @@ let xander  = ({routes, debug}) => {
     subscribe( (state, action) => console.log('action', action))
   }
 
-  // Create a react component connected to container
-  // returns store and container.
-  return connect(Container);
+  return connect(Container)
+};
+
+xander.boot = (options) => {
+  let App = xander(options);
+  render( <App />, options.rootEl || document.body);
 };
 
 // Export static functions
