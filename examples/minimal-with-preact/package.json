@@ -27,6 +27,6 @@
     "babel-core": "^6.26.0",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
-    "xander": "^0.7.0"
+    "xander": "^0.8.1"
   }
 }

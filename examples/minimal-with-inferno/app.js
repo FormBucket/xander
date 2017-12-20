@@ -6,7 +6,7 @@ boot({
   rootEl: document.getElementById('root'),
   routes: [{
     path: "/",
-      component: (props) => "Hello, Preact."
+    component: (props) => "Hello, Inferno."
   }, {
     path: "*",
     component: ((props) => "No Page Found" )

@@ -4,7 +4,7 @@ module.exports = {
   devtool: 'source-map',
   entry: "./app.js",
   devServer: {
-    port: 3000,
+    port: 3002,
     historyApiFallback: true
   },
   output: {
@@ -13,8 +13,8 @@ module.exports = {
   },
   "resolve": {
     "alias": {
-      "react": "preact-compat",
-      "react-dom": "preact-compat"
+      "react": "inferno-compat",
+      "react-dom": "inferno-compat"
     }
   },
   plugins: [

@@ -2,12 +2,11 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'source-map',
   entry: {
-    app: ['babel-polyfill', 'whatwg-fetch', './app']
+    app: ['./app']
   },
   output: {
-    path: path.join(__dirname, '.', 'public', 'js'),
+    path: path.join(__dirname, '.', 'dist'),
     filename: '[name].js',
     publicPath: '/'
   },
