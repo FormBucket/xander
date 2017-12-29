@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom'
 let router = require('rootr')
-let { getState, getStores, subscribe, composeStore, createStore, dispatch, promiseAction, replaceReducer } = require('fluxury')
+let { getState, getStores, subscribe, createStore, dispatch, promiseAction, replaceReducer } = require('fluxury')
 let Container = require('./container');
 let connectStore = require('./connect').connectStore;
 let connect = require('./connect').connect;
@@ -31,7 +31,6 @@ xander.Container = Container;
 xander.connect = connect;
 xander.connectStore = connectStore;
 xander.createStore = createStore;
-xander.composeStore = composeStore;
 xander.dispatch = dispatch;
 xander.subscribe = subscribe;
 xander.getState = getState;
