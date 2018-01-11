@@ -1,6 +1,8 @@
+// Copyright 2017 JC Fisher
+
 import React from 'react';
 import {render} from 'react-dom'
-let router = require('rootr')
+let router = require('./router')
 let { getState, getStores, subscribe, createStore, dispatch, promiseAction, replaceReducer } = require('fluxury')
 let Container = require('./container');
 let connectStore = require('./connect').connectStore;
@@ -39,8 +41,7 @@ xander.getStores = getStores;
 xander.promiseAction = promiseAction;
 xander.router = router;
 xander.loadRoutes = router.loadRoutes;
-xander.location = router.location;
 xander.default = xander;
-xander.openPath = (path) => router.location.open(path);
+xander.openPath = (path) => router.open(path);
 
 module.exports = xander

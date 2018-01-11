@@ -1,14 +1,14 @@
 /**
-* Copyright (c) 2015, Peter W Moresi
+* Copyright (c) 2015, JC Fisher
 */
 import React from 'react';
 
 class Container extends React.Component {
   render() {
     // properties must be passed in.
-    let { router, location } = this.props;
+    let { router } = this.props;
 
-    if (!router || !location) throw Error("Router and location expected to be initialized!");
+    if (!router) throw Error("Router and location expected to be initialized!");
 
     var Content = router.content;
     if (!Content) return null;
@@ -18,7 +18,7 @@ class Container extends React.Component {
     }
 
     // render the content for the route!
-    return <Content router={router} location={location} {...this.props }  />
+    return <Content router={router} location={router.location} {...this.props }  />
   }
 }
 

@@ -1,6 +1,6 @@
-import {boot} from 'xander'
+import {boot} from 'xander';
 
-require('./app.scss')
+require('./app.scss');
 
 boot({
   rootEl: document.getElementById('root'),
@@ -11,4 +11,4 @@ boot({
     path: "*",
     component: ((props) => "No Page Found" )
   }]
-})
+});

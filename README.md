@@ -8,9 +8,6 @@ Framework for React Single Page Apps.
 
 Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
 
-This project was born out of a desire to build 
-alternatives to React-Router and Redux.
-
 ## Usage
 
 ## Installation
@@ -56,22 +53,18 @@ import {Link} from 'xander'
 
 A minimalist routers, supports history API.
 
-#### Location
-
-Manage location with the easy to use API.
-
 ```js
-import {location} from 'xander'
-location.open('/buckets/1')
+import {router} from 'xander'
+router.open('/buckets/1')
 ```
 Use `redirect` to change the URL without adding an entry to the history state.
 ```js
-location.redirect('/buckets')
+router.redirect('/buckets')
 ```
 
 #### Load Routes 
 
-Routes and related location information stored as routes.
+Load routes and related configuration.
 
 ```js
 loadRoutes([{
@@ -79,9 +72,6 @@ loadRoutes([{
   load: loadContent( System.import('./pages/home') )
 }])
 ```
-
-
-See [rootr](https://github.com/formula/rootr) for more examples.
 
 ### State management
 
@@ -93,23 +83,3 @@ createStore(name, reducerOrSpec, actionsAndQueries)`
 ```
 
 For more examples see [fluxury](https://github.com/formula/fluxury).
-
-#### connect ####
-
-A higher order function to connect React component
-
-```js
-import {connect} from 'xander'
-let Connected = connect(store, component)`
-ReactDOM.render(<Connected />)
-```
-
-#### Container ####
-
-A component to render the current route content.
-
-```js
-import {Container} from 'xander'
-render( <Container router={...} location={...} />, document.all.root )
-```
-

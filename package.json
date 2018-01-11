@@ -1,18 +1,18 @@
 {
   "name": "xander",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/formula/xander.git",
   "main": "./lib/index.js",
   "scripts": {
     "build": "gulp",
-    "test": "babel-node test"
+    "test": "babel-node tests/public-api; babel-node tests/router"
   },
   "keywords": [
     "flux"
   ],
   "homepage": "https://github.com/formula/xander#readme",
- "devDependencies": {
+  "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "fluxury": "^3.1.0",
-    "formula": "^2.3.1",
-    "rootr": "^0.3.0"
+    "formula": "^2.3.1"
   }
 }

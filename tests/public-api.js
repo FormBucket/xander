@@ -59,8 +59,9 @@ var testComponent = (props) => <div>path: {props.location.pathname}. params: {JS
 var pageNotFound = (props) => <div>not found</div>
 
 var {createStore, dispatch, promiseAction} = require('fluxury')
-var {router, location, loadContent, loadRoutes, Link, Container} = require('./src/index')
-var xander = require('./src/index')
+var router = require('../src/router')
+var { loadContent, loadRoutes, Link, Container} = require('../src/index')
+var xander = require('../src/index')
 console.log('xander?', xander)
 let routes = ([{
     path: '/',
@@ -82,8 +83,7 @@ let routes = ([{
 let app = xander({routes})
 
 test( 'Exports are correct type', function(t) {
-  t.plan(4)
-  t.equal(typeof location, 'object')
+  t.plan(3)
   t.equal(typeof router, 'object')
   t.equal(typeof Link, 'function')
   t.equal(typeof Container, 'function')
@@ -91,9 +91,9 @@ test( 'Exports are correct type', function(t) {
 
 test( 'Location includes valid exports', function(t) {
   t.plan(3)
-  t.equal(location.name, 'location')
-  t.equal(typeof location.open, 'function')
-  t.equal(typeof location.redirect, 'function')
+  t.equal(router.name, 'router')
+  t.equal(typeof router.open, 'function')
+  t.equal(typeof router.redirect, 'function')
 })
 
 test( 'Router includes valid exports', function(t) {
@@ -111,7 +111,7 @@ test( 'Link renders correctly', function(t) {
 
 test( 'Empty container renders the initial page view', function(t) {
   t.plan(1)
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location} />)
   t.equal(str, '<div>path: /. params: {}. search: </div>')
 })
 
@@ -120,33 +120,33 @@ test( 'location.open(path) works correctly', function* (t) {
   t.plan(8)
 
   // console.log(router.getState(), location.getState())
-  var result = yield location.open('/buckets/456/settings')
+  var result = yield router.open('/buckets/456/settings')
   // console.log(router.getState().content)
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location}  />)
   t.equal(str, '<div>path: /buckets/456/settings. params: {&quot;account_id&quot;:&quot;456&quot;}. search: </div>')
 
-  var result = yield location.open('/buckets/123')
+  var result = yield router.open('/buckets/123')
 
   t.equal( window.location.pathname, '/buckets/123')
 
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location}  />)
   t.equal(str, '<div>path: /buckets/123. params: {&quot;account_id&quot;:&quot;123&quot;}. search: </div>')
 
-  var result = yield location.open('/buckets')
+  var result = yield router.open('/buckets')
 
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location}  />)
   t.equal(str, '<div>path: /buckets. params: {}. search: </div>')
 
   // default (not found) page is loaded.
-  var result = yield location.open('/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
+  var result = yield router.open('/foo')
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location}  />)
   t.equal(str, '<div>not found</div>')
 
   var oneStore = createStore("One", { getInitialState: () => 1 })
 
   // query strings work correctly
-  var result = yield location.open('/?q=test')
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()}  />)
+  var result = yield router.open('/?q=test')
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location}  />)
   t.equal(str, '<div>path: /. params: {}. search: ?q=test</div>')
 
   var newStore = createStore('CountStore', (state=1) => 1)
@@ -154,7 +154,7 @@ test( 'location.open(path) works correctly', function* (t) {
   yield goBack();
 
   t.equal( window.location.pathname, '/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location} />)
   t.equal(str, '<div>not found</div>')
 
 })
@@ -174,13 +174,14 @@ test( 'check replace routes', function* (t) {
   }])
 
 
-  var result = yield location.open('/foo')
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
+  var result = yield router.open('/foo')
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location} />)
   t.equal(str, '<div>path: /foo. params: {}. search: </div>')
 
-  var result = yield location.open('/bar')
+  var result = yield router.open('/bar')
   // console.log()
-  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={location.getState()} />)
+  var str = ReactDom.renderToStaticMarkup(<Container router={router.getState()} location={router.getState().location} />)
+
   t.equal(str, '<div>not found</div>')
 
 })
@@ -188,7 +189,7 @@ test( 'check replace routes', function* (t) {
 
 // connect tests
 
-var {connectStore} = require('./src/index')
+var {connectStore} = require('../src/index')
 var {createStore, dispatch} = require('fluxury')
 
 test('api tests', function(t) {
