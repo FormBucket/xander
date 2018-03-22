@@ -93,7 +93,7 @@ Use `createStore` to create immutable stores.
 
 ```js
 import {createStore} from 'xander'
-createStore(name, reducerOrSpec, actionsAndQueries)`
+createStore(name, reducerOrSpec, actionsAndQueries)
 ```
 
 For more examples see [fluxury](https://github.com/formula/fluxury).
