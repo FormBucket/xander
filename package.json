@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/formula/xander.git",
   "main": "./lib/index.js",
@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "fluxury": "^3.1.0",
-    "formula": "^2.3.1"
+    "formula": "^2.4.2"
   }
 }

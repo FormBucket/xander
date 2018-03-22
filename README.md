@@ -4,9 +4,7 @@
 
 ## Overview
 
-Framework for React Single Page Apps.
-
-Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
+Framework for browser apps with uncompromising configuration.
 
 ## Usage
 
@@ -21,7 +19,7 @@ npm install --save xander
 A minimal app with home and 404 page.
 
 ```js
-import {boot} from 'xander';
+import {boot, Rule, Eval} from 'xander';
 
 // Calling constructor function return React component.
 boot({
@@ -31,12 +29,28 @@ boot({
     path: '/',
     component: (props) => <div>Hello, World.</div> 
   }, {
+    path: '/test_rules',
+    component: (props) => (
+      <div>
+        <Rule exp="A + B" values={{ A: 2, B: 4 }} />
+        <Eval exp="A + B" values={{ A: 2, B: 4 }} />
+        <Rule
+          exp={`AND(status = true, country = "Denmark")`}
+          values={{ valid: true, country: "Denmark" }}
+        />
+      </div>
+    )
+  }, {
     path: '*',
     component: (props) => <div>404</div>
   }])
 
 })
 ```
+
+#### webpack
+
+Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
 
 ### Link Component
 

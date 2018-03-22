@@ -1,0 +1,26 @@
+.xander-rules-function, .xander-rules-operator {
+  /*
+  border: 1px white solid;
+  border-radius: 3px;
+ */
+}
+
+.xander-rules-block {
+  margin-left: 0px;
+}
+
+.xander-rules-args {
+  margin-left: 0px;
+}
+
+.xander-rules-depth-1 {
+  margin-left: 20px;
+}
+
+.xander-rules-depth-2 {
+  margin-left: 20px;
+}
+
+.xander-rules-depth-3 {
+  margin-left: 20px;
+}
