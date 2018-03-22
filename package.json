@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/xander.git",
   "main": "./lib/index.js",
@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "fluxury": "^3.1.0",
-    "formula": "^3.0.0"
+    "formula": "^3.1.0"
   }
 }
