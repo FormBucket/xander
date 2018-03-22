@@ -1,6 +1,6 @@
 # xander
 
-[![CircleCI](https://circleci.com/gh/formula/xander.svg?style=svg)](https://circleci.com/gh/formula/xander)
+[![CircleCI](https://circleci.com/gh/FormBucket/xander.svg?style=svg)](https://circleci.com/gh/FormBucket/xander)
 
 ## Overview
 
