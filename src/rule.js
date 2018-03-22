@@ -1,31 +1,28 @@
 import React from "react";
-import { branch, compile, isText, isObject } from "formula";
+import {
+  IF as branch,
+  COMPILE as compile,
+  ISTEXT as isText,
+  ISOBJECT as isObject
+} from "formula";
 let key = 0;
-
-// take an ast and convert inflix and prefix operator into function calls.
-function functify(ast) {
-  function go(n) {
-    return n;
-  }
-
-  return _doTheFunc(ast);
-}
 
 class Rule extends React.Component {
   render() {
     let { props } = this;
+    let { config } = props;
     let { ast } = compile(props.exp);
+
+    config = config || {};
 
     function renderFunction(f, depth) {
       return (
-        <div
-          className={`xander-rules-block xander-rules-function xander-rules-depth-${depth}`}
-        >
-          {f.name} (
+        <div className={`xander-rules-function`}>
+          {config[`label${f.name}`] || f.name + "("}
           <div className="xander-rules-args">
             {f.args.map(d => renderRule(d, depth + 1))}
           </div>
-          )
+          {config[`labelAfter${f.name}`] || ")"}
         </div>
       );
     }
@@ -33,34 +30,32 @@ class Rule extends React.Component {
     function renderOperand(o, depth) {
       let { type, subtype, scope, name, value, items } = o;
       return branch(
-        type === "value" && subtype === "string",
+        subtype === "string",
         () => (
           <span className="xander-rules-value xander-rules-value-string">
             "{value}"
           </span>
         ),
-        type === "value" && subtype === "number",
+        subtype === "number",
         () => (
           <span className="xander-rules-value xander-rules-value-number">
             {value}
           </span>
         ),
-        type === "value" && subtype === "boolean",
+        subtype === "boolean",
         () => (
           <span className="xander-rules-value xander-rules-value-boolean">
-            {value ? props.labelTRUE || "TRUE" : props.labelFALSE || "FALSE"}
+            {value ? config.labelTRUE || "TRUE" : config.labelFALSE || "FALSE"}
           </span>
         ),
-        type === "value" && subtype === "array",
+        subtype === "array",
         () => (
-          <div
-            className={`xander-rules-block xander-rules-value xander-rules-array xander-rules-depth-${depth}`}
-          >
+          <div className={`xander-rules-value xander-rules-array`}>
             [
             {items.map(d => (
               <div
                 key={key++}
-                className={`xander-rules-block xander-rules-value xander-rules-array xander-rules-depth-${depth}`}
+                className={`xander-rules-value xander-rules-array`}
               >
                 {renderRule(d, depth + 1)}
               </div>
@@ -68,96 +63,75 @@ class Rule extends React.Component {
             ]
           </div>
         ),
-        type === "variable",
-        () => (
-          <span className="xander-rules-variable-name">
-            {scope}
-            {scope ? "!" : null}
-            {name}
-          </span>
-        ),
-        type === "operator",
-        () => renderOperator(o),
-        type === "function",
-        () => renderFunction(o),
         <span className="xander-rules-operand-unknown">{type}</span>
       );
     }
 
     function renderOperator({ subtype, operands }, depth) {
-      if (operands.length === 1) {
-        return (
-          <div
-            className={`xander-rules-block xander-rules-operator xander-rules-depth-${depth}`}
-          >
+      return branch(
+        operands.length === 1,
+        () => (
+          <div className={`xander-rules-operator`}>
             <span className={`xander-rules-operator-${subtype}`}>
               {branch(
-                subtype == "prefix-minus",
-                props.labelPrefixMINUS || "-",
+                subtype == "prefiprefixx-minus",
+                config.labelPrefixMINUS || "-",
                 subtype == "prefix-plus",
-                props.labelPrefixPLUS || "+"
+                config.labelPrefixPLUS || "+"
               )}
             </span>
             <span className="xander-rules-rhs">
-              {renderOperand(operands[0], depth)}
+              {renderRule(operands[0], depth + 1)}
             </span>
           </div>
-        );
-      }
-
-      if (operands.length === 2) {
-        return (
-          <div
-            className={`xander-rules-block xander-rules-operator xander-rules-depth-${depth}`}
-          >
+        ),
+        operands.length === 2,
+        () => (
+          <div className={`xander-rules-operator`}>
             <span className="xander-rules-lhs">
-              {renderOperand(operands[0], depth)}
+              {renderRule(operands[0], depth + 1)}
             </span>{" "}
             <span className={`xander-rules-operator-${subtype}`}>
               {branch(
                 subtype == "infix-eq",
-                props.labelEQ || "=",
+                config.labelEQ || "=",
                 subtype == "infix-ne",
-                props.labelNE || "<>",
+                config.labelNE || "<>",
                 subtype == "infix-gt",
-                props.labelGT || "<",
+                config.labelGT || "<",
                 subtype == "infix-gte",
-                props.labelGTE || "<=",
+                config.labelGTE || "<=",
                 subtype == "infix-lt",
-                props.labelLE || ">",
+                config.labelLE || ">",
                 subtype == "infix-lte",
-                props.labelLTE || ">=",
+                config.labelLTE || ">=",
                 subtype == "infix-add",
-                props.labelADD || "+",
+                config.labelADD || "+",
                 subtype == "infix-subtract",
-                props.labelSUB || "-",
+                config.labelSUB || "-",
                 subtype == "infix-multiply",
-                props.labelMUL || "*",
+                config.labelMUL || "*",
                 subtype == "infix-divide",
-                props.labelDIV || "/",
+                config.labelDIV || "/",
                 subtype == "infix-power",
-                props.labelMUL || "^",
+                config.labelMUL || "^",
                 subtype == "infix-concat",
-                props.labelMUL || "&",
-                props.labelDefault || "huh?"
+                config.labelMUL || "&",
+                config.labelDefault || "huh?"
               )}
             </span>{" "}
             <span className="xander-rules-rhs">
-              {renderOperand(operands[1], depth)}
+              {renderRule(operands[1], depth + 1)}
             </span>
           </div>
-        );
-      }
-
-      return <div>unexpected number of operands!</div>;
+        ),
+        <div>unexpected number of operands!</div>
+      );
     }
 
     function renderGroup(g, depth) {
       return (
-        <div
-          key={key++}
-          className={`xander-rules-block xander-rules-group xander-rules-depth-${depth}`}
-        >
+        <div key={key++} className={`xander-rules-group`}>
           ({renderRule(g.exp, depth + 1)})
         </div>
       );
@@ -170,18 +144,35 @@ class Rule extends React.Component {
         </div>
       );
     }
+
+    function renderVariable(v, depth) {
+      let { scope, name } = v;
+      return (
+        <span className="xander-rules-variable-name">
+          {scope}
+          {scope ? "!" : null}
+          {name}
+        </span>
+      );
+    }
     function renderRule(ast, depth = 0) {
-      return branch(
-        ast.type === "group",
-        () => renderGroup(ast, depth),
-        ast.type === "function",
-        () => renderFunction(ast, depth),
-        ast.type === "operator",
-        () => renderOperator(ast, depth),
-        ast.type === "value" || ast.type === "variable",
-        () => renderOperand(ast, depth),
-        ast.type === "range",
-        () => renderRange(ast, depth)
+      return (
+        <div className={`xander-rules-block xander-rules-depth-${depth}`}>
+          {branch(
+            ast.type === "group",
+            () => renderGroup(ast, depth),
+            ast.type === "function",
+            () => renderFunction(ast, depth),
+            ast.type === "operator",
+            () => renderOperator(ast, depth),
+            ast.type === "variable",
+            () => renderVariable(ast, depth),
+            ast.type === "value",
+            () => renderOperand(ast, depth),
+            ast.type === "range",
+            () => renderRange(ast, depth)
+          )}
+        </div>
       );
     }
 

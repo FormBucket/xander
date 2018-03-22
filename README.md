@@ -32,7 +32,7 @@ boot({
     path: '/test_rules',
     component: (props) => (
       <div>
-        <Rule exp="A + B" values={{ A: 2, B: 4 }} />
+        <Rule exp="SUM(A,B)" values={{ A: 2, B: 4 }} />
         <Eval exp="A + B" values={{ A: 2, B: 4 }} />
         <Rule
           exp={`AND(status = true, country = "Denmark")`}
@@ -48,9 +48,13 @@ boot({
 })
 ```
 
-#### webpack
+### xan server
 
-Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
+Do you want a full featured development server with new project setup? Try xan server.
+
+### webpack
+
+Do you like to tinker? If so, then Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
 
 ### Link Component
 

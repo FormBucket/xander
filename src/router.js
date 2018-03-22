@@ -2,9 +2,9 @@ var createStore = require("fluxury").createStore;
 var dispatch = require("fluxury").dispatch;
 var pathToRegexp = require("./pathToRegexp");
 let pathRegexps = {};
-let isobject = require("formula").isobject;
-let isfunction = require("formula").isfunction;
-let parseQuery = require("formula").parsequery;
+let isobject = require("formula").ISOBJECT;
+let isfunction = require("formula").ISFUNCTION;
+let parseQuery = require("formula").PARSEQUERY;
 
 function readLocation(state) {
   var pathname = window.location.pathname,
