@@ -1,15 +1,15 @@
 import React from "react";
-import { boot, Rule, Eval } from "xander";
+import { boot, Rule, Eval } from "../../lib/index";
 import * as Formula from "formula";
 
 window.Formula = Formula;
 
 require("./app.scss");
-require("xander/xander.css");
+require("../../xander.css");
 
 let query = `OR( status=false, AND(status = true, country = "Denmark") )`;
 let query2 = `OR( +a+b=4, ((status=false)), AND(status = true, country = "Denmark"), {a,b,c;1,2,3}, A1:A10, Test!A1 )`;
-query2 = `AND( OR( status = "A", status="B", status="C"), NOTINCLUDES(status, {"Ready for MFC","Modification Review Required","Buyout Complete"}), payoff_date > datevalue("1/1/2018"))`;
+query2 = `AND( NOR( status = "A", status="B", status="C" ), NOTINCLUDES(status, {"Ready for MFC","Modification Review Required","Buyout Complete"}), payoff_date > datevalue("1/1/2018"))`;
 query = query2;
 
 let config = {
@@ -22,7 +22,17 @@ let config = {
   ),
   labelOR: (
     <span>
-      <strong>Any of these</strong> must be TRUE:
+      <strong>Any of these</strong> must be <strong>TRUE</strong>:
+    </span>
+  ),
+  labelNOR: (
+    <span>
+      <strong>All of these</strong> must be <strong>FALSE</strong>:
+    </span>
+  ),
+  labelNOT: (
+    <span>
+      This must be <strong>FALSE</strong>:
     </span>
   ),
   labelINCLUDES: "Must find value in list:",
@@ -30,9 +40,12 @@ let config = {
 
   renderRuleStyle: (rule, depth) => ({
     color: "maroon",
-    backgroundColor: rule.subtype == "array" ? "lightblue" : "white",
+    backgroundColor: "lightblue",
     display:
-      rule.type == "variable" || rule.type == "value" ? "inline" : "block",
+      rule.type == "variable" ||
+      (rule.type == "value" && rule.subtype !== "array")
+        ? "inline"
+        : "block",
     border:
       rule.type == "variable" || rule.type == "value"
         ? "none"
@@ -53,6 +66,15 @@ let config = {
     color: o.subtype == "array" ? "black" : "red"
   }),
 
+  renderFunctionBegin: (f, depth) => (
+    <span>
+      <input type="checkbox" />
+      {config[`label${f.name}`] || f.name + "("}
+    </span>
+  ),
+
+  renderFunctionEnd: () => null,
+
   renderString: value => `'${value}'`
 };
 
@@ -61,33 +83,8 @@ boot({
   routes: [
     {
       path: "/",
-      component: props => <div className="hero">Hello, World.</div>
-    },
-    {
-      path: "/test_rules",
       component: props => (
         <div>
-          VALUES:
-          <pre>
-            {JSON.stringify(
-              {
-                A: 2,
-                B: 2
-              },
-              null,
-              2
-            )}
-          </pre>
-          <hr />
-          <Rule
-            exp="A + B"
-            values={{
-              A: 2,
-              B: 2
-            }}
-          />
-          =
-          <hr />
           QUERY:
           <pre>{query}</pre>
           <h3>Empty config</h3>

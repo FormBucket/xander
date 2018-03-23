@@ -1,16 +1,23 @@
 .xander-rules-block {
   margin: 2px;
   padding: 2px;
-  border: 1px #CCC solid;
+  border: 1px #ccc solid;
   border-radius: 3px;
 }
 
-.xander-rules-group, .xander-rules-array, .xander-rules-args {
+.xander-rules-group,
+.xander-rules-array,
+.xander-rules-args {
   margin-left: 20px;
 }
 
 .xander-rules-function {
   color: bold;
+}
+
+.xander-rules-args {
+  border: 1px #ccc solid;
+  border-radius: 3px;
 }
 
 .xander-rules-group {
