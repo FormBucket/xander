@@ -8,9 +8,6 @@ require("./app.scss");
 require("../../xander.css");
 
 let query = `OR( status=false, AND(status = true, country = "Denmark") )`;
-let query2 = `OR( +a+b=4, ((status=false)), AND(status = true, country = "Denmark"), {a,b,c;1,2,3}, A1:A10, Test!A1 )`;
-query2 = `AND( NOR( status = "A", status="B", status="C" ), NOTINCLUDES(status, {"Ready for MFC","Modification Review Required","Buyout Complete"}), payoff_date > datevalue("1/1/2018"))`;
-query = query2;
 
 let config = {
   labelAfterAND: null,
@@ -38,7 +35,7 @@ let config = {
   labelINCLUDES: "Must find value in list:",
   labelNOTINCLUDES: "Must not find value in list:",
 
-  renderRuleStyle: (rule, depth) => ({
+  renderRuleStyle: (config, rule, depth) => ({
     color: "maroon",
     backgroundColor: "lightblue",
     display:
@@ -52,15 +49,15 @@ let config = {
         : "1px solid maroon"
   }),
 
-  renderVariableStyle: (v, depth) => ({
+  renderVariableStyle: (config, v, depth) => ({
     color: "green"
   }),
 
-  renderOperandStyle: (o, depth) => ({
+  renderOperandStyle: (config, o, depth) => ({
     color: o.subtype == "array" ? "black" : "red"
   }),
 
-  renderFunctionBegin: (f, depth) => (
+  renderFunctionBegin: (config, f, depth) => (
     <span>
       <input type="checkbox" />
       {config[`label${f.name}`] || f.name + "("}
@@ -71,7 +68,6 @@ let config = {
 
   // renderString: value => `'${value}'`
 };
-null;
 
 boot({
   rootEl: document.getElementById("root"),

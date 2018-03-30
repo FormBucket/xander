@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/xander.git",
   "main": "./lib/index.js",

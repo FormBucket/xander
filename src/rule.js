@@ -228,7 +228,7 @@ class Rule extends React.Component {
       renderGroup,
       renderValue,
       renderFunction
-    });
+    }, props.config);
 
     return (
       <div className="xander-rules-formula">{renderRule(newConfig, ast)}</div>
