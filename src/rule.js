@@ -22,24 +22,109 @@ class Rule extends React.Component {
           style={(config.renderFunctionStyle || (() => {}))(f, depth)}
           className={`xander-rules-section xander-rules-function`}
         >
+          <span>
+            <span className="xander-rules-function-begin">
+              {config.renderFunctionBegin(config, f, depth)}
+            </span>
+
+            <div className="xander-rules-args">
+              {f.args.map(d => config.renderRule(config, d, depth + 1))}
+            </div>
+
+            <span className="xander-rules-function-end  ">
+              {config.renderFunctionEnd(config, f, depth)}
+            </span>
+          </span>
+        </div>
+      );
+    }
+
+    function renderOperator(config, o, depth) {
+      let { subtype, operands } = o;
+      return (
+        <div
+          style={(config.renderOperatorStyle || (() => {}))(o, depth)}
+          className={`xander-rules-section xander-rules-operator`}
+        >
           {branch(
-            config.hasOwnProperty("renderFunction"),
-            () => config.renderFunction(config, f, depth, renderRule),
+            operands.length === 1,
             () => (
-              <span>
-                <span className="xander-rules-function-begin">
-                  config.renderFunctionBegin(config, f, depth),
+              <div
+                style={(config.renderOperatorStyle || (() => {}))(o, depth)}
+                className={`xander-rules-operator`}
+              >
+                <span
+                  style={(config.renderPrefixStyle || (() => {}))(o, depth)}
+                  className={`xander-rules-operator-${subtype}`}
+                >
+                  {branch(
+                    subtype == "prefix-minus",
+                    config.labelPrefixMINUS || "-",
+                    subtype == "prefix-plus",
+                    config.labelPrefixPLUS || "+"
+                  )}
                 </span>
-
-                <div className="xander-rules-args">
-                  {f.args.map(d => renderRule(config, d, depth + 1))}
-                </div>
-
-                <span className="xander-rules-function-end  ">
-                  {config.renderFunctionEnd(config, f, depth)}
+                <span
+                  className="xander-rules-rhs"
+                  style={(config.renderRHSStyle || (() => {}))(o, depth)}
+                >
+                  {config.renderRule(config, operands[0], depth + 1)}
                 </span>
-              </span>
-            )
+              </div>
+            ),
+            operands.length === 2,
+            () => (
+              <div
+                style={(config.renderOperatorStyle || (() => {}))(o, depth)}
+                className={`xander-rules-operator`}
+              >
+                <span
+                  style={(config.renderLHSStyle || (() => {}))(o, depth)}
+                  className="xander-rules-lhs"
+                >
+                  {renderRule(config, operands[0], depth + 1)}
+                </span>{" "}
+                <span
+                  style={(config.rendeInfixStyle || (() => {}))(o, depth)}
+                  className={`xander-rules-operator-${subtype}`}
+                >
+                  {branch(
+                    subtype == "infix-eq",
+                    config.labelEQ || "=",
+                    subtype == "infix-ne",
+                    config.labelNE || "<>",
+                    subtype == "infix-gt",
+                    config.labelGT || "<",
+                    subtype == "infix-gte",
+                    config.labelGTE || "<=",
+                    subtype == "infix-lt",
+                    config.labelLE || ">",
+                    subtype == "infix-lte",
+                    config.labelLTE || ">=",
+                    subtype == "infix-add",
+                    config.labelADD || "+",
+                    subtype == "infix-subtract",
+                    config.labelSUB || "-",
+                    subtype == "infix-multiply",
+                    config.labelMUL || "*",
+                    subtype == "infix-divide",
+                    config.labelDIV || "/",
+                    subtype == "infix-power",
+                    config.labelMUL || "^",
+                    subtype == "infix-concat",
+                    config.labelMUL || "&",
+                    config.labelDefault || "huh?"
+                  )}
+                </span>{" "}
+                <span
+                  style={(config.renderRHSStyle || (() => {}))(o, depth)}
+                  className="xander-rules-rhs"
+                >
+                  {renderRule(config, operands[1], depth + 1)}
+                </span>
+              </div>
+            ),
+            <div>unexpected number of operands!</div>
           )}
         </div>
       );
@@ -55,11 +140,11 @@ class Rule extends React.Component {
         >
           {branch(
             subtype === "string",
-            config.renderString(value),
+            () => config.renderString(value),
             subtype === "number",
-            config.renderNumber(value),
+            () => config.renderNumber(value),
             subtype === "boolean",
-            config.renderBoolean(value),
+            () => config.renderBoolean(value),
             subtype === "array",
             () => (
               <span>
@@ -69,14 +154,13 @@ class Rule extends React.Component {
                     key={key++}
                     className={`xander-rules-value xander-rules-array`}
                   >
-                    {renderRule(d, depth + 1)}
+                    {config.renderRule(config, d, depth + 1)}
                   </div>
                 ))}
                 ]
               </span>
             ),
-
-            "error: unknown operand"
+            "Other"
           )}
         </div>
       );
@@ -89,7 +173,7 @@ class Rule extends React.Component {
           style={(config.renderRangeStyle || (() => {}))(g, depth)}
           className={`xander-rules-section xander-rules-group`}
         >
-          ({renderRule(g.exp, depth + 1)})
+          ({config.renderRule(g.exp, depth + 1)})
         </div>
       );
     }
@@ -118,17 +202,7 @@ class Rule extends React.Component {
           style={(config.renderVariableStyle || (() => {}))(v, depth)}
           className="xander-rules-section xander-rules-variable-name"
         >
-          {branch(
-            config.hasOwnProperty("renderVariable"),
-            () => config.renderVariable(v, depth),
-            () => (
-              <span>
-                {scope}
-                {scope ? "" : null}
-                {name}
-              </span>
-            )
-          )}
+          {defaultConfig.renderVariable(config, v, depth)}
         </div>
       );
     }
@@ -146,7 +220,9 @@ class Rule extends React.Component {
     }
 
     let newConfig = assign(defaultConfig, {
+      visit: () => {},
       renderRule,
+      renderOperator,
       renderVariable,
       renderRange,
       renderGroup,

@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/xander.git",
   "main": "./lib/index.js",
@@ -29,11 +29,11 @@
   },
   "author": "JC Fisher",
   "license": "MIT",
-  "peerDependencies": {
+  "peerDependencies"  : {
     "react": "^15.6.2 || ^16.0.0"
   },
   "dependencies": {
     "fluxury": "^3.1.0",
-    "formula": "^3.4.2"
+    "formula": "^3.5.0"
   }
 }
