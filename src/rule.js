@@ -1,21 +1,22 @@
 import React from "react";
 import {
+  ASSIGN as assign,
   IF as branch,
   COMPILE as compile,
   ISTEXT as isText,
-  ISOBJECT as isObject
+  ISOBJECT as isObject,
+  WALKER as walker,
+  WALKERCONFIGDEFAULT as defaultConfig
 } from "formula";
+
 let key = 0;
 
 class Rule extends React.Component {
   render() {
     let { props } = this;
-    let { config } = props;
     let { ast } = compile(props.exp);
 
-    config = config || {};
-
-    function renderFunction(f, depth) {
+    function renderFunction(config, f, depth) {
       return (
         <div
           style={(config.renderFunctionStyle || (() => {}))(f, depth)}
@@ -23,27 +24,19 @@ class Rule extends React.Component {
         >
           {branch(
             config.hasOwnProperty("renderFunction"),
-            () => config.renderFunction(f, depth, renderRule),
+            () => config.renderFunction(config, f, depth, renderRule),
             () => (
               <span>
                 <span className="xander-rules-function-begin">
-                  {branch(
-                    config.hasOwnProperty("renderFunctionBegin"),
-                    () => config.renderFunctionBegin(f, depth),
-                    () => config[`label${f.name}`] || f.name + "("
-                  )}
+                  config.renderFunctionBegin(config, f, depth),
                 </span>
 
                 <div className="xander-rules-args">
-                  {f.args.map(d => renderRule(d, depth + 1))}
+                  {f.args.map(d => renderRule(config, d, depth + 1))}
                 </div>
 
                 <span className="xander-rules-function-end  ">
-                  {branch(
-                    config.hasOwnProperty("renderFunctionEnd"),
-                    () => config.renderFunctionEnd(f, depth),
-                    () => config[`labelAfter${f.name}`] || ")"
-                  )}
+                  {config.renderFunctionEnd(config, f, depth)}
                 </span>
               </span>
             )
@@ -52,7 +45,7 @@ class Rule extends React.Component {
       );
     }
 
-    function renderValue(o, depth) {
+    function renderValue(config, o, depth) {
       let { type, subtype, scope, name, value, items } = o;
 
       return (
@@ -62,149 +55,34 @@ class Rule extends React.Component {
         >
           {branch(
             subtype === "string",
-            () => `"${value}"`,
+            config.renderString(value),
             subtype === "number",
-            () =>
-              branch(
-                config.hasOwnProperty("renderNumber"),
-                () => config.renderNumber(value),
-                config.hasOwnProperty("renderValue"),
-                () => config.renderValue(value),
-                value
-              ),
+            config.renderNumber(value),
             subtype === "boolean",
-            () =>
-              branch(
-                config.hasOwnProperty("renderBoolean"),
-                () => config.renderBoolean(value),
-                config.hasOwnProperty("renderValue"),
-                () => config.renderValue(value),
-                value
-                  ? config.labelTRUE || "TRUE"
-                  : config.labelFALSE || "FALSE"
-              ),
+            config.renderBoolean(value),
             subtype === "array",
-            () =>
-              branch(
-                config.hasOwnProperty("renderArray"),
-                () => config.renderArray(value),
-                config.hasOwnProperty("renderValue"),
-                () => config.renderValue(value),
-                () => (
-                  <span>
-                    [
-                    {items.map(d => (
-                      <div
-                        key={key++}
-                        className={`xander-rules-value xander-rules-array`}
-                      >
-                        {renderRule(d, depth + 1)}
-                      </div>
-                    ))}
-                    ]
-                  </span>
-                )
-              ),
+            () => (
+              <span>
+                [
+                {items.map(d => (
+                  <div
+                    key={key++}
+                    className={`xander-rules-value xander-rules-array`}
+                  >
+                    {renderRule(d, depth + 1)}
+                  </div>
+                ))}
+                ]
+              </span>
+            ),
+
             "error: unknown operand"
           )}
         </div>
       );
     }
 
-    function renderOperator(o, depth) {
-      let { subtype, operands } = o;
-      return (
-        <div
-          style={(config.renderOperatorStyle || (() => {}))(o, depth)}
-          className={`xander-rules-section xander-rules-operator`}
-        >
-          {branch(
-            config.hasOwnProperty("renderOperator"),
-            () => config.renderOperator(o, depth, renderRule),
-            operands.length === 1,
-            () => (
-              <div
-                style={(config.renderOperatorStyle || (() => {}))(o, depth)}
-                className={`xander-rules-operator`}
-              >
-                <span
-                  style={(config.renderPrefixStyle || (() => {}))(o, depth)}
-                  className={`xander-rules-operator-${subtype}`}
-                >
-                  {branch(
-                    subtype == "prefix-minus",
-                    config.labelPrefixMINUS || "-",
-                    subtype == "prefix-plus",
-                    config.labelPrefixPLUS || "+"
-                  )}
-                </span>
-                <span
-                  className="xander-rules-rhs"
-                  style={(config.renderRHSStyle || (() => {}))(o, depth)}
-                >
-                  {renderRule(operands[0], depth + 1)}
-                </span>
-              </div>
-            ),
-            operands.length === 2,
-            () => (
-              <div
-                style={(config.renderOperatorStyle || (() => {}))(o, depth)}
-                className={`xander-rules-operator`}
-              >
-                <span
-                  style={(config.renderLHSStyle || (() => {}))(o, depth)}
-                  className="xander-rules-lhs"
-                >
-                  {renderRule(operands[0], depth + 1)}
-                </span>{" "}
-                <span
-                  style={(config.rendeInfixStyle || (() => {}))(o, depth)}
-                  className={`xander-rules-operator-${subtype}`}
-                >
-                  {branch(
-                    subtype == "infix-eq",
-                    config.labelEQ || "=",
-                    subtype == "infix-ne",
-                    config.labelNE || "<>",
-                    subtype == "infix-gt",
-                    config.labelGT || "<",
-                    subtype == "infix-gte",
-                    config.labelGTE || "<=",
-                    subtype == "infix-lt",
-                    config.labelLE || ">",
-                    subtype == "infix-lte",
-                    config.labelLTE || ">=",
-                    subtype == "infix-add",
-                    config.labelADD || "+",
-                    subtype == "infix-subtract",
-                    config.labelSUB || "-",
-                    subtype == "infix-multiply",
-                    config.labelMUL || "*",
-                    subtype == "infix-divide",
-                    config.labelDIV || "/",
-                    subtype == "infix-power",
-                    config.labelMUL || "^",
-                    subtype == "infix-concat",
-                    config.labelMUL || "&",
-                    config.labelDefault || "huh?"
-                  )}
-                </span>{" "}
-                <span
-                  style={(config.renderRHSStyle || (() => {}))(o, depth)}
-                  className="xander-rules-rhs"
-                >
-                  {renderRule(operands[1], depth + 1)}
-                </span>
-              </div>
-            ),
-            <div>unexpected number of operands!</div>
-          )}
-        </div>
-      );
-    }
-
-    function renderGroup(g, depth) {
+    function renderGroup(config, g, depth) {
       return (
         <div
           key={key++}
@@ -216,7 +94,7 @@ class Rule extends React.Component {
       );
     }
 
-    function renderRange(r, depth) {
+    function renderRange(config, r, depth) {
       return (
         <div
           style={(config.renderRangeStyle || (() => {}))(r, depth)}
@@ -233,7 +111,7 @@ class Rule extends React.Component {
       );
     }
 
-    function renderVariable(v, depth) {
+    function renderVariable(config, v, depth) {
       let { scope, name } = v;
       return (
         <div
@@ -255,33 +133,30 @@ class Rule extends React.Component {
       );
     }
 
-    function renderRule(ast, depth = 0) {
+    function renderRule(config, ast, depth = 0) {
       let { type, subtype } = ast;
       return (
         <div
           style={(config.renderRuleStyle || (() => {}))(ast, depth)}
           className={`xander-rules-block xander-rules-block-${type} xander-rules-block-${subtype} xander-rules-depth-${depth}`}
         >
-          {branch(
-            type === "group",
-            () => renderGroup(ast, depth),
-            type === "function",
-            () => renderFunction(ast, depth),
-            type === "operator",
-            () => renderOperator(ast, depth),
-            type === "variable",
-            () => renderVariable(ast, depth),
-            type === "value",
-            () => renderValue(ast, depth),
-            type === "range",
-            () => renderRange(ast, depth),
-            () => <div>error: {type}</div>
-          )}
+          {defaultConfig.renderRule(config, ast, depth)}
         </div>
       );
     }
 
-    return <div className="xander-rules-formula">{renderRule(ast)}</div>;
+    let newConfig = assign(defaultConfig, {
+      renderRule,
+      renderVariable,
+      renderRange,
+      renderGroup,
+      renderValue,
+      renderFunction
+    });
+
+    return (
+      <div className="xander-rules-formula">{renderRule(newConfig, ast)}</div>
+    );
   }
 }
 
