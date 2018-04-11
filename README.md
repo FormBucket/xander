@@ -4,7 +4,14 @@
 
 ## Overview
 
-Framework for browser apps with uncompromising configuration.
+Single Page App framework for React and [formula](https://github.com/FormBucket/formula).
+
+* State management
+* Router
+* Link Component
+* Container Component
+* Rule Component
+* Formula Evaluation Component
 
 ## Usage
 
@@ -13,21 +20,27 @@ Framework for browser apps with uncompromising configuration.
 ```sh
 npm install --save xander
 ```
+
 ## Examples
+
 ### Quick start
 
 A minimal app with home and 404 page.
 
 ```js
-import {boot, Rule, Eval} from 'xander';
+import {boot, Loadable, Rule, Eval} from 'xander';
 
 // Calling constructor function return React component.
 boot({
-  debug: false, // optional, enables logging actions to console.
-  rootEl: document.body, // optional, determine root node for application.
   routes: [{
     path: '/',
-    component: (props) => <div>Hello, World.</div> 
+    component: (props) => <div>Hello, World.</div>
+  }, {
+    path: '/page-splitting',
+    component: Loadable({
+      loader: () => import('./page-to-your-component'),
+      loading: (props) => <div>My Loader Code</div>
+    })
   }, {
     path: '/test_rules',
     component: (props) => (
@@ -69,26 +82,30 @@ import {Link} from 'xander'
 
 ### Router
 
-A minimalist routers, supports history API.
+A minimal router, only supports history API.
 
 ```js
-import {router} from 'xander'
-router.open('/buckets/1')
+import { router } from "xander";
+router.open("/buckets/1");
 ```
+
 Use `redirect` to change the URL without adding an entry to the history state.
+
 ```js
-router.redirect('/buckets')
+router.redirect("/buckets");
 ```
 
-#### Load Routes 
+#### Load Routes
 
 Load routes and related configuration.
 
 ```js
-loadRoutes([{
-  path: '/',
-  load: loadContent( System.import('./pages/home') )
-}])
+loadRoutes([
+  {
+    path: "/",
+    component: require("./pages/home")
+  }
+]);
 ```
 
 ### State management
@@ -96,8 +113,8 @@ loadRoutes([{
 Use `createStore` to create immutable stores.
 
 ```js
-import {createStore} from 'xander'
-createStore(name, reducerOrSpec, actionsAndQueries)
+import { createStore } from "xander";
+createStore(name, reducerOrSpec, actionsAndQueries);
 ```
 
 For more examples see [fluxury](https://github.com/formula/fluxury).

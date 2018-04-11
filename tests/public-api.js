@@ -80,23 +80,23 @@ var xander = require("../src/index");
 let routes = [
   {
     path: "/",
-    load: () => testComponent
+    component: testComponent
   },
   {
     path: "/buckets",
-    load: () => testComponent
+    component: testComponent
   },
   {
     path: "/buckets/:account_id",
-    load: () => testComponent
+    component: testComponent
   },
   {
     path: "/buckets/:account_id/settings",
-    load: () => testComponent
+    component: testComponent
   },
   {
     path: "*",
-    load: () => pageNotFound
+    component: pageNotFound
   }
 ];
 
@@ -222,11 +222,11 @@ test("check replace routes", function*(t) {
   loadRoutes([
     {
       path: "/",
-      load: () => testComponent
+      component: testComponent
     },
     {
       path: "/foo",
-      load: () => testComponent
+      component: testComponent
     },
     {
       path: "*",
@@ -241,6 +241,7 @@ test("check replace routes", function*(t) {
       location={router.getState().location}
     />
   );
+
   t.equal(str, "<div>path: /foo. params: {}. search: </div>");
 
   var result = yield router.open("/bar");
@@ -257,13 +258,13 @@ test("check replace routes", function*(t) {
 
 // connect tests
 
-var { connectStore } = require("../src/index");
+var { connect } = require("../src/index");
 var { createStore, dispatch } = require("fluxury");
 
 test("api tests", function(t) {
   t.plan(1);
 
-  t.equals(typeof connectStore, "function");
+  t.equals(typeof connect, "function");
 });
 
 var CounterStore = createStore(
@@ -283,11 +284,11 @@ test("connectStore works as expected", function(t) {
 
   var CounterView = props => (
     <div>
-      {props.foo} - {props.count}
+      {props.foo} - {props.CounterStore.count}
     </div>
   );
 
-  var EnhancedCounterView = connectStore(CounterStore, CounterView);
+  var EnhancedCounterView = connect(CounterView);
 
   var str = ReactDom.renderToStaticMarkup(<EnhancedCounterView foo="bar" />);
   t.equals(str, "<div>bar - 0</div>");

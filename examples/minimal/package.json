@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
-    "build": "webpack --config webpack.config.prod.js",
+    "start": "webpack-dev-server --config webpack.config.js --hot --inline",
+    "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -26,6 +26,10 @@
   "dependencies": {
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "xander": "^0.11.0"
+    "inferno": "^3.10.1",
+    "inferno-compat": "^3.10.1",
+    "preact": "^8.2.6",
+    "preact-compat": "^3.17.0",
+    "xander": "^0.15.0"
   }
 }

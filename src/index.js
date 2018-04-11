@@ -1,9 +1,11 @@
-// Copyright 2017 JC Fisher
+/**
+ * Copyright (c) 2015-2018, JC Fisher
+ */
 
 import React from "react";
 import { render } from "react-dom";
-let router = require("./router");
-let {
+import router from "./router";
+import {
   getState,
   getStores,
   subscribe,
@@ -11,10 +13,10 @@ let {
   dispatch,
   promiseAction,
   replaceReducer
-} = require("fluxury");
-let Container = require("./container");
-let connectStore = require("./connect").connectStore;
-let connect = require("./connect").connect;
+} from "fluxury";
+import loadable from "./loadable";
+import Container from "./container";
+import connect from "./connect";
 
 let xander = ({ routes, debug }) => {
   // load the routes
@@ -31,16 +33,19 @@ let xander = ({ routes, debug }) => {
 
 xander.boot = options => {
   let App = xander(options);
-  render(<App />, options.rootEl || document.body);
+  render(React.createElement(App), options.rootEl || document.body);
 };
+import Link from "./link";
+import Eval from "./eval";
+import Rule from "./rule";
 
 // Export static functions
-xander.Link = require("./link");
-xander.Eval = require("./eval");
-xander.Rule = require("./rule");
+xander.Link = Link;
+xander.Eval = Eval;
+xander.Rule = Rule;
+xander.loadable = loadable;
 xander.Container = Container;
 xander.connect = connect;
-xander.connectStore = connectStore;
 xander.createStore = createStore;
 xander.dispatch = dispatch;
 xander.subscribe = subscribe;
@@ -52,5 +57,4 @@ xander.router = router;
 xander.loadRoutes = router.loadRoutes;
 xander.default = xander;
 xander.openPath = path => router.open(path);
-
 module.exports = xander;

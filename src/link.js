@@ -1,4 +1,8 @@
-import React from "react";
+/**
+ * Copyright (c) 2015-2018, JC Fisher
+ */
+
+import React, { createElement as h } from "react";
 import router from "./router";
 
 function isLeftClickEvent(event) {
@@ -24,34 +28,21 @@ class Link extends React.Component {
 
     if (this.props.stopPropagation) event.stopPropagation();
     event.preventDefault();
-
+    createElement;
     this.props.action ? this.props.action(event) : router.open(this.props.to);
   }
 
   render() {
-    if (this.props.type === "button") {
-      return (
-        <button
-          disabled={this.props.disabled}
-          className={this.props.className}
-          style={this.props.style}
-          onClick={this.handleClick}
-        >
-          {this.props.children}
-        </button>
-      );
-    }
-
-    return (
-      <a
-        disabled={this.props.disabled}
-        className={this.props.className}
-        style={this.props.style}
-        onClick={this.handleClick}
-        href={this.props.to}
-      >
-        {this.props.children}
-      </a>
+    return h(
+      this.props.tagName || "a",
+      {
+        disabled: this.props.disabled,
+        className: this.props.className,
+        style: this.props.style,
+        onClick: this.handleClick,
+        href: this.props.to
+      },
+      this.props.children
     );
   }
 }

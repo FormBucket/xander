@@ -1,5 +1,5 @@
 import React from "react";
-import { boot, Rule, Eval } from "../../lib/index";
+import { boot, Rule, Eval } from "xander";
 import * as Formula from "formula";
 
 window.Formula = Formula;

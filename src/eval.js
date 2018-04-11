@@ -1,13 +1,13 @@
-import React from "react";
-import { RUN } from "formula";
+/**
+ * Copyright (c) 2015-2018, JC Fisher
+ */
+
+import React, { createElement as h } from "react";
+import { RUN as run } from "formula";
 
 class Eval extends React.Component {
   render() {
-    return (
-      <div style={this.props.style} className={this.props.className}>
-        {RUN(this.props.exp, this.props.values || {})}
-      </div>
-    );
+    return h("div", this.props, run(this.props.exp, this.props.values || {}));
   }
 }
 
