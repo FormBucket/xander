@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
-    "build": "webpack --config webpack.config.prod.js",
+    "start": "npx xan server",
+    "build": "npx xan build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.5",
@@ -19,14 +20,14 @@
     "react-hot-loader": "^3.1.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4",
-    "whatwg-fetch": "^2.0.3"
+    "webpack": "^4.5.0",
+    "webpack-dev-server": "^3.1.3",
+    "whatwg-fetch": "^2.0.3",
+    "xan": "0.28.0"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "preact": "^8.2.6",
-    "preact-compat": "^3.17.0",
-    "xander": "^0.11.0"
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "xander": "^0.15.0"
   }
 }

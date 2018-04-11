@@ -1,7 +1,8 @@
 /**
-* Copyright (c) 2015, JC Fisher
-*/
-import React from 'react';
+ * Copyright (c) 2015, JC Fisher
+ */
+
+import React, { createElement as h } from "react";
 
 class Container extends React.Component {
   render() {
@@ -18,8 +19,13 @@ class Container extends React.Component {
     }
 
     // render the content for the route!
-    return <Content router={router} location={router.location} {...this.props }  />
+    return h(
+      Content,
+      Object.assign({}, this.props, {
+        location: router.location
+      })
+    );
   }
 }
 
-export default Container
+export default Container;

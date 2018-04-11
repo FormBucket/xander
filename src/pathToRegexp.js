@@ -1,9 +1,14 @@
+/**
+ * Copyright (c) 2015-2018, JC Fisher
+ */
+
 // Borrowed from very old version of pathToRegexp library
 /**
  * Expose `pathtoRegexp`.
  */
 
 module.exports = pathtoRegexp;
+// Copyright 2017 JC Fisher
 
 /**
  * Normalize the given path string,
@@ -28,24 +33,36 @@ function pathtoRegexp(path, keys, options) {
   keys = keys || [];
 
   if (path instanceof RegExp) return path;
-  if (path instanceof Array) path = '(' + path.join('|') + ')';
+  if (path instanceof Array) path = "(" + path.join("|") + ")";
 
   path = path
-    .concat(strict ? '' : '/?')
-    .replace(/\/\(/g, '(?:/')
-    .replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?(\*)?/g, function(_, slash, format, key, capture, optional, star){
-      keys.push({ name: key, optional: !! optional });
-      slash = slash || '';
-      return ''
-        + (optional ? '' : slash)
-        + '(?:'
-        + (optional ? slash : '')
-        + (format || '') + (capture || (format && '([^/.]+?)' || '([^/]+?)')) + ')'
-        + (optional || '')
-        + (star ? '(/*)?' : '');
+    .concat(strict ? "" : "/?")
+    .replace(/\/\(/g, "(?:/")
+    .replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?(\*)?/g, function(
+      _,
+      slash,
+      format,
+      key,
+      capture,
+      optional,
+      star
+    ) {
+      keys.push({ name: key, optional: !!optional });
+      slash = slash || "";
+      return (
+        "" +
+        (optional ? "" : slash) +
+        "(?:" +
+        (optional ? slash : "") +
+        (format || "") +
+        (capture || ((format && "([^/.]+?)") || "([^/]+?)")) +
+        ")" +
+        (optional || "") +
+        (star ? "(/*)?" : "")
+      );
     })
-    .replace(/([\/.])/g, '\\$1')
-    .replace(/\*/g, '(.*)');
+    .replace(/([\/.])/g, "\\$1")
+    .replace(/\*/g, "(.*)");
 
-  return new RegExp('^' + path + '$', sensitive ? '' : 'i');
-};
+  return new RegExp("^" + path + "$", sensitive ? "" : "i");
+}

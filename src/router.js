@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2015-2018, JC Fisher
+ */
+
 var createStore = require("fluxury").createStore;
 var dispatch = require("fluxury").dispatch;
 var pathToRegexp = require("./pathToRegexp");
@@ -37,7 +41,7 @@ function match(routes = [], path) {
 //
 // - routes - [{ path: "/buckets/:id", action: Promise }]
 //   A list of routes that specify a URL path and an action that must return a promise to the page content.
-module.exports = createStore(
+let store = createStore(
   "router",
   (state = { location: readLocation(), routes: [] }, action) => {
     let location = state.location;
@@ -80,8 +84,9 @@ module.exports = createStore(
     var pathname = ls.pathname;
 
     // console.log('current path', pathname)
+    // Copyright 2017 JC Fisher
 
-    // Match routes
+    // Match routesstore
     var found = match(routes, pathname);
 
     if (!found) {
@@ -92,6 +97,8 @@ module.exports = createStore(
     var { re, route } = found;
 
     if (!route) {
+      // Copyright 2017 JC Fisher
+
       console.warn("no route!");
       return state;
     }
@@ -117,22 +124,6 @@ module.exports = createStore(
     if (found && route.component) {
       // console.log('COMPONENT', route.component)
       content = route.component;
-    } else if (found && route && route.load) {
-      // console.log('ASYNC', route, content)
-      // run the action method defined by the router
-      let loader = route.load;
-
-      if (isfunction(loader)) {
-        // console.log("THUNK", route, typeof route.load)
-        loader = route.load(params);
-      }
-
-      if (isfunction(loader)) {
-        content = loader;
-      } else if (isobject(loader) && loader.then) {
-        // console.log("THEN", route)
-        loader.then(cmp => dispatch("loadContent", cmp));
-      }
     }
 
     // console.log('EXIT', pathname, route.path, content)
@@ -156,3 +147,5 @@ module.exports = createStore(
 window.addEventListener("popstate", function(event) {
   dispatch("windowPopState");
 });
+
+export default store;

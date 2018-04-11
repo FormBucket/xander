@@ -1,6 +1,6 @@
 {
   "name": "xander",
-  "version": "0.14.2",
+  "version": "0.15.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/xander.git",
   "main": "./lib/index.js",
@@ -8,9 +8,7 @@
     "build": "gulp",
     "test": "babel-node tests/public-api; babel-node tests/router"
   },
-  "keywords": [
-    "flux"
-  ],
+  "keywords": ["flux", "react"],
   "homepage": "https://github.com/FormBucket/xander#readme",
   "devDependencies": {
     "babel-cli": "^6.1.2",
@@ -29,7 +27,7 @@
   },
   "author": "JC Fisher",
   "license": "MIT",
-  "peerDependencies"  : {
+  "peerDependencies": {
     "react": "^15.6.2 || ^16.0.0"
   },
   "dependencies": {

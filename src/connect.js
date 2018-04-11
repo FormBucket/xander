@@ -1,41 +1,36 @@
-import React from 'react';
-import { subscribe, getState } from 'fluxury'
+/**
+ * Copyright (c) 2015-2018, JC Fisher
+ */
 
-function _connect(getState, subscribe, Composed) {
-  return (
-    class Connect extends React.PureComponent {
+import React, { createElement as h } from "react";
+import { subscribe, getState } from "fluxury";
 
-      constructor(props) {
-        super(props);
-        this.state = getState();
-        this.handleChange = this.handleChange.bind(this);
-      }
+function connect(Composed) {
+  return class Connect extends React.PureComponent {
+    constructor(props) {
+      super(props);
+      this.state = getState();
+      this.handleChange = this.handleChange.bind(this);
+    }
 
-      componentDidMount() {
-        this.token = subscribe( this.handleChange );
-      }
+    componentDidMount() {
+      this.token = subscribe(this.handleChange);
+    }
 
-      componentWillUnmount() {
-        if (typeof this.token === 'function') {
-          this.token();
-        }
-      }
-
-      handleChange(state) {
-        this.setState(state);
-      }
-
-      render() {
-        return (<Composed {...this.state} {...this.props} />);
+    componentWillUnmount() {
+      if (typeof this.token === "function") {
+        this.token();
       }
     }
-  )
+
+    handleChange(state) {
+      this.setState(state);
+    }
+
+    render() {
+      return h(Composed, Object.assign({}, this.state, this.props));
+    }
+  };
 }
 
-export function connectStore (store, Composed) {
-  return _connect( store.getState, store.subscribe, Composed );
-}
-
-export function connect(Composed) {
-  return _connect( getState, subscribe, Composed );
-}
+export default connect;
