@@ -30,7 +30,7 @@ A minimal hrx app with home and 404 page.
 
 ```js
 import { createElement as h } from 'react';
-import { R as r } from 'formula'
+import { RUN as r } from 'formula'
 import {boot, Loadable, Rule, Eval} from 'hrx';
 
 // Calling constructor function return React component.
