@@ -18,7 +18,7 @@ import loadable from "./loadable";
 import Container from "./container";
 import connect from "./connect";
 
-let xander = ({ routes, debug }) => {
+let hrx = ({ routes, debug }) => {
   // load the routes
   if (routes) router.loadRoutes(routes);
 
@@ -31,8 +31,8 @@ let xander = ({ routes, debug }) => {
   return connect(Container);
 };
 
-xander.boot = options => {
-  let App = xander(options);
+hrx.boot = options => {
+  let App = hrx(options);
   render(React.createElement(App), options.rootEl || document.body);
 };
 import Link from "./link";
@@ -40,21 +40,22 @@ import Eval from "./eval";
 import Rule from "./rule";
 
 // Export static functions
-xander.Link = Link;
-xander.Eval = Eval;
-xander.Rule = Rule;
-xander.loadable = loadable;
-xander.Container = Container;
-xander.connect = connect;
-xander.createStore = createStore;
-xander.dispatch = dispatch;
-xander.subscribe = subscribe;
-xander.getState = getState;
-xander.replaceReducer = replaceReducer;
-xander.getStores = getStores;
-xander.promiseAction = promiseAction;
-xander.router = router;
-xander.loadRoutes = router.loadRoutes;
-xander.default = xander;
-xander.openPath = path => router.open(path);
-module.exports = xander;
+hrx.Link = Link;
+hrx.Eval = Eval;
+hrx.Rule = Rule;
+hrx.loadable = loadable;
+hrx.Container = Container;
+hrx.connect = connect;
+hrx.createStore = createStore;
+hrx.dispatch = dispatch;
+hrx.subscribe = subscribe;
+hrx.getState = getState;
+hrx.replaceReducer = replaceReducer;
+hrx.getStores = getStores;
+hrx.promiseAction = promiseAction;
+hrx.router = router;
+hrx.loadRoutes = router.loadRoutes;
+hrx.__esModule = true;
+hrx.default = hrx;
+hrx.openPath = path => router.open(path);
+module.exports = hrx;

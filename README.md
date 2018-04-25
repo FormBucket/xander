@@ -1,34 +1,37 @@
-# xander
+# hrx
 
-[![CircleCI](https://circleci.com/gh/FormBucket/xander.svg?style=svg)](https://circleci.com/gh/FormBucket/xander)
+[![CircleCI](https://circleci.com/gh/FormBucket/hrx.svg?style=svg)](https://circleci.com/gh/FormBucket/hrx)
 
 ## Overview
 
-Single Page App framework for React and [formula](https://github.com/FormBucket/formula).
+Framework for [React](https://github.com/facebook/react) and [Formula](https://github.com/FormBucket/formula).
 
-* State management
-* Router
-* Link Component
-* Container Component
-* Rule Component
-* Formula Evaluation Component
+## why hrx?
+
+* **h** is for hyperscript.
+* **r** is for `RUN` expression.
+* **x** is for e**X**perience.
+
+hrx is hyperscript + formula.
 
 ## Usage
 
 ## Installation
 
 ```sh
-npm install --save xander
+npm install --save hrx formula
 ```
 
 ## Examples
 
 ### Quick start
 
-A minimal app with home and 404 page.
+A minimal hrx app with home and 404 page.
 
 ```js
-import {boot, Loadable, Rule, Eval} from 'xander';
+import { createElement as h } from 'react';
+import { R as r } from 'formula'
+import {boot, Loadable, Rule, Eval} from 'hrx';
 
 // Calling constructor function return React component.
 boot({
@@ -42,39 +45,40 @@ boot({
       loading: (props) => <div>My Loader Code</div>
     })
   }, {
-    path: '/test_rules',
-    component: (props) => (
-      <div>
-        <Rule exp="SUM(A,B)" values={{ A: 2, B: 4 }} />
-        <Eval exp="A + B" values={{ A: 2, B: 4 }} />
-        <Rule
-          exp={`AND(status = true, country = "Denmark")`}
-          values={{ valid: true, country: "Denmark" }}
-        />
-      </div>
+    path: '/hyperscript',
+    component: (props) => h('div',
+      h(Rule, { exp: 'sum(A,B)'}, values: { A: 2, B: 4 }),
+      h(Eval, { exp: 'sum(A,B)'}, values: { A: 2, B: 4 }),
     )
+  }, {
+    path: '/jsx',
+    component: (props) =>
+    <div>
+      <Rule exp="sum(A,B)" values={{ A: 2, B: 4 }} />
+      <Eval exp="sum(A, B)" values={{ A: 2, B: 4 }} />
+    </div>
   }, {
     path: '*',
     component: (props) => <div>404</div>
   }])
 
-})
+}, document.getElementById('your-dom-element-goes-here'))
 ```
 
 ### xan server
 
-Do you want a full featured development server with new project setup? Try xan server.
+Try [xan](https://github.com/FormBucket/xan) for a full featured development server.
 
 ### webpack
 
-Do you like to tinker? If so, then Webpack is recommended to bundle your projects. The [minimal example](./examples/minimal) provides a simple boilerplate setup. For larger projects, look at the [async example](./examples/async) which utilizes webpack's code splitting to scale your app.
+Already use webpack? The [minimal example](./examples/minimal) offers a simple boilerplate.
 
 ### Link Component
 
 A link component to hyperlink your app without annoying page refreshes.
 
 ```js
-import {Link} from 'xander'
+import {Link} from 'hrx'
 <Link to="/buckets" />
 <Link type="button" to="/buckets" />
 <Link type="button" to="/buckets" type="button" /> // render button tag instead of a
@@ -82,14 +86,14 @@ import {Link} from 'xander'
 
 ### Router
 
-A minimal router, only supports history API.
+A minimal router, backed by native history API.
 
 ```js
-import { router } from "xander";
+import { router } from "hrx";
 router.open("/buckets/1");
 ```
 
-Use `redirect` to change the URL without adding an entry to the history state.
+Use `redirect` to modify URL without adding an entry to the history state.
 
 ```js
 router.redirect("/buckets");
@@ -97,7 +101,7 @@ router.redirect("/buckets");
 
 #### Load Routes
 
-Load routes and related configuration.
+Load routes and related configuration without `boot`.
 
 ```js
 loadRoutes([
@@ -113,7 +117,7 @@ loadRoutes([
 Use `createStore` to create immutable stores.
 
 ```js
-import { createStore } from "xander";
+import { createStore } from "hrx";
 createStore(name, reducerOrSpec, actionsAndQueries);
 ```
 
