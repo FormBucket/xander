@@ -100,7 +100,9 @@ The Connect HOC component syncs Xander state with React state.
 
 ```jsx
 import {connect, Container} from 'hrx'
-render connect(Container)
+render(
+  connect(Container) // <- boot function does just this
+)
 ```
 
 #### Loadable Component
