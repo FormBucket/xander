@@ -12,6 +12,6 @@ boot({
     component: (props) => "Hello, World."
   }, {
     path: "*",
-    component: ((props) => "No Page Found" )
+    component: (props) => "No Page Found"
   }]
 });
