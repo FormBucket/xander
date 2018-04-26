@@ -72,7 +72,7 @@ var testComponent = props => (
 
 var pageNotFound = props => <div>not found</div>;
 
-var { createStore, dispatch, promiseAction } = require("fluxury");
+var { createStore, dispatch, promiseAction } = require("xander");
 var router = require("../src/router");
 var { loadContent, loadRoutes, Link, Container } = require("../src/index");
 var xander = require("../src/index");
@@ -259,7 +259,7 @@ test("check replace routes", function*(t) {
 // connect tests
 
 var { connect } = require("../src/index");
-var { createStore, dispatch } = require("fluxury");
+var { createStore, dispatch } = require("xander");
 
 test("api tests", function(t) {
   t.plan(1);
