@@ -26,8 +26,8 @@
     "xan": "0.28.0"
   },
   "dependencies": {
+    "hrx": "^0.1.1",
     "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "xander": "^0.15.0"
+    "react-dom": "^16.1.1"
   }
 }

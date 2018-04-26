@@ -1,4 +1,4 @@
-import { loadable } from "../../../lib/index";
+import { loadable } from "hrx";
 
 let loader = loader =>
   loadable({

@@ -29,51 +29,32 @@ npm install --save hrx formula
 A minimal hrx app with home and 404 page.
 
 ```js
-import { createElement as h } from 'react';
-import { RUN as r } from 'formula'
-import {boot, Loadable, Rule, Eval} from 'hrx';
+// Import the boot function to intialize hrx.
+import {boot} from 'hrx';
 
-// Calling constructor function return React component.
+// Import sass styles onto the page.
+require('./app.scss');
+
+// Boot the app into a root DOM element. Map your URLs to component to render.
 boot({
+  rootEl: document.getElementById('root'),
   routes: [{
-    path: '/',
-    component: (props) => <div>Hello, World.</div>
+    path: "/",
+    component: (props) => "Hello, World."
   }, {
-    path: '/page-splitting',
-    component: Loadable({
-      loader: () => import('./page-to-your-component'),
-      loading: (props) => <div>My Loader Code</div>
-    })
-  }, {
-    path: '/hyperscript',
-    component: (props) => h('div',
-      h(Rule, { exp: 'sum(A,B)'}, values: { A: 2, B: 4 }),
-      h(Eval, { exp: 'sum(A,B)'}, values: { A: 2, B: 4 }),
-    )
-  }, {
-    path: '/jsx',
-    component: (props) =>
-    <div>
-      <Rule exp="sum(A,B)" values={{ A: 2, B: 4 }} />
-      <Eval exp="sum(A, B)" values={{ A: 2, B: 4 }} />
-    </div>
-  }, {
-    path: '*',
-    component: (props) => <div>404</div>
-  }])
-
-}, document.getElementById('your-dom-element-goes-here'))
+    path: "*",
+    component: ((props) => "No Page Found" )
+  }]
+});
 ```
 
 ### xan server
 
-Try [xan](https://github.com/FormBucket/xan) for a full featured development server.
+Want a full featured static site generator and hot reloading development server. Checkout [xan](https://github.com/FormBucket/xan)
 
-### webpack
+### Components
 
-Already use webpack? The [minimal example](./examples/minimal) offers a simple boilerplate.
-
-### Link Component
+#### Link Component
 
 A link component to hyperlink your app without annoying page refreshes.
 
@@ -84,7 +65,68 @@ import {Link} from 'hrx'
 <Link type="button" to="/buckets" type="button" /> // render button tag instead of a
 ```
 
-### Router
+#### Eval Component
+
+The Eval component calculates the result of a formula expression.
+
+```js
+import {Eval} from 'hrx'
+<Eval exp="SUM(A, B)" values={ A: 2, B: 2 } />
+```
+
+#### Rule Component
+
+The Rule component renders HTML describing a formula expression.
+
+```js
+import {Rule} from 'hrx'
+<Rule exp="SUM(A, B)" />
+```
+
+#### Connect Component
+
+The Connect HOC component syncs Xander state with React state.
+
+```jsx
+import {Link} from 'hrx'
+render(
+  <Connect>
+  </Connect>
+)
+```
+
+#### Container Component
+
+The Container component renders the component based on URL.
+
+```jsx
+import {Link} from 'hrx'
+render(
+  <Container>
+  </Container>
+)
+```
+
+#### Loadable Component
+
+The Loadable HOC works with webpack to split your app into chunks that load dynamically.
+
+```jsx
+import {Loadable} from 'hrx'
+let HomePage = (props) =>
+<div>
+  <div id="hero">...</div>
+  {
+    loadable({
+      loader: () => import("./HomePageBelowFold")
+    })
+  }
+</div>
+```
+
+### Stores
+
+#### Router
 
 A minimal router, backed by native history API.
 
@@ -99,7 +141,7 @@ Use `redirect` to modify URL without adding an entry to the history state.
 router.redirect("/buckets");
 ```
 
-#### Load Routes
+##### Load Routes
 
 Load routes and related configuration without `boot`.
 
@@ -112,7 +154,15 @@ loadRoutes([
 ]);
 ```
 
-### State management
+#### Window
+
+The window store (optional) keeps track of window size and scroll location; keeps in sync with DOM.
+
+```js
+import windowStore from "hrx/lib/window";
+```
+
+#### Custom State management
 
 Use `createStore` to manage locally cached data.
 
@@ -121,4 +171,4 @@ import { createStore } from "hrx";
 createStore(name, reducerOrSpec, actionsAndQueries);
 ```
 
-For more examples see [xander](https://github.com/FormBucket/xander).
+For more info checkout [xander](https://github.com/FormBucket/xander).

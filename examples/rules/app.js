@@ -1,11 +1,11 @@
 import React from "react";
-import { boot, Rule, Eval } from "xander";
+import { boot, Rule, Eval } from "hrx";
 import * as Formula from "formula";
 
 window.Formula = Formula;
 
 require("./app.scss");
-require("../../xander.css");
+require("hrx/xander.css");
 
 let query = `OR( status=false, AND(status = true, country = "Denmark") )`;
 
