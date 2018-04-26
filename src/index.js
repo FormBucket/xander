@@ -44,6 +44,7 @@ hrx.Link = Link;
 hrx.Eval = Eval;
 hrx.Rule = Rule;
 hrx.loadable = loadable;
+hrx.loader = loader => loadable({ loader });
 hrx.Container = Container;
 hrx.connect = connect;
 hrx.createStore = createStore;

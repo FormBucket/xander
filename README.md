@@ -105,21 +105,22 @@ render(
 )
 ```
 
-#### Loadable Component
+#### Loadable / loader HOCs
 
 The Loadable HOC works with webpack to split your app into chunks that load dynamically.
 
 ```jsx
-import {Loadable} from 'hrx'
-let HomePage = (props) =>
-<div>
-  <div id="hero">...</div>
-  {
-    loadable({
-      loader: () => import("./HomePageBelowFold")
+import {Loadable, loader} from 'hrx'
+let routes = [{
+    path: "/",
+    component: loadable({
+      loader: () => import('./home'),
+      delay: 500 // 0.500 seconds
     })
-  }
-</div>
+  }, {
+    path: "*",
+    component: loader(() => import('./404'))
+  }]
 ```
 
 ### Stores
