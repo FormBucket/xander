@@ -114,11 +114,11 @@ loadRoutes([
 
 ### State management
 
-Use `createStore` to create immutable stores.
+Use `createStore` to manage locally cached data.
 
 ```js
 import { createStore } from "hrx";
 createStore(name, reducerOrSpec, actionsAndQueries);
 ```
 
-For more examples see [fluxury](https://github.com/formula/fluxury).
+For more examples see [xander](https://github.com/FormBucket/xander).
