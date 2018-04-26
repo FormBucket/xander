@@ -13,7 +13,7 @@ import {
   dispatch,
   promiseAction,
   replaceReducer
-} from "fluxury";
+} from "xander";
 import loadable from "./loadable";
 import Container from "./container";
 import connect from "./connect";

@@ -2,8 +2,8 @@
  * Copyright (c) 2015-2018, JC Fisher
  */
 
-var createStore = require("fluxury").createStore;
-var dispatch = require("fluxury").dispatch;
+var createStore = require("xander").createStore;
+var dispatch = require("xander").dispatch;
 var pathToRegexp = require("./pathToRegexp");
 let pathRegexps = {};
 let isobject = require("formula").ISOBJECT;

@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2018, JC Fisher
  */
 
-import { createStore, dispatch } from "fluxury";
+import { createStore, dispatch } from "xander";
 
 let getWindow = () => ({
   width: window.innerWidth,
