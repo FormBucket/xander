@@ -12,7 +12,7 @@ Framework for [React](https://github.com/facebook/react) and [Formula](https://g
 * **r** is for `RUN` expression.
 * **x** is for [xander](https://github.com/FormBucket/xander).
 
-hrx is hyperscript + formula.
+hrx is **h**yperscript + **f**ormula + **x**ander
 
 ## Usage
 
