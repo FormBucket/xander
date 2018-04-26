@@ -83,21 +83,9 @@ import {Rule} from 'hrx'
 <Rule exp="SUM(A, B)" />
 ```
 
-#### Connect Component
-
-The Connect HOC component syncs Xander state with React state.
-
-```jsx
-import {Link} from 'hrx'
-render(
-  <Connect>
-  </Connect>
-)
-```
-
 #### Container Component
 
-The Container component renders the component based on URL.
+The Container component renders a child component based on URL.
 
 ```jsx
 import {Link} from 'hrx'
@@ -105,6 +93,14 @@ render(
   <Container>
   </Container>
 )
+```
+#### Connect Component
+
+The Connect HOC component syncs Xander state with React state.
+
+```jsx
+import {connect, Container} from 'hrx'
+render connect(Container)
 ```
 
 #### Loadable Component
