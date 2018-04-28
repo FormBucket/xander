@@ -28,7 +28,6 @@ class Link extends React.Component {
 
     if (this.props.stopPropagation) event.stopPropagation();
     event.preventDefault();
-    createElement;
     this.props.action ? this.props.action(event) : router.open(this.props.to);
   }
 
