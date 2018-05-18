@@ -1,6 +1,6 @@
 {
   "name": "hrx",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/hrx.git",
   "main": "./index.js",

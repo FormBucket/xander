@@ -273,6 +273,10 @@ class Rule extends React.Component {
       );
     }
 
+    function renderFunctionEnd(config, f) {
+      return null;
+    }
+
     let newConfig = ASSIGN(
       defaultConfig,
       {
@@ -283,7 +287,8 @@ class Rule extends React.Component {
         renderRange,
         renderGroup,
         renderValue,
-        renderFunction
+        renderFunction,
+        renderFunctionEnd
       },
       props.config
     );
