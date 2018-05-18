@@ -1,0 +1,34 @@
+.hrx-rules-block {
+  margin: 2px;
+  padding: 2px;
+  border: 1px #ccc solid;
+  border-radius: 3px;
+}
+
+.hrx-rules-group,
+.hrx-rules-array,
+.hrx-rules-args {
+  margin-left: 20px;
+}
+
+.hrx-rules-function {
+  color: bold;
+}
+
+.hrx-rules-group {
+}
+
+.hrx-rules-operator {
+}
+
+.hrx-rules-depth-1 {
+  margin-left: 0px;
+}
+
+.hrx-rules-depth-2 {
+  margin-left: 0px;
+}
+
+.hrx-rules-depth-3 {
+  margin-left: 0px;
+}

@@ -3,7 +3,7 @@
  */
 
 import React, { createElement as h } from "react";
-import { subscribe, getState } from "xander";
+import { subscribe, getState } from "./store";
 
 function connect(Composed) {
   return class Connect extends React.PureComponent {

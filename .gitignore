@@ -4,3 +4,6 @@ dist
 .DS_Store
 yarn.lock
 example/package-lock.json
+.vscode
+examples/minimal/.cache/*.json
+examples/rules/.cache/*.json

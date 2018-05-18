@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2018, JC Fisher
  */
 
-import { createStore, dispatch } from "xander";
+import { createStore, dispatch } from "./store";
 import pathToRegexp from "./pathToRegexp";
 let pathRegexps = {};
 import { ISOBJECT, PARSEQUERY as parseQuery } from "formula";

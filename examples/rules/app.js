@@ -5,7 +5,7 @@ import * as Formula from "formula";
 window.Formula = Formula;
 
 require("./app.scss");
-require("hrx/xander.css");
+require("hrx/rules.css");
 
 let query = `OR( status=false, AND(status = true, country = "Denmark") )`;
 

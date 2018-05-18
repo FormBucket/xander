@@ -1,6 +1,6 @@
 {
   "name": "hrx",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/hrx.git",
   "main": "./lib/index.js",
@@ -29,10 +29,8 @@
   "author": "JC Fisher",
   "license": "MIT",
   "peerDependencies": {
+    "formula": "^3.5.0",
     "react": "^15.6.2 || ^16.0.0"
   },
-  "dependencies": {
-    "formula": "^3.5.0",
-    "xander": "^2.0.0"
-  }
+  "dependencies": {}
 }

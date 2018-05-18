@@ -4,7 +4,7 @@
 
 import React, { createElement as h } from "react";
 import { render as reactRender } from "react-dom";
-import { dispatch } from "xander";
+import { dispatch } from "./store";
 import Container from "./container";
 import connect from "./connect";
 import router from "./router";
@@ -32,7 +32,7 @@ export let render = (options, rootEl) => {
   reactRender(h(App), rootEl);
 };
 
-export { dispatch, subscribe, createStore } from "xander";
+export { dispatch, subscribe, createStore } from "./store";
 export { default as router } from "./router";
 export { default as Link } from "./link";
 export { default as Eval } from "./eval";

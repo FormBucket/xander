@@ -22,26 +22,26 @@ class Rule extends React.Component {
         "div",
         {
           style: (config.renderFunctionStyle || function() {})(f, depth),
-          className: "xander-rules-section xander-rules-function"
+          className: "hrx-rules-section hrx-rules-function"
         },
         h(
           "span",
           null,
           h(
             "span",
-            { className: "xander-rules-function-begin" },
+            { className: "hrx-rules-function-begin" },
             config.renderFunctionBegin(config, f, depth)
           ),
           h(
             "div",
-            { className: "xander-rules-args" },
+            { className: "hrx-rules-args" },
             f.args.map(function(d) {
               return config.renderRule(config, d, depth + 1);
             })
           ),
           h(
             "span",
-            { className: "xander-rules-function-end  " },
+            { className: "hrx-rules-function-end  " },
             config.renderFunctionEnd(config, f, depth)
           )
         )
@@ -54,7 +54,7 @@ class Rule extends React.Component {
         "div",
         {
           style: (config.renderOperatorStyle || function() {})(o, depth),
-          className: "xander-rules-section xander-rules-operator"
+          className: "hrx-rules-section hrx-rules-operator"
         },
         branch(
           operands.length === 1,
@@ -63,13 +63,13 @@ class Rule extends React.Component {
               "div",
               {
                 style: (config.renderOperatorStyle || function() {})(o, depth),
-                className: "xander-rules-operator"
+                className: "hrx-rules-operator"
               },
               h(
                 "span",
                 {
                   style: (config.renderPrefixStyle || function() {})(o, depth),
-                  className: "xander-rules-operator-" + subtype
+                  className: "hrx-rules-operator-" + subtype
                 },
                 branch(
                   subtype == "prefix-minus",
@@ -81,7 +81,7 @@ class Rule extends React.Component {
               h(
                 "span",
                 {
-                  className: "xander-rules-rhs",
+                  className: "hrx-rules-rhs",
                   style: (config.renderRHSStyle || function() {})(o, depth)
                 },
                 config.renderRule(config, operands[0], depth + 1)
@@ -94,13 +94,13 @@ class Rule extends React.Component {
               "div",
               {
                 style: (config.renderOperatorStyle || function() {})(o, depth),
-                className: "xander-rules-operator"
+                className: "hrx-rules-operator"
               },
               h(
                 "span",
                 {
                   style: (config.renderLHSStyle || function() {})(o, depth),
-                  className: "xander-rules-lhs"
+                  className: "hrx-rules-lhs"
                 },
                 renderRule(config, operands[0], depth + 1)
               ),
@@ -109,7 +109,7 @@ class Rule extends React.Component {
                 "span",
                 {
                   style: (config.rendeInfixStyle || function() {})(o, depth),
-                  className: "xander-rules-operator-" + subtype
+                  className: "hrx-rules-operator-" + subtype
                 },
                 branch(
                   subtype == "infix-eq",
@@ -144,7 +144,7 @@ class Rule extends React.Component {
                 "span",
                 {
                   style: (config.renderRHSStyle || function() {})(o, depth),
-                  className: "xander-rules-rhs"
+                  className: "hrx-rules-rhs"
                 },
                 renderRule(config, operands[1], depth + 1)
               )
@@ -163,8 +163,7 @@ class Rule extends React.Component {
         {
           style: (config.renderOperandStyle || function() {})(o, depth),
           className:
-            "xander-rules-section xander-rules-value xander-rules-value-" +
-            subtype
+            "hrx-rules-section hrx-rules-value hrx-rules-value-" + subtype
         },
         branch(
           subtype === "string",
@@ -190,7 +189,7 @@ class Rule extends React.Component {
                   "div",
                   {
                     key: key++,
-                    className: "xander-rules-value xander-rules-array"
+                    className: "hrx-rules-value hrx-rules-array"
                   },
                   config.renderRule(config, d, depth + 1)
                 );
@@ -209,7 +208,7 @@ class Rule extends React.Component {
         {
           key: key++,
           style: (config.renderRangeStyle || function() {})(g, depth),
-          className: "xander-rules-section xander-rules-group"
+          className: "hrx-rules-section hrx-rules-group"
         },
         "(",
         config.renderRule(g.exp, depth + 1),
@@ -222,7 +221,7 @@ class Rule extends React.Component {
         "div",
         {
           style: (config.renderRangeStyle || function() {})(r, depth),
-          className: "xander-rules-section xander-rules-range"
+          className: "hrx-rules-section hrx-rules-range"
         },
         branch(
           config.hasOwnProperty("renderRange"),
@@ -247,7 +246,7 @@ class Rule extends React.Component {
         "div",
         {
           style: (config.renderVariableStyle || function() {})(v, depth),
-          className: "xander-rules-section xander-rules-variable-name"
+          className: "hrx-rules-section hrx-rules-variable-name"
         },
         defaultConfig.renderVariable(config, v, depth)
       );
@@ -263,11 +262,11 @@ class Rule extends React.Component {
           key: ruleKey++,
           style: (config.renderRuleStyle || function() {})(ast, depth),
           className:
-            "xander-rules-block xander-rules-block-" +
+            "hrx-rules-block hrx-rules-block-" +
             type +
-            " xander-rules-block-" +
+            " hrx-rules-block-" +
             subtype +
-            " xander-rules-depth-" +
+            " hrx-rules-depth-" +
             depth
         },
         defaultConfig.renderRule(config, ast, depth)
@@ -291,7 +290,7 @@ class Rule extends React.Component {
 
     return h(
       "div",
-      { className: "xander-rules-formula" },
+      { className: "hrx-rules-formula" },
       renderRule(newConfig, ast)
     );
   }
