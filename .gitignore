@@ -2,6 +2,5 @@
 node_modules
 dist
 .DS_Store
-lib
 yarn.lock
 example/package-lock.json
