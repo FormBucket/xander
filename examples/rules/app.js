@@ -1,5 +1,5 @@
 import React from "react";
-import { boot, Rule, Eval } from "hrx";
+import { render, Rule, Eval } from "hrx";
 import * as Formula from "formula";
 
 window.Formula = Formula;
@@ -69,26 +69,30 @@ let config = {
   // renderString: value => `'${value}'`
 };
 
-boot({
-  rootEl: document.getElementById("root"),
-  routes: [
-    {
-      path: "/",
-      component: props => (
-        <div>
-          QUERY:
-          <pre>{query}</pre>
-          <h3>Empty config</h3>
-          <Rule exp={query} />
-          <hr />
-          <h3>Default config</h3>
-          <Rule exp={query} config={config} />
-        </div>
-      )
-    },
-    {
-      path: "*",
-      component: props => "No Page Found"
-    }
-  ]
-});
+let routes = [
+  {
+    path: "/",
+    component: props => (
+      <div>
+        QUERY:
+        <pre>{query}</pre>
+        <h3>Empty config</h3>
+        <Rule exp={query} />
+        <hr />
+        <h3>Default config</h3>
+        <Rule exp={query} config={config} />
+      </div>
+    )
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
+
+render(
+  {
+    routes
+  },
+  document.getElementById("root")
+);

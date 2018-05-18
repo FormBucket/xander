@@ -1,5 +1,5 @@
 {
-  "name": "xander-minimal-example",
+  "name": "xan-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,7 +26,7 @@
     "xan": "0.28.0"
   },
   "dependencies": {
-    "hrx": "^0.1.1",
+    "hrx": "^0.3.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   }

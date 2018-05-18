@@ -253,12 +253,14 @@ class Rule extends React.Component {
       );
     }
 
+    let ruleKey = 0;
     function renderRule(config, ast, depth = 0) {
       let { type, subtype } = ast;
 
       return h(
         "div",
         {
+          key: ruleKey++,
           style: (config.renderRuleStyle || function() {})(ast, depth),
           className:
             "xander-rules-block xander-rules-block-" +

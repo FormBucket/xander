@@ -1,32 +1,22 @@
 {
   "name": "xander-rules-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "Rules example built with parceljs",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --hot --inline",
-    "build": "webpack --config webpack.config.prod.js",
+    "start": "yarn parcel index.html",
+    "build": "yarn parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "JC Fisher",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.26.0",
-    "css-loader": "^0.28.7",
-    "file-loader": "^1.1.5",
-    "node-sass": "^4.7.2",
-    "react-hot-loader": "^3.1.2",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4",
-    "whatwg-fetch": "^2.0.3"
+    "node-sass": "^4.9.0",
+    "parcel": "^1.8.1"
   },
   "dependencies": {
-    "formula": "^3.5.0",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "hrx": "^0.1.1"
+    "hrx": "^0.3.3",
+    "react": "^15.6.2 || ^16.0.0",
+    "react-dom": "^16.1.1"
   }
 }

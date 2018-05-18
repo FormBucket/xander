@@ -1,8 +1,8 @@
 import { loadable } from "hrx";
 
-let loader = loader =>
+let loader = thunk =>
   loadable({
-    loader
+    loader: thunk
   });
 
 let routes = [
