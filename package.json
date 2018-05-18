@@ -5,11 +5,13 @@
   "repository": "git+https://github.com/FormBucket/hrx.git",
   "main": "./lib/index.js",
   "scripts": {
-    "build":
-      "rollup --format=umd --name=hrx --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble > ./lib/index.js",
-    "test": "babel-node tests/public-api; babel-node tests/router"
+    "build": "rollup --format=umd --name=hrx --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble | npx uglifyjs > ./lib/index.js",
+    "test": "babel-node tests/public-api; babel-node tests/router;  babel-node tests/store"
   },
-  "keywords": ["flux", "react"],
+  "keywords": [
+    "flux",
+    "react"
+  ],
   "homepage": "https://github.com/FormBucket/hrx#readme",
   "devDependencies": {
     "babel-cli": "^6.1.2",
@@ -23,6 +25,7 @@
     "react-dom": "^16.3.2",
     "tape": "^4.2.2",
     "tape-async": "^2.1.1",
+    "uglify-js": "^3.3.25",
     "window": "^4.2.5"
   },
   "author": "JC Fisher",
