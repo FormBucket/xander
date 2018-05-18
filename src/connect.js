@@ -15,7 +15,6 @@ function connect(Composed) {
 
     componentDidMount() {
       this.token = subscribe(this.onChange);
-      Default;
     }
 
     componentWillUnmount() {
