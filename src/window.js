@@ -4,28 +4,32 @@
 
 import { createStore, dispatch } from "xander";
 
-let getWindow = () => ({
-  width: window.innerWidth,
-  height: window.innerHeight,
-  scrollX: window.scrollX,
-  scrollY: window.scrollY
-});
+let start = () => {
+  let getWindow = () => ({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    scrollX: window.scrollX,
+    scrollY: window.scrollY
+  });
 
-let windowStore = createStore("window", {
-  getInitialState: getWindow,
-  windowOnResize: (state, data) => data,
-  windowOnScroll: (state, data) => data
-});
+  let windowStore = createStore("window", {
+    getInitialState: getWindow,
+    windowOnResize: (state, data) => data,
+    windowOnScroll: (state, data) => data
+  });
 
-function resize() {
-  dispatch("windowOnResize", getWindow());
-}
+  function resize() {
+    dispatch("windowOnResize", getWindow());
+  }
 
-function scroll() {
-  dispatch("windowOnScroll", getWindow());
-}
+  function scroll() {
+    dispatch("windowOnScroll", getWindow());
+  }
 
-window.onresize = resize;
-window.onscroll = scroll;
+  window.onresize = resize;
+  window.onscroll = scroll;
 
-export default windowStore;
+  return windowStore;
+};
+
+export default () => start();

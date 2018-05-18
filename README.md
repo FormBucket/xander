@@ -30,27 +30,112 @@ A minimal hrx app with home and 404 page.
 
 ```js
 // Import the boot function to intialize hrx.
-import {boot} from 'hrx';
+import { render } from "hrx";
 
-// Import sass styles onto the page.
-require('./app.scss');
+// Define routes for your app.
+let routes = [
+  {
+    path: "/",
+    component: props => "Hello, World."
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
 
 // Boot the app into a root DOM element. Map your URLs to component to render.
-boot({
-  rootEl: document.getElementById('root'),
-  routes: [{
-    path: "/",
-    component: (props) => "Hello, World."
-  }, {
-    path: "*",
-    component: ((props) => "No Page Found" )
-  }]
-});
+render({ routes }, document.getElementById("root"));
 ```
 
-### xan server
+### With React's render
 
-Want a full featured static site generator and hot reloading development server. Checkout [xan](https://github.com/FormBucket/xan)
+Render HRX with React's render function.
+
+````js
+// Import the boot function to intialize hrx.
+import { app } from "hrx";
+import React from "react";
+import { render } from "react-dom";
+
+// Define routes for your app.
+let routes = [# hrx
+
+[![CircleCI](https://circleci.com/gh/FormBucket/hrx.svg?style=svg)](https://circleci.com/gh/FormBucket/hrx)
+
+## Overview
+
+Framework for [React](https://github.com/facebook/react) and [Formula](https://github.com/FormBucket/formula).
+
+## why hrx?
+
+* **h** is for hyperscript.
+* **r** is for `RUN` expression.
+* **x** is for [xander](https://github.com/FormBucket/xander).
+
+hrx is **h**yperscript + **f**ormula + **x**ander
+
+## Usage
+
+## Installation
+
+```sh
+npm install --save hrx formula
+````
+
+## Examples
+
+### Quick start
+
+A minimal hrx app with home and 404 page.
+
+```js
+// Import the boot function to intialize hrx.
+import { render } from "hrx";
+
+// Define routes for your app.
+let routes = [
+  {
+    path: "/",
+    component: props => "Hello, World."
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
+
+// Boot the app into a root DOM element. Map your URLs to component to render.
+render({ routes }, document.getElementById("root"));
+```
+
+### With React's render
+
+Render HRX with React's render function.
+
+```js
+// Import the boot function to intialize hrx.
+import { app } from "hrx";
+import React from "react";
+import { render } from "react-dom";
+
+// Define routes for your app.
+let routes = [
+  {
+    path: "/",
+    component: props => "Hello, World."
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
+
+let App = app({ routes });
+
+// Boot the app into a root DOM element. Map your URLs to component to render.
+render(<App />, document.getElementById("root"));
+```
 
 ### Components
 
@@ -88,21 +173,19 @@ import {Rule} from 'hrx'
 The Container component renders a child component based on URL.
 
 ```jsx
-import {Link} from 'hrx'
-render(
-  <Container>
-  </Container>
-)
+import { Link } from "hrx";
+render(<Container />);
 ```
+
 #### Connect Component
 
 The Connect HOC component syncs Xander state with React state.
 
 ```jsx
-import {connect, Container} from 'hrx'
+import { connect, Container } from "hrx";
 render(
   connect(Container) // <- boot function does just this
-)
+);
 ```
 
 #### Loadable / loader HOCs
@@ -110,17 +193,20 @@ render(
 The Loadable HOC works with webpack to split your app into chunks that load dynamically.
 
 ```jsx
-import {Loadable, loader} from 'hrx'
-let routes = [{
+import { loadable, loader } from "hrx";
+let routes = [
+  {
     path: "/",
     component: loadable({
-      loader: () => import('./home'),
+      loader: () => import("./home"),
       delay: 500 // 0.500 seconds
     })
-  }, {
+  },
+  {
     path: "*",
-    component: loader(() => import('./404'))
-  }]
+    component: loader(() => import("./404"))
+  }
+];
 ```
 
 ### Stores
@@ -145,7 +231,8 @@ router.redirect("/buckets");
 Load routes and related configuration without `boot`.
 
 ```js
-loadRoutes([
+import { router } from "hrx";
+router.loadRoutes([
   {
     path: "/",
     component: require("./pages/home")
@@ -153,12 +240,210 @@ loadRoutes([
 ]);
 ```
 
-#### Window
+#### Window Store
 
 The window store (optional) keeps track of window size and scroll location; keeps in sync with DOM.
 
 ```js
-import windowStore from "hrx/lib/window";
+import { loadWindowStore } from "hrx";
+
+loadWindowStore();
+```
+
+#### Custom State management
+
+Use `createStore` to manage locally cached data.
+
+````js
+import { createStore } from "hrx";# hrx
+
+[![CircleCI](https://circleci.com/gh/FormBucket/hrx.svg?style=svg)](https://circleci.com/gh/FormBucket/hrx)
+
+## Overview
+
+Framework for [React](https://github.com/facebook/react) and [Formula](https://github.com/FormBucket/formula).
+
+## why hrx?
+
+* **h** is for hyperscript.
+* **r** is for `RUN` expression.
+* **x** is for [xander](https://github.com/FormBucket/xander).
+
+hrx is **h**yperscript + **f**ormula + **x**ander
+
+## Usage
+
+## Installation
+
+```sh
+npm install --save hrx formula
+````
+
+## Examples
+
+### Quick start
+
+A minimal hrx app with home and 404 page.
+
+```js
+// Import the boot function to intialize hrx.
+import { render } from "hrx";
+
+// Define routes for your app.
+let routes = [
+  {
+    path: "/",
+    component: props => "Hello, World."
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
+
+// Boot the app into a root DOM element. Map your URLs to component to render.
+render({ routes }, document.getElementById("root"));
+```
+
+### With React's render
+
+Render HRX with React's render function.
+
+```js
+// Import the boot function to intialize hrx.
+import { app } from "hrx";
+import React from "react";
+import { render } from "react-dom";
+
+// Define routes for your app.
+let routes = [
+  {
+    path: "/",
+    component: props => "Hello, World."
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
+
+let App = app({ routes });
+
+// Boot the app into a root DOM element. Map your URLs to component to render.
+render(<App />, document.getElementById("root"));
+```
+
+### Components
+
+#### Link Component
+
+A link component to hyperlink your app without annoying page refreshes.
+
+```js
+import {Link} from 'hrx'
+<Link to="/buckets" />
+<Link type="button" to="/buckets" />
+<Link type="button" to="/buckets" type="button" /> // render button tag instead of a
+```
+
+#### Eval Component
+
+The Eval component calculates the result of a formula expression.
+
+```js
+import {Eval} from 'hrx'
+<Eval exp="SUM(A, B)" values={ A: 2, B: 2 } />
+```
+
+#### Rule Component
+
+The Rule component renders HTML describing a formula expression.
+
+```js
+import {Rule} from 'hrx'
+<Rule exp="SUM(A, B)" />
+```
+
+#### Container Component
+
+The Container component renders a child component based on URL.
+
+```jsx
+import { Link } from "hrx";
+render(<Container />);
+```
+
+#### Connect Component
+
+The Connect HOC component syncs Xander state with React state.
+
+```jsx
+import { connect, Container } from "hrx";
+render(
+  connect(Container) // <- boot function does just this
+);
+```
+
+#### Loadable / loader HOCs
+
+The Loadable HOC works with webpack to split your app into chunks that load dynamically.
+
+```jsx
+import { loadable, loader } from "hrx";
+let routes = [
+  {
+    path: "/",
+    component: loadable({
+      loader: () => import("./home"),
+      delay: 500 // 0.500 seconds
+    })
+  },
+  {
+    path: "*",
+    component: loader(() => import("./404"))
+  }
+];
+```
+
+### Stores
+
+#### Router
+
+A minimal router, backed by native history API.
+
+```js
+import { router } from "hrx";
+router.open("/buckets/1");
+```
+
+Use `redirect` to modify URL without adding an entry to the history state.
+
+```js
+router.redirect("/buckets");
+```
+
+##### Load Routes
+
+Load routes and related configuration without `boot`.
+
+```js
+import { router } from "hrx";
+router.loadRoutes([
+  {
+    path: "/",
+    component: require("./pages/home")
+  }
+]);
+```
+
+#### Window Store
+
+The window store (optional) keeps track of window size and scroll location; keeps in sync with DOM.
+
+```js
+import { loadWindowStore } from "hrx";
+
+loadWindowStore();
 ```
 
 #### Custom State management
@@ -168,6 +453,150 @@ Use `createStore` to manage locally cached data.
 ```js
 import { createStore } from "hrx";
 createStore(name, reducerOrSpec, actionsAndQueries);
+```
+
+For more info checkout [xander](https://github.com/FormBucket/xander).
+
+createStore(name, reducerOrSpec, actionsAndQueries);
+
+```
+For more info checkout [xander](https://github.com/FormBucket/xander).
+
+  {
+    path: "/",
+    component: props => "Hello, World."
+  },
+  {
+    path: "*",
+    component: props => "No Page Found"
+  }
+];
+
+let App = app({ routes });
+
+// Boot the app into a root DOM element. Map your URLs to component to render.
+render(<App />, document.getElementById("root"));
+```
+
+### Components
+
+#### Link Component
+
+A link component to hyperlink your app without annoying page refreshes.
+
+```js
+import {Link} from 'hrx'
+<Link to="/buckets" />
+<Link type="button" to="/buckets" />
+<Link type="button" to="/buckets" type="button" /> // render button tag instead of a
+```
+
+#### Eval Component
+
+The Eval component calculates the result of a formula expression.
+
+```js
+import {Eval} from 'hrx'
+<Eval exp="SUM(A, B)" values={ A: 2, B: 2 } />
+```
+
+#### Rule Component
+
+The Rule component renders HTML describing a formula expression.
+
+```js
+import {Rule} from 'hrx'
+<Rule exp="SUM(A, B)" />
+```
+
+#### Container Component
+
+The Container component renders a child component based on URL.
+
+```jsx
+import { Link } from "hrx";
+render(<Container />);
+```
+
+#### Connect Component
+
+The Connect HOC component syncs Xander state with React state.
+
+```jsx
+import { connect, Container } from "hrx";
+render(
+  connect(Container) // <- boot function does just this
+);
+```
+
+#### Loadable / loader HOCs
+
+The Loadable HOC works with webpack to split your app into chunks that load dynamically.
+
+```jsx
+import { loadable, loader } from "hrx";
+let routes = [
+  {
+    path: "/",
+    component: loadable({
+      loader: () => import("./home"),
+      delay: 500 // 0.500 seconds
+    })
+  },
+  {
+    path: "*",
+    component: loader(() => import("./404"))
+  }
+];
+```
+
+### Stores
+
+#### Router
+
+A minimal router, backed by native history API.
+
+```js
+import { router } from "hrx";
+router.open("/buckets/1");
+```
+
+Use `redirect` to modify URL without adding an entry to the history state.
+
+```js
+router.redirect("/buckets");
+```
+
+##### Load Routes
+
+Load routes and related configuration without `boot`.
+
+```js
+import { router } from "hrx";
+router.loadRoutes([
+  {
+    path: "/",
+    component: require("./pages/home")
+  }
+]);
+```
+
+#### Window Store
+
+The window store (optional) keeps track of window size and scroll location; keeps in sync with DOM.
+
+```js
+import { loadWindowStore } from "hrx";
+let windowStore = oadWindowStore();
+```
+
+#### Custom Stores
+
+Use `createStore` to manage locally cached data.
+
+```js
+import { createStore } from "hrx";
+createStore(key, reducerOrSpec, actionsAndQueries);
 ```
 
 For more info checkout [xander](https://github.com/FormBucket/xander).

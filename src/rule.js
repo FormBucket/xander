@@ -4,7 +4,7 @@
 
 import React, { createElement as h } from "react";
 import {
-  ASSIGN as assign,
+  ASSIGN,
   IF as branch,
   COMPILE as compile,
   WALKERCONFIGDEFAULT as defaultConfig
@@ -272,7 +272,7 @@ class Rule extends React.Component {
       );
     }
 
-    let newConfig = assign(
+    let newConfig = ASSIGN(
       defaultConfig,
       {
         visit: () => {},

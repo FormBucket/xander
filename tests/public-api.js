@@ -72,10 +72,15 @@ var testComponent = props => (
 
 var pageNotFound = props => <div>not found</div>;
 
-var { createStore, dispatch, promiseAction } = require("xander");
-var router = require("../src/router");
-var { loadContent, loadRoutes, Link, Container } = require("../src/index");
-var xander = require("../src/index");
+var {
+  app,
+  loadContent,
+  createStore,
+  dispatch,
+  router,
+  Link,
+  Container
+} = require("../lib/index");
 
 let routes = [
   {
@@ -100,7 +105,7 @@ let routes = [
   }
 ];
 
-let app = xander({ routes });
+let App = app({ routes });
 
 test("Exports are correct type", function(t) {
   t.plan(3);
@@ -219,7 +224,7 @@ test("location.open(path) works correctly", function*(t) {
 test("check replace routes", function*(t) {
   t.plan(2);
 
-  loadRoutes([
+  router.loadRoutes([
     {
       path: "/",
       component: testComponent
@@ -258,7 +263,7 @@ test("check replace routes", function*(t) {
 
 // connect tests
 
-var { connect } = require("../src/index");
+var { connect } = require("../lib/index");
 var { createStore, dispatch } = require("xander");
 
 test("api tests", function(t) {

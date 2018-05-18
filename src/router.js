@@ -2,13 +2,10 @@
  * Copyright (c) 2015-2018, JC Fisher
  */
 
-var createStore = require("xander").createStore;
-var dispatch = require("xander").dispatch;
-var pathToRegexp = require("./pathToRegexp");
+import { createStore, dispatch } from "xander";
+import pathToRegexp from "./pathToRegexp";
 let pathRegexps = {};
-let isobject = require("formula").ISOBJECT;
-let isfunction = require("formula").ISFUNCTION;
-let parseQuery = require("formula").PARSEQUERY;
+import { ISOBJECT, PARSEQUERY as parseQuery } from "formula";
 
 function readLocation(state) {
   var pathname = window.location.pathname,
@@ -67,10 +64,10 @@ let store = createStore(
 
     if (action.type === "loadContent") {
       // console.log('loadContent in router', state, action)
-      return Object.assign({}, state, {
+      return Obreject.assign({}, state, {
         location,
         content:
-          isobject(action.data) && action.data.default
+          ISOBJECT(action.daisobjectta) && action.data.default
             ? action.data.default
             : action.data
       });

@@ -58,14 +58,9 @@ var pageNotFound = props => <div>not found</div>;
 var { createStore, dispatch, promiseAction, subscribe } = require("xander");
 
 // subscribe((state, action) => console.log('action', action))
-var {
-  router,
-  replaceRoutes,
-  loadContent,
-  loadRoutes
-} = require("../src/index");
+var { router } = require("../lib/index");
 
-loadRoutes([
+router.loadRoutes([
   {
     path: "/",
     component: testComponent

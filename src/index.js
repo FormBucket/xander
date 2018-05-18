@@ -2,23 +2,14 @@
  * Copyright (c) 2015-2018, JC Fisher
  */
 
-import React from "react";
-import { render } from "react-dom";
-import router from "./router";
-import {
-  getState,
-  getStores,
-  subscribe,
-  createStore,
-  dispatch,
-  promiseAction,
-  replaceReducer
-} from "xander";
-import loadable from "./loadable";
+import React, { createElement as h } from "react";
+import { render as reactRender } from "react-dom";
+import { dispatch } from "xander";
 import Container from "./container";
 import connect from "./connect";
+import router from "./router";
 
-let hrx = ({ routes, debug }) => {
+export let app = ({ routes, debug }, rootEl) => {
   // load the routes
   if (routes) router.loadRoutes(routes);
 
@@ -31,32 +22,20 @@ let hrx = ({ routes, debug }) => {
   return connect(Container);
 };
 
-hrx.boot = options => {
-  let App = hrx(options);
-  render(React.createElement(App), options.rootEl || document.body);
+export let render = (options, rootEl) => {
+  if (!rootEl) {
+    console.log("rootEl must not be falsey");
+    return;
+  }
+  reactRender(h(App(options)), rootEl);
 };
-import Link from "./link";
-import Eval from "./eval";
-import Rule from "./rule";
 
-// Export static functions
-hrx.Link = Link;
-hrx.Eval = Eval;
-hrx.Rule = Rule;
-hrx.loadable = loadable;
-hrx.loader = loader => loadable({ loader });
-hrx.Container = Container;
-hrx.connect = connect;
-hrx.createStore = createStore;
-hrx.dispatch = dispatch;
-hrx.subscribe = subscribe;
-hrx.getState = getState;
-hrx.replaceReducer = replaceReducer;
-hrx.getStores = getStores;
-hrx.promiseAction = promiseAction;
-hrx.router = router;
-hrx.loadRoutes = router.loadRoutes;
-hrx.__esModule = true;
-hrx.default = hrx;
-hrx.openPath = path => router.open(path);
-module.exports = hrx;
+export { dispatch, subscribe, createStore } from "xander";
+export { default as router } from "./router";
+export { default as Link } from "./link";
+export { default as Eval } from "./eval";
+export { default as Rule } from "./rule";
+export { default as Container } from "./container";
+export { default as connect } from "./connect";
+export { default as loadable } from "./loadable";
+export { default as loadWindowStore } from "./window";

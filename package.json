@@ -1,21 +1,23 @@
 {
   "name": "hrx",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/hrx.git",
   "main": "./lib/index.js",
   "scripts": {
-    "build": "gulp",
+    "build": "rollup --format=umd --name=hrx --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble > ./lib/index.js",
     "test": "babel-node tests/public-api; babel-node tests/router"
   },
-  "keywords": ["flux", "react"],
+  "keywords": [
+    "flux",
+    "react"
+  ],
   "homepage": "https://github.com/FormBucket/hrx#readme",
   "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
-    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-polyfill": "^6.16.0",
-    "babel-preset-es2015": "^6.1.2",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.11.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -23,7 +25,8 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "tape": "^4.2.2",
-    "tape-async": "^2.1.1"
+    "tape-async": "^2.1.1",
+    "window": "^4.2.5"
   },
   "author": "JC Fisher",
   "license": "MIT",
@@ -31,7 +34,7 @@
     "react": "^15.6.2 || ^16.0.0"
   },
   "dependencies": {
-    "xander": "^1.1.0",
-    "formula": "^3.5.0"
+    "formula": "^3.5.0",
+    "xander": "^2.0.0"
   }
 }

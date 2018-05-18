@@ -7,9 +7,6 @@
  * Expose `pathtoRegexp`.
  */
 
-module.exports = pathtoRegexp;
-// Copyright 2017 JC Fisher
-
 /**
  * Normalize the given path string,
  * returning a regular expression.
@@ -66,3 +63,5 @@ function pathtoRegexp(path, keys, options) {
 
   return new RegExp("^" + path + "$", sensitive ? "" : "i");
 }
+
+export default pathtoRegexp;
