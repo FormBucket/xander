@@ -32,7 +32,14 @@ export let render = (options, rootEl) => {
   reactRender(h(App), rootEl);
 };
 
-export { dispatch, subscribe, createStore } from "./store";
+export {
+  dispatch,
+  subscribe,
+  createStore,
+  getState,
+  getStores,
+  replaceState
+} from "./store";
 export { default as router } from "./router";
 export { default as Link } from "./link";
 export { default as Eval } from "./eval";

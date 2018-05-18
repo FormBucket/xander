@@ -2,19 +2,11 @@
 
 [![CircleCI](https://circleci.com/gh/FormBucket/hrx.svg?style=svg)](https://circleci.com/gh/FormBucket/hrx)
 
-## Overview
+# Overview
 
-Framework for [React](https://github.com/facebook/react) and [Formula](https://github.com/FormBucket/formula).
+Frontend Framework for [React](https://github.com/facebook/react) and [Formula](https://github.com/FormBucket/formula).
 
-## why hrx?
-
-* **h** is for hyperscript.
-* **r** is for `RUN` expression.
-* **x** is for [xander](https://github.com/FormBucket/xander).
-
-hrx is **h**yperscript + **f**ormula + **x**ander
-
-## Usage
+# Usage
 
 ## Installation
 
@@ -22,9 +14,9 @@ hrx is **h**yperscript + **f**ormula + **x**ander
 npm install --save react formula hrx
 ```
 
-## Examples
+# Examples
 
-### Quick start
+## Quick start
 
 A minimal hrx app with home and 404 page.
 
@@ -48,7 +40,7 @@ let routes = [
 render({ routes }, document.getElementById("root"));
 ```
 
-### With React's render
+## With React's render
 
 Render HRX with React's render function.
 
@@ -65,20 +57,18 @@ let App = app({ routes });
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-### Components
+# Components
 
-#### Link Component
+## Link Component
 
 A link component to hyperlink your app without annoying page refreshes.
 
 ```js
 import {Link} from 'hrx'
-<Link to="/buckets" />
-<Link type="button" to="/buckets" />
-<Link type="button" to="/buckets" type="button" /> // render button tag instead of a
+<Link to="/buckets">Go to my buckets</Link>
 ```
 
-#### Eval Component
+## Eval Component
 
 The Eval component calculates the result of a formula expression.
 
@@ -87,7 +77,7 @@ import {Eval} from 'hrx'
 <Eval exp="SUM(A, B)" values={ A: 2, B: 2 } />
 ```
 
-#### Rule Component
+## Rule Component
 
 The Rule component renders HTML describing a formula expression.
 
@@ -96,50 +86,45 @@ import {Rule} from 'hrx'
 <Rule exp="SUM(A, B)" />
 ```
 
-#### Loadable / loader HOCs
+## Loadable / loader HOCs
 
 The Loadable HOC works with webpack to split your app into chunks that load dynamically.
 
 ```jsx
-import { loadable, loader } from "hrx";
+import { loadable } from "hrx";
 let routes = [
   {
     path: "/",
     component: loadable({
       loader: () => import("./home"),
+      loading: (props) => <div>Loading...</div>
       delay: 500 // 0.500 seconds
     })
-  },
-  {
-    path: "*",
-    component: loader(() => import("./404"))
   }
 ];
 ```
 
-#### Container Component
+## Container Component
 
-The Container component renders a child component based on URL.
+The Container component renders the router's current component.
 
 ```jsx
 import { Link } from "hrx";
 render(<Container />);
 ```
 
-#### Connect Component
+## Connect Component
 
-The Connect HOC component syncs Xander state with React state.
+The Connect HOC component syncs the store with React state.
 
 ```jsx
 import { connect, Container } from "hrx";
-render(
-  connect(Container) // <- boot function does just this
-);
+connect(Container);
 ```
 
-### Stores
+# Stores
 
-#### Router
+## Router
 
 A minimal router, backed by native history API.
 
@@ -154,9 +139,9 @@ Use `redirect` to modify URL without adding an entry to the history state.
 router.redirect("/buckets");
 ```
 
-##### Load Routes
+### Load Routes
 
-Load routes and related configuration without `boot`.
+Load routes and related configuration without `app` or `render`.
 
 ```js
 import { router } from "hrx";
@@ -168,9 +153,9 @@ router.loadRoutes([
 ]);
 ```
 
-#### Window Store
+## Window Store
 
-The window store (optional) keeps track of window size and scroll location; keeps in sync with DOM.
+The window store keeps track of window size and scroll location; syncs with DOM.
 
 ```js
 import { loadWindowStore } from "hrx";
@@ -178,9 +163,9 @@ import { loadWindowStore } from "hrx";
 loadWindowStore();
 ```
 
-#### Custom State management
+# Custom State management
 
-Use `createStore` for custom application state.
+HRX includes a state management system.
 
 ```js
 import { createStore } from "hrx";
@@ -202,4 +187,147 @@ todosStore.subscribe((state, action) => console.log('todos changes', state, acti
 todosStore.dispatch('addTodo', { id: 4, desc: "Write product examples" })
 ```
 
-For more see [xander](https://github.com/FormBucket/xander).
+## createStore( key, reducerOrSpec, actionsOrSelectors )
+
+A store responds to actions by returning the next state.
+
+```js
+const inc = 'inc'
+import {createStore} from 'xander';
+
+// a simple counting store
+var store = createStore( "count", (state=0, action) => {
+  switch (action.type)
+  case inc:
+    return state + 1;
+  case incN:
+    return state + action.data;
+  default:
+    return state;
+}, {
+  inc: (state) => dispatch('inc'),
+  incN: (state, count) => dispatch('incN', count),
+})
+
+// the store includes a reference to dispatch
+store.dispatch('inc')
+
+// optionally, define action creators into the store.
+store.inc()
+```
+
+Optionally, you may define a store with a specification.
+
+```js
+const inc = "inc";
+import { createStore } from "xander";
+
+// a simple counting store
+var countStore = createStore("count", {
+  // life-cycle method for initialization.
+  getInitialState: () => 0,
+  // handles { type: 'inc' }
+  inc: state => state + 1,
+  // handles { type: 'incN' }
+  incN: (state, n) => state + n
+});
+
+// object spec makes action creators automatically...
+countStore.inc();
+countStore.incN(10);
+```
+
+### Store Properties
+
+Here is a list of store properties that are part of the public API.
+
+| name           | comment                             |
+| -------------- | ----------------------------------- |
+| name           | The name of the store               |
+| dispatch       | Access to dispatch function         |
+| dispatchToken  | A number used to identity the store |
+| subscribe      | A function to tegister a listener   |
+| getState       | A function to access state          |
+| setState       | Replace the store's state           |
+| replaceReducer | Replace the store's reducer         |
+
+## dispatch( action )
+
+The entry point to effecting state changes in the app is when an action is dispatch.
+
+Dispatch accepts action as object, promise, or type/data; returns promise.
+
+```js
+// Import the dispatch function.
+var { dispatch } = require( 'xander' )
+
+// Dispatch action as object
+dispatch( { type: 'openPath', '/user/new' } )
+.then( action => console.log('Going', action.data) )
+
+// Dispatch action as promise
+dispatch( Promise.resolve({ type: 'get', mode: 'off the juice' }) )
+
+// Dispatch action with type:string and data:object.
+dispatch( 'loadSettings', { a: 1, b: 2 } )
+```
+
+## WaitFor
+
+```js
+import { createStore, dispatch, subscribe, getState } from "xander";
+
+// creates a key="A" in the root store, connected to a reducer function.
+let storeA = createStore(
+  "a1",
+  (state = 0, action) => (action.type === "setA" ? action.data : state)
+);
+
+let storeB = createStore(
+  "b1",
+  (state = 0, action) => (action.type === "setB" ? action.data : state)
+);
+
+// Store with dependencies on state in storeA and storeB.
+let storeC = createStore("c1", (state = 0, action, waitFor) => {
+  // Ensure storeA and storeB reducers run prior to continuing.
+  waitFor([storeA.dispatchToken, storeB.dispatchToken]);
+
+  // Side effect! Get state from other stores.
+  return storeA.getState() + storeB.getState();
+});
+
+subscribe((...args) => console.log("action", ...args));
+dispatch("setA", 2);
+dispatch("setB", 2);
+getState(); // -> { a1: 2, b1: 2, c1: 4 }
+```
+
+## getStores( )
+
+Returns an object with the name as key and store as value.
+
+## replaceState( state )
+
+Rehydrate the root state.
+
+```js
+replaceState({
+  MyCountStore: 1
+});
+```
+
+## subscribe( listener )
+
+Listen to changes to all stores. This will trigger once each time createStore or dispatch is invoked.
+
+```
+var unsubscribe = subscribe( (state, action) => {
+  // got change
+})
+
+// stop listening
+unsubscribe()
+```
+
+_Please note that action will be undefined when createStore is invoked._

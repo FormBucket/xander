@@ -263,8 +263,7 @@ test("check replace routes", function*(t) {
 
 // connect tests
 
-var { connect } = require("../lib/index");
-var { createStore, dispatch } = require("xander");
+var { connect, createStore, dispatch } = require("../lib/index");
 
 test("api tests", function(t) {
   t.plan(1);

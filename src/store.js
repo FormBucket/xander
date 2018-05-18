@@ -124,10 +124,6 @@ export function subscribe(cb) {
   };
 }
 
-export function promiseAction(type, data) {
-  return Promise.resolve({ type, data });
-}
-
 export function replaceState(newState) {
   rootState = newState;
 }
