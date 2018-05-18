@@ -124,9 +124,9 @@ connect(Container);
 
 # Stores
 
-## Router
+## Router Store
 
-A minimal router, backed by native history API.
+A minimal router, backed by the history API.
 
 ```js
 import { router } from "hrx";
@@ -138,8 +138,6 @@ Use `redirect` to modify URL without adding an entry to the history state.
 ```js
 router.redirect("/buckets");
 ```
-
-### Load Routes
 
 Load routes and related configuration without `app` or `render`.
 
@@ -159,13 +157,12 @@ The window store keeps track of window size and scroll location; syncs with DOM.
 
 ```js
 import { loadWindowStore } from "hrx";
-
 loadWindowStore();
 ```
 
-# Custom State management
+## Custom Stores
 
-HRX includes a state management system.
+Create custom stores to store your app's data.
 
 ```js
 import { createStore } from "hrx";
@@ -178,7 +175,7 @@ let todosStore = createStore('todos', {
   removeTodo: (state, id) => state.filter(d => d.id !== id)
 })
 
-// usage
+// usagehrx
 todosStore.addTodo({ id: 1, desc: "Make new framework" })
 todosStore.addTodo({ id: 2, desc: "Write killer app" })
 todosStore.addTodo({ id: 3, desc: "Analyze competition" })
@@ -193,7 +190,7 @@ A store responds to actions by returning the next state.
 
 ```js
 const inc = 'inc'
-import {createStore} from 'xander';
+import {createStore} from 'hrx';
 
 // a simple counting store
 var store = createStore( "count", (state=0, action) => {
@@ -220,7 +217,7 @@ Optionally, you may define a store with a specification.
 
 ```js
 const inc = "inc";
-import { createStore } from "xander";
+import { createStore } from "hrx";
 
 // a simple counting store
 var countStore = createStore("count", {
@@ -237,7 +234,7 @@ countStore.inc();
 countStore.incN(10);
 ```
 
-### Store Properties
+## Store Properties
 
 Here is a list of store properties that are part of the public API.
 
@@ -259,7 +256,7 @@ Dispatch accepts action as object, promise, or type/data; returns promise.
 
 ```js
 // Import the dispatch function.
-var { dispatch } = require( 'xander' )
+var { dispatch } = require( 'hrx' )
 
 // Dispatch action as object
 dispatch( { type: 'openPath', '/user/new' } )
@@ -272,10 +269,10 @@ dispatch( Promise.resolve({ type: 'get', mode: 'off the juice' }) )
 dispatch( 'loadSettings', { a: 1, b: 2 } )
 ```
 
-## WaitFor
+## WaitFor Example
 
 ```js
-import { createStore, dispatch, subscribe, getState } from "xander";
+import { createStore } from "hrx";
 
 // creates a key="A" in the root store, connected to a reducer function.
 let storeA = createStore(
@@ -293,25 +290,36 @@ let storeC = createStore("c1", (state = 0, action, waitFor) => {
   // Ensure storeA and storeB reducers run prior to continuing.
   waitFor([storeA.dispatchToken, storeB.dispatchToken]);
 
-  // Side effect! Get state from other stores.
+  // Side effect! Reads state from other stores after they are updated.
   return storeA.getState() + storeB.getState();
 });
+```
 
-subscribe((...args) => console.log("action", ...args));
-dispatch("setA", 2);
-dispatch("setB", 2);
-getState(); // -> { a1: 2, b1: 2, c1: 4 }
+## getState( )
+
+Returns an object with the store's state by key.
+
+```js
+import { getState } from "hrx";
+getState();
 ```
 
 ## getStores( )
 
-Returns an object with the name as key and store as value.
+Returns an object with the stores by key.
+
+```js
+import { getStores } from "hrx";
+getStores();
+```
 
 ## replaceState( state )
 
 Rehydrate the root state.
 
 ```js
+import { replaceState } from "hrx";
+
 replaceState({
   MyCountStore: 1
 });
