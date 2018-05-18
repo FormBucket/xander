@@ -1,17 +1,19 @@
 {
   "name": "hrx",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Single page app framework",
   "repository": "git+https://github.com/FormBucket/hrx.git",
-  "main": "./lib/index.js",
+  "main": "./index.js",
   "scripts": {
-    "build": "rollup --format=umd --name=hrx --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble | npx uglifyjs > ./lib/index.js",
-    "test": "babel-node tests/public-api; babel-node tests/router;  babel-node tests/store"
+    "build": "npm run build:lib; npm run build:min",
+    "build:lib":
+      "rollup --format=umd --name=hrx --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble > ./lib/hrx.js",
+    "build:min": "cat ./lib/hrx.js | npx uglifyjs > ./lib/hrx.min.js",
+    "clean": "rm -rf lib",
+    "test":
+      "babel-node tests/public-api; babel-node tests/router;  babel-node tests/store"
   },
-  "keywords": [
-    "flux",
-    "react"
-  ],
+  "keywords": ["flux", "react"],
   "homepage": "https://github.com/FormBucket/hrx#readme",
   "devDependencies": {
     "babel-cli": "^6.1.2",
