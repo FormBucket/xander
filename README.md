@@ -20,25 +20,38 @@ npm install --save react formula hrx
 
 A minimal hrx app with home and 404 page.
 
+### index.js
+
 ```js
 // Import the boot function to intialize hrx.
+import React from "react";
 import { render } from "hrx";
 
-// Define routes for your app.
+// Import style onto the page.
+require("./app.css");
+
+// Define routes for the app.
 let routes = [
   {
     path: "/",
-    component: props => "Hello, World."
+    component: props => <div>Hello, World.</div>
   },
   {
     path: "*",
-    component: props => "No Page Found"
+    component: props => <div>404 NOT FOUND</div>
   }
 ];
 
-// Boot the app into a root DOM element. Map your URLs to component to render.
-render({ routes }, document.getElementById("root"));
+// Render your app to the DOM.
+render(
+  {
+    routes
+  },
+  document.getElementById("root")
+);
 ```
+
+[minimal example](https://github.com/FormBucket/hrx/blob/master/examples/minimal/)
 
 ## With React's render
 
