@@ -3,7 +3,6 @@ examples
 node_modules
 dist
 .DS_Store
-src
 npm-debug.log
 yarn.lock
 example/package-lock.json
