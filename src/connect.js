@@ -10,11 +10,11 @@ function connect(Composed) {
     constructor(props) {
       super(props);
       this.state = getState();
-      this.handleChange = this.handleChange.bind(this);
+      this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
-      this.token = subscribe(this.handleChange);
+      this.token = subscribe(this.onChange);
       Default;
     }
 
@@ -24,7 +24,7 @@ function connect(Composed) {
       }
     }
 
-    handleChange(state) {
+    onChange(state) {
       this.setState(state);
     }
 

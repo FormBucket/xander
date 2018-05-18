@@ -1,17 +1,22 @@
 // Import the boot function to intialize hrx.
-import {boot} from 'hrx';
+import { render } from "hrx";
 
 // Import sass styles onto the page.
-require('./app.scss');
+require("./app.css");
 
 // Boot the app into a root DOM element. Map your URLs to component to render.
-boot({
-  rootEl: document.getElementById('root'),
-  routes: [{
-    path: "/",
-    component: (props) => "Hello, World."
-  }, {
-    path: "*",
-    component: (props) => "No Page Found"
-  }]
-});
+render(
+  {
+    routes: [
+      {
+        path: "/",
+        component: props => <div>Hello, World.</div>
+      },
+      {
+        path: "*",
+        component: props => <div>404 NOT FOUND</div>
+      }
+    ]
+  },
+  document.getElementById("root")
+);

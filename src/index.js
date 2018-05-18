@@ -27,7 +27,9 @@ export let render = (options, rootEl) => {
     console.log("rootEl must not be falsey");
     return;
   }
-  reactRender(h(App(options)), rootEl);
+
+  let App = app(options);
+  reactRender(h(App), rootEl);
 };
 
 export { dispatch, subscribe, createStore } from "xander";
