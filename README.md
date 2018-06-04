@@ -1,6 +1,6 @@
-# hrx
+# xander
 
-[![CircleCI](https://circleci.com/gh/FormBucket/hrx.svg?style=svg)](https://circleci.com/gh/FormBucket/hrx)
+[![CircleCI](https://circleci.com/gh/FormBucket/xander.svg?style=svg)](https://circleci.com/gh/FormBucket/xander)
 
 # Overview
 
@@ -11,21 +11,21 @@ Frontend Framework for [React](https://github.com/facebook/react) and [Formula](
 ## Installation
 
 ```sh
-npm install --save react formula hrx
+npm install --save react formula xander
 ```
 
 # Examples
 
 ## Quick start
 
-A minimal hrx app with home and 404 page.
+A minimal xander app with home and 404 page.
 
 ### index.js
 
 ```js
-// Import the boot function to intialize hrx.
+// Import the boot function to intialize xander.
 import React from "react";
-import { render } from "hrx";
+import { render } from "xander";
 
 // Import style onto the page.
 require("./app.css");
@@ -51,15 +51,15 @@ render(
 );
 ```
 
-[minimal example](https://github.com/FormBucket/hrx/blob/master/examples/minimal/)
+[minimal example](https://github.com/FormBucket/xander/blob/master/examples/minimal/)
 
 ## With React's render
 
-Render HRX with React's render function.
+Render xander with React's render function.
 
 ```js
-// Import the boot function to intialize hrx.
-import { app } from "hrx";
+// Import the boot function to intialize xander.
+import { app } from "xander";
 import React from "react";
 import ReactDOM from "react-dom";
 import routes from "./routes";
@@ -77,7 +77,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 A link component to hyperlink your app without annoying page refreshes.
 
 ```js
-import {Link} from 'hrx'
+import {Link} from 'xander'
 <Link to="/buckets">Go to my buckets</Link>
 ```
 
@@ -86,7 +86,7 @@ import {Link} from 'hrx'
 The Eval component calculates the result of a formula expression.
 
 ```js
-import {Eval} from 'hrx'
+import {Eval} from 'xander'
 <Eval exp="SUM(A, B)" values={ A: 2, B: 2 } />
 ```
 
@@ -95,7 +95,7 @@ import {Eval} from 'hrx'
 The Rule component renders HTML describing a formula expression.
 
 ```js
-import {Rule} from 'hrx'
+import {Rule} from 'xander'
 <Rule exp="SUM(A, B)" />
 ```
 
@@ -104,7 +104,7 @@ import {Rule} from 'hrx'
 The Loadable HOC works with webpack to split your app into chunks that load dynamically.
 
 ```jsx
-import { loadable } from "hrx";
+import { loadable } from "xander";
 let routes = [
   {
     path: "/",
@@ -122,7 +122,7 @@ let routes = [
 The Container component renders the router's current component.
 
 ```jsx
-import { Link } from "hrx";
+import { Link } from "xander";
 render(<Container />);
 ```
 
@@ -131,7 +131,7 @@ render(<Container />);
 The Connect HOC component syncs the store with React state.
 
 ```jsx
-import { connect, Container } from "hrx";
+import { connect, Container } from "xander";
 connect(Container);
 ```
 
@@ -142,7 +142,7 @@ connect(Container);
 A minimal router, backed by the history API.
 
 ```js
-import { router } from "hrx";
+import { router } from "xander";
 router.open("/buckets/1");
 ```
 
@@ -155,7 +155,7 @@ router.redirect("/buckets");
 Load routes and related configuration without `app` or `render`.
 
 ```js
-import { router } from "hrx";
+import { router } from "xander";
 router.loadRoutes([
   {
     path: "/",
@@ -169,7 +169,7 @@ router.loadRoutes([
 The window store keeps track of window size and scroll location; syncs with DOM.
 
 ```js
-import { loadWindowStore } from "hrx";
+import { loadWindowStore } from "xander";
 loadWindowStore();
 ```
 
@@ -178,7 +178,7 @@ loadWindowStore();
 Create custom stores to store your app's data.
 
 ```js
-import { createStore } from "hrx";
+import { createStore } from "xander";
 createStore(key, reducerOrSpec, actionsAndQueries);
 
 // example store, access via the key `todos` in react props.
@@ -188,7 +188,7 @@ let todosStore = createStore('todos', {
   removeTodo: (state, id) => state.filter(d => d.id !== id)
 })
 
-// usagehrx
+// usagexander
 todosStore.addTodo({ id: 1, desc: "Make new framework" })
 todosStore.addTodo({ id: 2, desc: "Write killer app" })
 todosStore.addTodo({ id: 3, desc: "Analyze competition" })
@@ -203,7 +203,7 @@ A store responds to actions by returning the next state.
 
 ```js
 const inc = 'inc'
-import {createStore} from 'hrx';
+import {createStore} from 'xander';
 
 // a simple counting store
 var store = createStore( "count", (state=0, action) => {
@@ -230,7 +230,7 @@ Optionally, you may define a store with a specification.
 
 ```js
 const inc = "inc";
-import { createStore } from "hrx";
+import { createStore } from "xander";
 
 // a simple counting store
 var countStore = createStore("count", {
@@ -269,7 +269,7 @@ Dispatch accepts action as object, promise, or type/data; returns promise.
 
 ```js
 // Import the dispatch function.
-var { dispatch } = require( 'hrx' )
+var { dispatch } = require( 'xander' )
 
 // Dispatch action as object
 dispatch( { type: 'openPath', '/user/new' } )
@@ -285,7 +285,7 @@ dispatch( 'loadSettings', { a: 1, b: 2 } )
 ## WaitFor Example
 
 ```js
-import { createStore } from "hrx";
+import { createStore } from "xander";
 
 // creates a key="A" in the root store, connected to a reducer function.
 let storeA = createStore(
@@ -313,7 +313,7 @@ let storeC = createStore("c1", (state = 0, action, waitFor) => {
 Returns an object with the store's state by key.
 
 ```js
-import { getState } from "hrx";
+import { getState } from "xander";
 getState();
 ```
 
@@ -322,7 +322,7 @@ getState();
 Returns an object with the stores by key.
 
 ```js
-import { getStores } from "hrx";
+import { getStores } from "xander";
 getStores();
 ```
 
@@ -331,7 +331,7 @@ getStores();
 Rehydrate the root state.
 
 ```js
-import { replaceState } from "hrx";
+import { replaceState } from "xander";
 
 replaceState({
   MyCountStore: 1

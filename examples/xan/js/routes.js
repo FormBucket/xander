@@ -1,4 +1,4 @@
-import { loadable } from "hrx";
+import { loadable } from "xander";
 
 let loader = thunk =>
   loadable({

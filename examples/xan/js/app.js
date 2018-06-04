@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { app, Loadable } from "hrx";
+import { app, Loadable } from "xander";
 import routes from "./routes";
 require("../style/app.scss");
 

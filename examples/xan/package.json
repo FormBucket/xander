@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "formula": "^3.5.0",
-    "hrx": "^0.4.0",
+    "xander": "^0.4.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   }

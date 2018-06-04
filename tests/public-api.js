@@ -80,7 +80,7 @@ var {
   router,
   Link,
   Container
-} = require("../lib/hrx");
+} = require("../lib/xander");
 
 let routes = [
   {
@@ -263,7 +263,7 @@ test("check replace routes", function*(t) {
 
 // connect tests
 
-var { connect, createStore, dispatch } = require("../lib/hrx");
+var { connect, createStore, dispatch } = require("../lib/xander");
 
 test("api tests", function(t) {
   t.plan(1);

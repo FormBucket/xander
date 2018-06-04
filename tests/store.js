@@ -12,7 +12,7 @@ var {
   dispatch,
   replaceState,
   subscribe
-} = require("../lib/hrx");
+} = require("../lib/xander");
 
 test("Basic Tests", function*(t) {
   t.plan(18);

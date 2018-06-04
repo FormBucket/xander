@@ -1,6 +1,6 @@
-// Import the boot function to intialize hrx.
+// Import the boot function to intialize xander.
 import React from "react";
-import { render } from "hrx";
+import { render } from "xander";
 
 // Import style onto the page.
 require("./app.css");

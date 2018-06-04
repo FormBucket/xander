@@ -1,20 +1,23 @@
 {
-  "name": "hrx",
-  "version": "0.5.1",
+  "name": "xander",
+  "version": "3.0.0",
   "description": "Single page app framework",
-  "repository": "git+https://github.com/FormBucket/hrx.git",
+  "repository": "git+https://github.com/FormBucket/xander.git",
   "main": "./index.js",
   "scripts": {
     "build": "npm run build:lib; npm run build:min",
-    "build:lib":
-      "rollup --format=umd --name=hrx --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble > ./lib/hrx.js",
-    "build:min": "cat ./lib/hrx.js | npx uglifyjs > ./lib/hrx.min.js",
+    "build:lib": "rollup --format=umd --name=xander --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble > ./lib/xander.js",
+    "build:min": "cat ./lib/xander.js | npx uglifyjs > ./lib/xander.min.js",
     "clean": "rm -rf lib",
-    "test":
-      "babel-node tests/public-api; babel-node tests/router;  babel-node tests/store"
+    "test": "babel-node tests/public-api; babel-node tests/router;  babel-node tests/store"
   },
-  "keywords": ["flux", "react"],
-  "homepage": "https://github.com/FormBucket/hrx#readme",
+  "keywords": [
+    "flux",
+    "react",
+    "framework",
+    "spa"
+  ],
+  "homepage": "https://github.com/FormBucket/xander#readme",
   "devDependencies": {
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
@@ -33,7 +36,7 @@
   "author": "JC Fisher",
   "license": "MIT",
   "peerDependencies": {
-    "formula": "^3.5.0",
+    "formula": "^3.5.2",
     "react": "^15.6.2 || ^16.0.0"
   },
   "dependencies": {}

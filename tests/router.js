@@ -55,7 +55,7 @@ var testComponent3 = props => <div>3</div>;
 var testComponent4 = props => <div>4</div>;
 var pageNotFound = props => <div>not found</div>;
 
-var { router } = require("../lib/hrx");
+var { router } = require("../lib/xander");
 
 router.loadRoutes([
   {

@@ -5,7 +5,7 @@
 import { createStore, dispatch } from "./store";
 import pathToRegexp from "./pathToRegexp";
 let pathRegexps = {};
-import { ISOBJECT, PARSEQUERY as parseQuery } from "formula";
+import { ISOBJECT as isObject, PARSEQUERY as parseQuery } from "formula";
 
 function readLocation(state) {
   var pathname = window.location.pathname,
@@ -67,7 +67,7 @@ let store = createStore(
       return Obreject.assign({}, state, {
         location,
         content:
-          ISOBJECT(action.daisobjectta) && action.data.default
+          isObject(action.data) && action.data.default
             ? action.data.default
             : action.data
       });
