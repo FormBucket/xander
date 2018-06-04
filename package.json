@@ -9,7 +9,7 @@
     "build:lib": "rollup --format=umd --name=xander --globals=react:React,react-dom:ReactDom,xander:xander,formula:formula src/index.js | buble > ./lib/xander.js",
     "build:min": "cat ./lib/xander.js | npx uglifyjs > ./lib/xander.min.js",
     "clean": "rm -rf lib",
-    "test": "babel-node tests/public-api; babel-node tests/router;  babel-node tests/store"
+    "test": "babel-node tests/public-api | yarn tap-nyan; babel-node tests/router | yarn tap-nyan;  babel-node tests/store | yarn tap-nyan"
   },
   "keywords": [
     "flux",
@@ -28,6 +28,7 @@
     "immutable": "^3.7.5",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "tap-nyan": "^1.1.0",
     "tape": "^4.2.2",
     "tape-async": "^2.1.1",
     "uglify-js": "^3.3.25",
