@@ -64,7 +64,7 @@ let store = createStore(
 
     if (action.type === "loadContent") {
       // console.log('loadContent in router', state, action)
-      return Obreject.assign({}, state, {
+      return Object.assign({}, state, {
         location,
         content:
           isObject(action.data) && action.data.default
