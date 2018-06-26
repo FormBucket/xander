@@ -4,7 +4,7 @@
 
 import React, { createElement as h } from "react";
 import { render as reactRender } from "react-dom";
-import { dispatch } from "./store";
+import { dispatch, subscribe } from "./store";
 import Container from "./container";
 import connect from "./connect";
 import router from "./router";
